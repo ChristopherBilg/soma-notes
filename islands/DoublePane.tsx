@@ -12,12 +12,10 @@ export default function Counter(props: DoublePaneProps) {
 
   const handleDividerMouseDown = () => {
     setIsDragging(true);
-    console.log("mouse down");
   };
 
   const handleContainerMouseUp = () => {
     setIsDragging(false);
-    console.log("mouse up");
   };
 
   const handleContainerMouseMove = (e: MouseEvent) => {
