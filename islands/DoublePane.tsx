@@ -1,4 +1,6 @@
-import { useState } from "preact/hooks";
+import { useEffect, useState } from "preact/hooks";
+import { LeftPane } from "../components/LeftPane.tsx";
+import { RightPane } from "../components/RightPane.tsx";
 
 interface DoublePaneProps {
   minLeftWidth: number;
@@ -7,32 +9,28 @@ interface DoublePaneProps {
 
 export default function Counter(props: DoublePaneProps) {
   const [isDragging, setIsDragging] = useState(false);
+
   const [leftPaneWidth, setLeftPaneWidth] = useState("50%");
   const [rightPaneWidth, setRightPaneWidth] = useState("50%");
 
-  const handleDividerMouseDown = () => {
-    setIsDragging(true);
-  };
+  const [noteIds, setNoteIds] = useState<string[]>([]);
+  useEffect(() => {
+    setNoteIds(["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]);
+  }, []);
 
-  const handleContainerMouseUp = () => {
-    setIsDragging(false);
-  };
+  const handleDividerMouseDown = () => setIsDragging(true);
+
+  const handleContainerMouseUp = () => setIsDragging(false);
 
   const handleContainerMouseMove = (e: MouseEvent) => {
-    if (!isDragging) {
-      return;
-    }
+    if (!isDragging) return;
     e.preventDefault();
 
-    const container = document.getElementById("container");
-    if (!container) {
-      return;
-    }
+    const container = e.currentTarget as HTMLElement;
+    if (!container) return;
 
     const containerRect = container.getBoundingClientRect();
-
-    const x = e.clientX - containerRect.left;
-    const leftWidth = x;
+    const leftWidth = e.clientX - containerRect.left;
     const rightWidth = containerRect.width - leftWidth;
 
     if (
@@ -47,34 +45,20 @@ export default function Counter(props: DoublePaneProps) {
 
   return (
     <div
-      id="container"
       class={`w-full flex ${isDragging ? "select-none" : "select-auto"}`}
       onMouseMove={handleContainerMouseMove}
       onMouseUp={handleContainerMouseUp}
-      style={{ height: "80vh" }} // TODO: Remove this later in favor of automatic height for content
+      style={{ height: "80vh" }} // TODO: Remove this later in favor of automatic height for content; with a min-height
     >
-      <div
-        id="left-pane"
-        class="p-2.5 bg-gray-300 rounded-l-lg"
-        style={{ width: leftPaneWidth }}
-      >
-        Left Pane
-      </div>
+      <LeftPane width={leftPaneWidth} />
 
       <div
-        id="divider"
         class="cursor-ew-resize bg-black w-1"
         onMouseDown={handleDividerMouseDown}
       >
       </div>
 
-      <div
-        id="right-pane"
-        class="p-2.5 bg-gray-200 rounded-r-lg"
-        style={{ width: rightPaneWidth }}
-      >
-        Right Pane
-      </div>
+      <RightPane width={rightPaneWidth} noteIds={noteIds} />
     </div>
   );
 }
