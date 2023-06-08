@@ -13,7 +13,7 @@ export interface Note {
 
 export type NotesStateType = {
   notes: Signal<Note[]>;
-  createNote: (parent: NoteParent) => void;
+  createNote: (parent: NoteParent, content: string) => string;
   updateNote: (uuid: string, content: string) => void;
   deleteNote: (uuid: string) => void;
 };
@@ -21,11 +21,13 @@ export type NotesStateType = {
 const createAppState = (): NotesStateType => {
   const notes = signal<Note[]>([]);
 
-  const createNote = (parent: NoteParent) => {
+  const createNote = (parent: NoteParent, content = "") => {
     const now = new Date();
+    const uuid = generateUUID();
+
     const note: Note = {
-      uuid: generateUUID(),
-      content: "",
+      uuid,
+      content: content,
       parent,
       createdAt: now,
       updatedAt: now,
@@ -33,11 +35,13 @@ const createAppState = (): NotesStateType => {
     };
 
     notes.value = [...notes.value, note];
+    return uuid;
   };
 
   const updateNote = (uuid: string, content: string) => {
     const now = new Date();
     const note = notes.value.find((note: Note) => note.uuid === uuid);
+
     if (note) {
       note.content = content;
       note.updatedAt = now;

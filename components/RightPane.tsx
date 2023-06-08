@@ -1,5 +1,6 @@
 import { useContext } from "preact/hooks";
 import { NotesState } from "../signal/context.tsx";
+import CreateNoteInput from "./CreateNoteInput.tsx";
 import NoteInput from "./NoteInput.tsx";
 
 interface RightPaneProps {
@@ -16,13 +17,15 @@ const RightPane = (props: RightPaneProps) => {
     >
       <div>
         <ul class="list-disc ml-4">
-          {notes.value.map((note) => (
-            <li>
-              <NoteInput value={note.content} />
-            </li>
-          ))}
+          {notes.value
+            .sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime())
+            .map((note) => (
+              <li>
+                <NoteInput uuid={note.uuid} />
+              </li>
+            ))}
           <li>
-            <NoteInput value="" />
+            <CreateNoteInput />
           </li>
         </ul>
       </div>
