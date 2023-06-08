@@ -18,7 +18,7 @@ const RightPane = (props: RightPaneProps) => {
       <div>
         <ul class="list-disc ml-4">
           {notes.value
-            .sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime())
+            .sort((a, b) => a.createdAt - b.createdAt)
             .map((note) => (
               <li>
                 <NoteInput uuid={note.uuid} />

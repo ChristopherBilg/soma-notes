@@ -1,6 +1,6 @@
 import DoublePane from "../islands/DoublePane.tsx";
 
-export default function Index() {
+const Index = () => {
   return (
     <div class="p-4 mx-auto max-w-screen-xlg">
       <h1 class="my-6 text-center">
@@ -15,4 +15,6 @@ export default function Index() {
       />
     </div>
   );
-}
+};
+
+export default Index;

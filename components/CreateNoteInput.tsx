@@ -9,7 +9,6 @@ const CreateNoteInput = () => {
       e.preventDefault();
       const uuid = createNote(null, "");
 
-      // Set the cursor focus to the newly created note input with the given uuid
       setTimeout(() => {
         const input = document.querySelector(
           `input[data-uuid="${uuid}"]`,

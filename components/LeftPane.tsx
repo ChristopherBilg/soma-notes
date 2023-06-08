@@ -9,7 +9,7 @@ const LeftPane = (props: LeftPaneProps) => {
   const { notes } = useContext(NotesState);
 
   const recentNotes = notes.value
-    .sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime())
+    .sort((a, b) => b.updatedAt - a.updatedAt)
     .slice(0, 20);
   const pinnedNotes = notes.value.filter((note) => note.pinned);
 
