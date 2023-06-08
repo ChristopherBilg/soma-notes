@@ -1,6 +1,7 @@
-import { useEffect, useState } from "preact/hooks";
+import { useState } from "preact/hooks";
 import { LeftPane } from "../components/LeftPane.tsx";
 import { RightPane } from "../components/RightPane.tsx";
+import { Note } from "../helpers/notes.ts";
 
 interface DoublePaneProps {
   minLeftWidth: number;
@@ -9,19 +10,13 @@ interface DoublePaneProps {
 
 export default function Counter(props: DoublePaneProps) {
   const [isDragging, setIsDragging] = useState(false);
+  const [leftPaneWidth, setLeftPaneWidth] = useState("40%");
+  const [rightPaneWidth, setRightPaneWidth] = useState("60%");
 
-  const [leftPaneWidth, setLeftPaneWidth] = useState("50%");
-  const [rightPaneWidth, setRightPaneWidth] = useState("50%");
-
-  const [noteIds, setNoteIds] = useState<string[]>([]);
-  useEffect(() => {
-    setNoteIds(["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]);
-  }, []);
+  const [notes, setNotes] = useState<Note[]>([]);
 
   const handleDividerMouseDown = () => setIsDragging(true);
-
   const handleContainerMouseUp = () => setIsDragging(false);
-
   const handleContainerMouseMove = (e: MouseEvent) => {
     if (!isDragging) return;
     e.preventDefault();
@@ -48,9 +43,9 @@ export default function Counter(props: DoublePaneProps) {
       class={`w-full flex ${isDragging ? "select-none" : "select-auto"}`}
       onMouseMove={handleContainerMouseMove}
       onMouseUp={handleContainerMouseUp}
-      style={{ height: "80vh" }} // TODO: Remove this later in favor of automatic height for content; with a min-height
+      style={{ minHeight: "85vh" }}
     >
-      <LeftPane width={leftPaneWidth} />
+      <LeftPane width={leftPaneWidth} notes={notes} />
 
       <div
         class="cursor-ew-resize bg-black w-1"
@@ -58,7 +53,7 @@ export default function Counter(props: DoublePaneProps) {
       >
       </div>
 
-      <RightPane width={rightPaneWidth} noteIds={noteIds} />
+      <RightPane width={rightPaneWidth} notes={notes} />
     </div>
   );
 }

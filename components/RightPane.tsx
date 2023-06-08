@@ -1,6 +1,9 @@
+import { Note } from "../helpers/notes.ts";
+import { NoteInput } from "./NoteInput.tsx";
+
 interface RightPaneProps {
   width: string;
-  noteIds: string[];
+  notes: Note[];
 }
 
 export function RightPane(props: RightPaneProps) {
@@ -10,12 +13,15 @@ export function RightPane(props: RightPaneProps) {
       style={{ width: props.width }}
     >
       <div>
-        <ul style={{ listStyleType: "circle", listStylePosition: "inside" }}>
-          {props.noteIds.map((noteId) => (
+        <ul class="list-disc ml-4">
+          {props.notes.map((note) => (
             <li>
-              <a href={`/notes/${noteId}`}>{noteId}</a>
+              <NoteInput value={note.content} onInput={() => {}} />
             </li>
           ))}
+          <li>
+            <NoteInput value="" onInput={() => {}} />
+          </li>
         </ul>
       </div>
     </div>
