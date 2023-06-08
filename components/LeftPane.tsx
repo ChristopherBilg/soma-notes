@@ -1,15 +1,17 @@
-import { Note } from "../helpers/notes.ts";
+import { useContext } from "preact/hooks";
+import { NotesState } from "../signal/context.tsx";
 
 interface LeftPaneProps {
   width: string;
-  notes: Note[];
 }
 
-export function LeftPane(props: LeftPaneProps) {
-  const recentNotes = props.notes
+const LeftPane = (props: LeftPaneProps) => {
+  const { notes } = useContext(NotesState);
+
+  const recentNotes = notes.value
     .sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime())
     .slice(0, 20);
-  const pinnedNotes = props.notes.filter((note) => note.pinned);
+  const pinnedNotes = notes.value.filter((note) => note.pinned);
 
   return (
     <div
@@ -47,4 +49,6 @@ export function LeftPane(props: LeftPaneProps) {
         : <p>No pinned notes</p>}
     </div>
   );
-}
+};
+
+export default LeftPane;

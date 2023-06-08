@@ -1,5 +1,7 @@
 import { PageProps } from "$fresh/server.ts";
 
-export default function Note(props: PageProps) {
+const Note = (props: PageProps) => {
   return <div>Note ID: {props.params.note}</div>;
-}
+};
+
+export default Note;

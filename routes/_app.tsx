@@ -1,7 +1,7 @@
 import { Head } from "$fresh/runtime.ts";
 import { AppProps } from "$fresh/server.ts";
 
-export default function App({ Component }: AppProps) {
+const App = ({ Component }: AppProps) => {
   return (
     <>
       <Head>
@@ -20,7 +20,10 @@ export default function App({ Component }: AppProps) {
         <title>Soma Notes</title>
         <link rel="icon" type="image/x-icon" href="/favicon_512x512.png" />
       </Head>
+
       <Component />
     </>
   );
-}
+};
+
+export default App;

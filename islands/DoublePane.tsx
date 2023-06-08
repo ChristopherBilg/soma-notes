@@ -1,19 +1,17 @@
 import { useState } from "preact/hooks";
-import { LeftPane } from "../components/LeftPane.tsx";
-import { RightPane } from "../components/RightPane.tsx";
-import { Note } from "../helpers/notes.ts";
+import LeftPane from "../components/LeftPane.tsx";
+import RightPane from "../components/RightPane.tsx";
+import NotesStateContext from "../signal/context.tsx";
 
 interface DoublePaneProps {
   minLeftWidth: number;
   minRightWidth: number;
 }
 
-export default function Counter(props: DoublePaneProps) {
+const DoublePane = (props: DoublePaneProps) => {
   const [isDragging, setIsDragging] = useState(false);
   const [leftPaneWidth, setLeftPaneWidth] = useState("40%");
   const [rightPaneWidth, setRightPaneWidth] = useState("60%");
-
-  const [notes, setNotes] = useState<Note[]>([]);
 
   const handleDividerMouseDown = () => setIsDragging(true);
   const handleContainerMouseUp = () => setIsDragging(false);
@@ -39,21 +37,25 @@ export default function Counter(props: DoublePaneProps) {
   };
 
   return (
-    <div
-      class={`w-full flex ${isDragging ? "select-none" : "select-auto"}`}
-      onMouseMove={handleContainerMouseMove}
-      onMouseUp={handleContainerMouseUp}
-      style={{ minHeight: "85vh" }}
-    >
-      <LeftPane width={leftPaneWidth} notes={notes} />
-
+    <NotesStateContext>
       <div
-        class="cursor-ew-resize bg-black w-1"
-        onMouseDown={handleDividerMouseDown}
+        class={`w-full flex ${isDragging ? "select-none" : "select-auto"}`}
+        onMouseMove={handleContainerMouseMove}
+        onMouseUp={handleContainerMouseUp}
+        style={{ minHeight: "85vh" }}
       >
-      </div>
+        <LeftPane width={leftPaneWidth} />
 
-      <RightPane width={rightPaneWidth} notes={notes} />
-    </div>
+        <div
+          class="cursor-ew-resize bg-black w-1"
+          onMouseDown={handleDividerMouseDown}
+        >
+        </div>
+
+        <RightPane width={rightPaneWidth} />
+      </div>
+    </NotesStateContext>
   );
-}
+};
+
+export default DoublePane;

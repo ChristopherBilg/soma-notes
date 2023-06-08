@@ -8,6 +8,7 @@ export default function Index() {
         <b>Soma Notes</b>, a simple, global, low-latency note keeping
         application.
       </h1>
+
       <DoublePane
         minLeftWidth={200}
         minRightWidth={200}
