@@ -1,4 +1,4 @@
-interface AccessTokenResponse {
+export interface AccessTokenResponse {
   ok: boolean;
   error: string | null;
   accessToken: string | null;
@@ -55,7 +55,7 @@ export const getAccessToken = async (
   };
 };
 
-interface UserDataResponse {
+export interface UserDataResponse {
   ok: boolean;
   error: string | null;
   userId: number | null;

@@ -5,7 +5,7 @@ export function handler(req: Request): Response {
     "location": new URL(req.url).origin,
   });
 
-  deleteCookie(headers, "deploy_chat_token", {
+  deleteCookie(headers, "github_auth_token", {
     path: "/",
   });
 
