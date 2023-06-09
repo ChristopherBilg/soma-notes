@@ -1,16 +1,18 @@
 import { useContext } from "preact/hooks";
 import { NotesState } from "../signal/context.tsx";
+import { Note } from "../signal/notes.ts";
 
 interface NoteInputProps {
   uuid: string;
 }
 
 const NoteInput = (props: NoteInputProps) => {
-  const { notes, createNote, deleteNote, updateNote } = useContext(NotesState);
+  const { notes, deleteNote, updateNote } = useContext(NotesState);
 
   const handleKeyDown = (e: KeyboardEvent) => {
     if (
-      notes.value.find((note) => note.uuid === props.uuid)?.content === "" &&
+      notes.value.find((note: Note) => note.uuid === props.uuid)?.content ===
+        "" &&
       e.key === "Backspace"
     ) {
       e.preventDefault();
@@ -31,7 +33,8 @@ const NoteInput = (props: NoteInputProps) => {
       placeholder="Add a note"
       type="text"
       data-uuid={props.uuid}
-      value={notes.value.find((note) => note.uuid === props.uuid)?.content}
+      value={notes.value.find((note: Note) => note.uuid === props.uuid)
+        ?.content}
       onKeyDown={handleKeyDown}
       onInput={handleInput}
     />
