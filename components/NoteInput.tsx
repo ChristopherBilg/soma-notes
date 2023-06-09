@@ -27,7 +27,7 @@ const NoteInput = (props: NoteInputProps) => {
 
   return (
     <input
-      class="border-2 border-gray-400 rounded-md w-full"
+      class="border-none bg-transparent rounded-md w-full"
       placeholder="Add a note"
       type="text"
       data-uuid={props.uuid}

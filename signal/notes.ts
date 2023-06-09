@@ -1,4 +1,3 @@
-import { debounce } from "$std/async/debounce.ts";
 import { Signal, signal } from "@preact/signals";
 import { generateUUID } from "./../helpers/uuid.ts";
 
@@ -20,30 +19,10 @@ export type NotesStateType = {
   deleteNote: (uuid: string) => void;
 };
 
-const loadNotesFromLocalStorage = (): Note[] => {
-  const notes = localStorage.getItem("notes");
-
-  if (notes) {
-    return JSON.parse(notes);
-  }
-
-  return [];
-};
-
-const saveNotesToLocalStorage = (notes: Note[]) => {
-  localStorage.setItem("notes", JSON.stringify(notes));
-};
-
-const debouncedSaveNotesToLocalStorage = debounce(
-  saveNotesToLocalStorage,
-  1000,
-);
-
 const createAppState = (): NotesStateType => {
   const notes = signal<Note[]>([]);
 
-  // Application State Persistence (load)
-  notes.value = loadNotesFromLocalStorage();
+  // TODO: Application State Persistence (load)
 
   const createNote = (parent: NoteParent, content = "") => {
     const now = new Date().getTime();
@@ -60,8 +39,7 @@ const createAppState = (): NotesStateType => {
 
     notes.value = [...notes.value, note];
 
-    // Application State Persistence (save)
-    debouncedSaveNotesToLocalStorage(notes.value);
+    // TODO: Application State Persistence (save)
 
     return uuid;
   };
@@ -89,15 +67,13 @@ const createAppState = (): NotesStateType => {
       }),
     ];
 
-    // Application State Persistence (save)
-    debouncedSaveNotesToLocalStorage(notes.value);
+    // TODO: Application State Persistence (save)
   };
 
   const deleteNote = (uuid: string) => {
     notes.value = [...notes.value.filter((note: Note) => note.uuid !== uuid)];
 
-    // Application State Persistence (save)
-    debouncedSaveNotesToLocalStorage(notes.value);
+    // TODO: Application State Persistence (save)
   };
 
   return { notes, createNote, updateNote, deleteNote };
