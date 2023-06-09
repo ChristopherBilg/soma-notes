@@ -26,25 +26,25 @@ export async function handler(
   const url = new URL(req.url);
   const code = url.searchParams.get("code");
   if (!code) {
-    return ctx.render({
-      ok: false,
-      error: "No code provided in query string of URL",
+    return new Response("", {
+      status: 307,
+      headers: { Location: "/api/login" },
     });
   }
 
   const accessToken = await getAccessToken(code);
   if (!accessToken.ok) {
-    return ctx.render({
-      ok: false,
-      error: "Could not get access token from GitHub",
+    return new Response("", {
+      status: 307,
+      headers: { Location: "/api/login" },
     });
   }
 
   const userData = await getUserData(accessToken.accessToken as string);
   if (!userData.ok) {
-    return ctx.render({
-      ok: false,
-      error: "Could not get user data from GitHub",
+    return new Response("", {
+      status: 307,
+      headers: { Location: "/api/login" },
     });
   }
 
