@@ -48,13 +48,6 @@ export async function handler(
     });
   }
 
-  // await database.insertUser({
-  //   userId: userData.userId,
-  //   userName: userData.userName,
-  //   accessToken,
-  //   avatarUrl: userData.avatarUrl,
-  // });
-
   const response = await ctx.render({ userData });
 
   setCookie(response.headers, {
