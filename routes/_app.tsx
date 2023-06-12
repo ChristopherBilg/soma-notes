@@ -1,4 +1,4 @@
-import { Head } from "$fresh/runtime.ts";
+import { asset, Head } from "$fresh/runtime.ts";
 import { AppProps } from "$fresh/server.ts";
 
 const App = ({ Component }: AppProps) => {
@@ -18,7 +18,11 @@ const App = ({ Component }: AppProps) => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
         <title>Soma Notes</title>
-        <link rel="icon" type="image/x-icon" href="/favicon_512x512.png" />
+        <link
+          rel="icon"
+          type="image/x-icon"
+          href={asset("/favicon_512x512.png")}
+        />
       </Head>
 
       <Component />
