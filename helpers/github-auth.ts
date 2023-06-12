@@ -58,7 +58,7 @@ export const getAccessToken = async (
 export interface UserDataResponse {
   ok: boolean;
   error: string | null;
-  userId: number | null;
+  userId: string | null;
   userName: string | null;
   avatarUrl: string | null;
 }
@@ -95,7 +95,7 @@ export const getUserData = async (
   return {
     ok: true,
     error: null,
-    userId: userData.id as number,
+    userId: userData.id as string,
     userName: userData.login as string,
     avatarUrl: userData["avatar_url"] as string,
   };
