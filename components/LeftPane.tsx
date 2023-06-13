@@ -1,17 +1,18 @@
 import { useContext } from "preact/hooks";
-import { NotesState } from "../signal/context.tsx";
+import { NotesContext } from "../signal/context.tsx";
+import { Note } from "../signal/notes.ts";
 
 interface LeftPaneProps {
   width: string;
 }
 
 const LeftPane = (props: LeftPaneProps) => {
-  const { notes } = useContext(NotesState);
+  const { notes } = useContext(NotesContext);
 
-  const recentNotes = notes.value
+  const recentNotes = (notes.value as Note[])
     .sort((a, b) => b.updatedAt - a.updatedAt)
     .slice(0, 20);
-  const pinnedNotes = notes.value.filter((note) => note.pinned);
+  const pinnedNotes = (notes.value as Note[]).filter((note) => note.pinned);
 
   return (
     <div

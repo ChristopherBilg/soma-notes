@@ -1,8 +1,8 @@
 import { useContext } from "preact/hooks";
-import { NotesState } from "../signal/context.tsx";
+import { NotesContext } from "../signal/context.tsx";
 
 const CreateNoteInput = () => {
-  const { createNote } = useContext(NotesState);
+  const { createNote } = useContext(NotesContext);
 
   const handleKeyDown = (e: KeyboardEvent) => {
     if (e.key === "Enter") {

@@ -1,5 +1,5 @@
 import { useContext } from "preact/hooks";
-import { NotesState } from "../signal/context.tsx";
+import { NotesContext } from "../signal/context.tsx";
 import { Note } from "../signal/notes.ts";
 
 interface NoteInputProps {
@@ -7,7 +7,7 @@ interface NoteInputProps {
 }
 
 const NoteInput = (props: NoteInputProps) => {
-  const { notes, deleteNote, updateNote } = useContext(NotesState);
+  const { notes, deleteNote, updateNote } = useContext(NotesContext);
 
   const handleKeyDown = (e: KeyboardEvent) => {
     if (

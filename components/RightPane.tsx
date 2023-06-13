@@ -1,5 +1,6 @@
 import { useContext } from "preact/hooks";
-import { NotesState } from "../signal/context.tsx";
+import { NotesContext } from "../signal/context.tsx";
+import { Note } from "../signal/notes.ts";
 import CreateNoteInput from "./CreateNoteInput.tsx";
 import NoteInput from "./NoteInput.tsx";
 
@@ -8,7 +9,7 @@ interface RightPaneProps {
 }
 
 const RightPane = (props: RightPaneProps) => {
-  const { notes } = useContext(NotesState);
+  const { notes } = useContext(NotesContext);
 
   return (
     <div
@@ -17,7 +18,7 @@ const RightPane = (props: RightPaneProps) => {
     >
       <div>
         <ul class="list-disc ml-4">
-          {notes.value
+          {(notes.value as Note[])
             .sort((a, b) => a.createdAt - b.createdAt)
             .map((note) => (
               <li>

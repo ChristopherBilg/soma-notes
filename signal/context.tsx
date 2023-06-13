@@ -1,14 +1,18 @@
 import { ComponentChild, createContext } from "preact";
-import state, { NotesStateType } from "./notes.ts";
+import AuthState, { AuthStateType } from "./auth.ts";
+import NotesState, { NotesStateType } from "./notes.ts";
 
-export const NotesState = createContext<NotesStateType>({} as NotesStateType);
+export const AuthContext = createContext<AuthStateType>({} as AuthStateType);
+export const NotesContext = createContext<NotesStateType>({} as NotesStateType);
 
-const NotesStateContext = ({ children }: { children: ComponentChild }) => {
+const Context = ({ children }: { children: ComponentChild }) => {
   return (
-    <NotesState.Provider value={state}>
-      {children}
-    </NotesState.Provider>
+    <AuthContext.Provider value={AuthState}>
+      <NotesContext.Provider value={NotesState}>
+        {children}
+      </NotesContext.Provider>
+    </AuthContext.Provider>
   );
 };
 
-export default NotesStateContext;
+export default Context;

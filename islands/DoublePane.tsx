@@ -1,7 +1,7 @@
 import { useState } from "preact/hooks";
 import LeftPane from "../components/LeftPane.tsx";
 import RightPane from "../components/RightPane.tsx";
-import NotesStateContext from "../signal/context.tsx";
+import Context from "../signal/context.tsx";
 
 interface DoublePaneProps {
   minLeftWidth: number;
@@ -37,7 +37,7 @@ const DoublePane = (props: DoublePaneProps) => {
   };
 
   return (
-    <NotesStateContext>
+    <Context>
       <div
         class={`w-full flex ${isDragging ? "select-none" : "select-auto"}`}
         onMouseMove={handleContainerMouseMove}
@@ -54,7 +54,7 @@ const DoublePane = (props: DoublePaneProps) => {
 
         <RightPane width={rightPaneWidth} />
       </div>
-    </NotesStateContext>
+    </Context>
   );
 };
 

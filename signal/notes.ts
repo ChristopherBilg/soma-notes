@@ -19,7 +19,7 @@ export type NotesStateType = {
   deleteNote: (uuid: string) => void;
 };
 
-const createAppState = (): NotesStateType => {
+const NotesState = (): NotesStateType => {
   const notes = signal<Note[]>([]);
 
   // TODO: Application State Persistence (load)
@@ -87,4 +87,4 @@ const createAppState = (): NotesStateType => {
   return { notes, createNote, updateNote, deleteNote };
 };
 
-export default createAppState();
+export default NotesState();
