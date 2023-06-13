@@ -23,6 +23,8 @@ const createAppState = (): NotesStateType => {
   const notes = signal<Note[]>([]);
 
   // TODO: Application State Persistence (load)
+  // Prerequisite: Find a way to get the authentication state loaded here
+  //               (e.g. load from cookies, store in a new preact context, then in this file load from context)
 
   const createNote = (parent: NoteParent, content = "") => {
     const now = new Date().getTime();
@@ -40,6 +42,8 @@ const createAppState = (): NotesStateType => {
     notes.value = [...notes.value, note];
 
     // TODO: Application State Persistence (save)
+    // Prerequisite: Find a way to get the authentication state loaded here
+    //               (e.g. load from cookies, store in a new preact context, then in this file load from context)
 
     return uuid;
   };
@@ -68,12 +72,16 @@ const createAppState = (): NotesStateType => {
     ];
 
     // TODO: Application State Persistence (save)
+    // Prerequisite: Find a way to get the authentication state loaded here
+    //               (e.g. load from cookies, store in a new preact context, then in this file load from context)
   };
 
   const deleteNote = (uuid: string) => {
     notes.value = [...notes.value.filter((note: Note) => note.uuid !== uuid)];
 
     // TODO: Application State Persistence (save)
+    // Prerequisite: Find a way to get the authentication state loaded here
+    //               (e.g. load from cookies, store in a new preact context, then in this file load from context)
   };
 
   return { notes, createNote, updateNote, deleteNote };

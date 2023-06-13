@@ -11,6 +11,7 @@ import * as $4 from "./routes/api/logout.ts";
 import * as $5 from "./routes/api/notes.ts";
 import * as $6 from "./routes/index.tsx";
 import * as $7 from "./routes/notes/[note].tsx";
+import * as $8 from "./routes/notes/index.tsx";
 import * as $$0 from "./islands/DoublePane.tsx";
 
 const manifest = {
@@ -23,6 +24,7 @@ const manifest = {
     "./routes/api/notes.ts": $5,
     "./routes/index.tsx": $6,
     "./routes/notes/[note].tsx": $7,
+    "./routes/notes/index.tsx": $8,
   },
   islands: {
     "./islands/DoublePane.tsx": $$0,
