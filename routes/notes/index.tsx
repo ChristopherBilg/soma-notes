@@ -20,7 +20,7 @@ export async function handler(
     }
   }
 
-  // If no cooking, then check to see if this is an OAuth callback request
+  // If no cookie, then check to see if this is an OAuth callback request
   const url = new URL(req.url);
   const code = url.searchParams.get("code");
   if (!code) {
