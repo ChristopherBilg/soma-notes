@@ -26,14 +26,16 @@ const LandingPage = (
         application. You are {data?.userData?.userName || "not logged in"}!
       </h1>
 
+      {data?.userData?.userId && (
+        <h2 class="my-6 text-center">
+          <a href="/notes">Notes</a>
+        </h2>
+      )}
+
       <h2 class="my-6 text-center">
         {data?.userData?.userId
           ? <a href="/api/logout">Logout</a>
           : <a href="/api/login">Login</a>}
-      </h2>
-
-      <h2 class="my-6 text-center">
-        <a href="/notes">Notes</a>
       </h2>
     </div>
   );
