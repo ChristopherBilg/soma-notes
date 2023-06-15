@@ -42,7 +42,7 @@ const DoublePane = (props: DoublePaneProps) => {
         class={`w-full flex ${isDragging ? "select-none" : "select-auto"}`}
         onMouseMove={handleContainerMouseMove}
         onMouseUp={handleContainerMouseUp}
-        style={{ minHeight: "85vh" }}
+        style={{ minHeight: "50vh" }}
       >
         <LeftPane width={leftPaneWidth} />
 
