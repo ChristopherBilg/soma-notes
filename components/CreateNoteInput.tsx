@@ -1,5 +1,5 @@
 import { useContext } from "preact/hooks";
-import { NotesContext } from "../islands/Context.tsx";
+import { NotesContext } from "./Context.tsx";
 
 const CreateNoteInput = () => {
   const { createNote } = useContext(NotesContext);

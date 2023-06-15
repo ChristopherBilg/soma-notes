@@ -1,6 +1,6 @@
 import { useContext } from "preact/hooks";
-import { NotesContext } from "../islands/Context.tsx";
 import { Note } from "../signal/notes.ts";
+import { NotesContext } from "./Context.tsx";
 import CreateNoteInput from "./CreateNoteInput.tsx";
 import NoteInput from "./NoteInput.tsx";
 
