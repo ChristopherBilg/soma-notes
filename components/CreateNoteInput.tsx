@@ -1,13 +1,14 @@
 import { useContext } from "preact/hooks";
-import { NotesContext } from "./Context.tsx";
+import { AuthContext, NotesContext } from "./Context.tsx";
 
 const CreateNoteInput = () => {
   const { createNote } = useContext(NotesContext);
+  const { auth } = useContext(AuthContext);
 
   const handleKeyDown = (e: KeyboardEvent) => {
-    if (e.key === "Enter") {
+    if (e.key === "Enter" && auth?.value?.userId) {
       e.preventDefault();
-      const uuid = createNote(null, "");
+      const uuid = createNote(auth.value.userId, null, "");
 
       setTimeout(() => {
         const input = document.querySelector(

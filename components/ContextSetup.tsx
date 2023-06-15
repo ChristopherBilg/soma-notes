@@ -1,6 +1,6 @@
-import { useContext } from "preact/hooks";
+import { useContext, useEffect } from "preact/hooks";
 import { UserDataResponse } from "../helpers/github-auth.ts";
-import { AuthContext } from "./Context.tsx";
+import { AuthContext, NotesContext } from "./Context.tsx";
 
 interface ContextSetupProps {
   userData: UserDataResponse | undefined;
@@ -11,6 +11,11 @@ const ContextSetup = ({ userData }: ContextSetupProps) => {
 
   if (userData) setAuth(userData);
   else clearAuth();
+
+  const { loadNotes } = useContext(NotesContext);
+  useEffect(() => {
+    if (userData?.userId) loadNotes(userData.userId);
+  }, [userData]);
 
   return null;
 };

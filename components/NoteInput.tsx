@@ -1,6 +1,6 @@
 import { useContext } from "preact/hooks";
 import { Note } from "../signal/notes.ts";
-import { NotesContext } from "./Context.tsx";
+import { AuthContext, NotesContext } from "./Context.tsx";
 
 interface NoteInputProps {
   uuid: string;
@@ -8,23 +8,27 @@ interface NoteInputProps {
 
 const NoteInput = ({ uuid }: NoteInputProps) => {
   const { notes, deleteNote, updateNote } = useContext(NotesContext);
+  const { auth } = useContext(AuthContext);
 
   const handleKeyDown = (e: KeyboardEvent) => {
     if (
       notes.value.find((note: Note) => note.uuid === uuid)?.content ===
         "" &&
-      e.key === "Backspace"
+      e.key === "Backspace" &&
+      auth?.value?.userId
     ) {
       e.preventDefault();
-      deleteNote(uuid);
+      deleteNote(auth.value.userId, uuid);
     }
   };
 
   const handleInput = (e: Event) => {
-    const target = e.target as HTMLInputElement;
-    const content = target.value;
+    if (auth?.value?.userId) {
+      const target = e.target as HTMLInputElement;
+      const content = target.value;
 
-    updateNote(uuid, content);
+      updateNote(auth.value.userId, uuid, content);
+    }
   };
 
   return (
