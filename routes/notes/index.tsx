@@ -39,6 +39,7 @@ const Notes = ({ data }: NotesProps) => (
     <DoublePane
       minLeftWidth={200}
       minRightWidth={200}
+      userData={data?.userData}
     />
   </div>
 );

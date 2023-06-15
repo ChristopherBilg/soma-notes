@@ -13,7 +13,7 @@ const RightPane = ({ width }: RightPaneProps) => {
   const { auth } = useContext(AuthContext);
 
   useEffect(() => {
-    console.log(auth);
+    console.log("auth", auth);
   }, [auth]);
 
   return (
