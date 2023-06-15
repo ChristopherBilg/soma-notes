@@ -6,7 +6,7 @@ interface LeftPaneProps {
   width: string;
 }
 
-const LeftPane = (props: LeftPaneProps) => {
+const LeftPane = ({ width }: LeftPaneProps) => {
   const { notes } = useContext(NotesContext);
 
   const recentNotes = (notes.value as Note[])
@@ -17,7 +17,7 @@ const LeftPane = (props: LeftPaneProps) => {
   return (
     <div
       class="p-2.5 bg-gray-300 rounded-l-lg"
-      style={{ width: props.width }}
+      style={{ width }}
     >
       <b>History</b>
       {recentNotes.length > 0

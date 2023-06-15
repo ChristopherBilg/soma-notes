@@ -6,17 +6,17 @@ interface NoteInputProps {
   uuid: string;
 }
 
-const NoteInput = (props: NoteInputProps) => {
+const NoteInput = ({ uuid }: NoteInputProps) => {
   const { notes, deleteNote, updateNote } = useContext(NotesContext);
 
   const handleKeyDown = (e: KeyboardEvent) => {
     if (
-      notes.value.find((note: Note) => note.uuid === props.uuid)?.content ===
+      notes.value.find((note: Note) => note.uuid === uuid)?.content ===
         "" &&
       e.key === "Backspace"
     ) {
       e.preventDefault();
-      deleteNote(props.uuid);
+      deleteNote(uuid);
     }
   };
 
@@ -24,7 +24,7 @@ const NoteInput = (props: NoteInputProps) => {
     const target = e.target as HTMLInputElement;
     const content = target.value;
 
-    updateNote(props.uuid, content);
+    updateNote(uuid, content);
   };
 
   return (
@@ -32,8 +32,8 @@ const NoteInput = (props: NoteInputProps) => {
       class="border-none bg-transparent rounded-md w-full"
       placeholder="Add a note"
       type="text"
-      data-uuid={props.uuid}
-      value={notes.value.find((note: Note) => note.uuid === props.uuid)
+      data-uuid={uuid}
+      value={notes.value.find((note: Note) => note.uuid === uuid)
         ?.content}
       onKeyDown={handleKeyDown}
       onInput={handleInput}
