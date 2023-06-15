@@ -12,7 +12,9 @@ import * as $5 from "./routes/api/notes.ts";
 import * as $6 from "./routes/index.tsx";
 import * as $7 from "./routes/notes/[note].tsx";
 import * as $8 from "./routes/notes/index.tsx";
-import * as $$0 from "./islands/DoublePane.tsx";
+import * as $$0 from "./islands/Context.tsx";
+import * as $$1 from "./islands/ContextSetup.tsx";
+import * as $$2 from "./islands/DoublePane.tsx";
 
 const manifest = {
   routes: {
@@ -27,7 +29,9 @@ const manifest = {
     "./routes/notes/index.tsx": $8,
   },
   islands: {
-    "./islands/DoublePane.tsx": $$0,
+    "./islands/Context.tsx": $$0,
+    "./islands/ContextSetup.tsx": $$1,
+    "./islands/DoublePane.tsx": $$2,
   },
   baseUrl: import.meta.url,
   config,

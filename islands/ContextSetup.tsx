@@ -1,7 +1,7 @@
 import { ComponentChild } from "preact";
 import { useContext } from "preact/hooks";
 import { UserDataResponse } from "../helpers/github-auth.ts";
-import { AuthContext, NotesContext } from "./Context.tsx";
+import { AuthContext } from "./Context.tsx";
 
 interface ContextSetupProps {
   children: ComponentChild;
@@ -13,9 +13,6 @@ const ContextSetup = ({ children, userData }: ContextSetupProps) => {
 
   if (userData) setAuth(userData);
   else clearAuth();
-
-  const { loadNotes } = useContext(NotesContext);
-  if (userData) loadNotes(userData.userId);
 
   return (
     <>

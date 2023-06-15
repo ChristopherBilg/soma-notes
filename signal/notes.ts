@@ -1,6 +1,4 @@
-import { debounce } from "$std/async/debounce.ts";
 import { Signal, signal } from "@preact/signals";
-import { getNotesByUserId, setNotesByUserId } from "./../helpers/deno-kv.ts";
 import { generateUUID } from "./../helpers/uuid.ts";
 
 export type NoteParent = string | null;
@@ -16,30 +14,19 @@ export interface Note {
 
 export type NotesStateType = {
   notes: Signal<Note[]>;
-  loadNotes: (userId: string | null) => void;
-  createNote: (userId: string, parent: NoteParent, content: string) => string;
-  updateNote: (userId: string, uuid: string, content: string) => void;
-  deleteNote: (userId: string, uuid: string) => void;
+  createNote: (parent: NoteParent, content: string) => string;
+  updateNote: (uuid: string, content: string) => void;
+  deleteNote: (uuid: string) => void;
 };
-
-const debouncedSaveToDenoKV = debounce(
-  async (userId: string, notes: Note[]) =>
-    await setNotesByUserId(userId, notes),
-  1000,
-);
 
 const NotesState = (): NotesStateType => {
   const notes = signal<Note[]>([]);
 
-  // Application State Persistence (load)
-  const loadNotes = async (userId: string | null) => {
-    if (!userId) return;
+  // TODO: Application State Persistence (load)
+  // Prerequisite: Find a way to get the authentication state loaded here
+  //               (e.g. load from cookies, store in a new preact context, then in this file load from context)
 
-    const loadedNotes = await getNotesByUserId(userId);
-    notes.value = loadedNotes;
-  };
-
-  const createNote = (userId: string, parent: NoteParent, content = "") => {
+  const createNote = (parent: NoteParent, content = "") => {
     const now = new Date().getTime();
     const uuid = generateUUID();
 
@@ -54,13 +41,14 @@ const NotesState = (): NotesStateType => {
 
     notes.value = [...notes.value, note];
 
-    // Application State Persistence (save)
-    debouncedSaveToDenoKV(userId, notes.value);
+    // TODO: Application State Persistence (save)
+    // Prerequisite: Find a way to get the authentication state loaded here
+    //               (e.g. load from cookies, store in a new preact context, then in this file load from context)
 
     return uuid;
   };
 
-  const updateNote = (userId: string, uuid: string, content: string) => {
+  const updateNote = (uuid: string, content: string) => {
     const now = new Date().getTime();
     const note = notes.value.find((note: Note) => note.uuid === uuid);
 
@@ -83,18 +71,20 @@ const NotesState = (): NotesStateType => {
       }),
     ];
 
-    // Application State Persistence (save)
-    debouncedSaveToDenoKV(userId, notes.value);
+    // TODO: Application State Persistence (save)
+    // Prerequisite: Find a way to get the authentication state loaded here
+    //               (e.g. load from cookies, store in a new preact context, then in this file load from context)
   };
 
-  const deleteNote = (userId: string, uuid: string) => {
+  const deleteNote = (uuid: string) => {
     notes.value = [...notes.value.filter((note: Note) => note.uuid !== uuid)];
 
-    // Application State Persistence (save)
-    debouncedSaveToDenoKV(userId, notes.value);
+    // TODO: Application State Persistence (save)
+    // Prerequisite: Find a way to get the authentication state loaded here
+    //               (e.g. load from cookies, store in a new preact context, then in this file load from context)
   };
 
-  return { notes, loadNotes, createNote, updateNote, deleteNote };
+  return { notes, createNote, updateNote, deleteNote };
 };
 
 export default NotesState();
