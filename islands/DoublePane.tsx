@@ -1,7 +1,7 @@
 import { useState } from "preact/hooks";
 import LeftPane from "../components/LeftPane.tsx";
 import RightPane from "../components/RightPane.tsx";
-import Context from "../signal/context.tsx";
+import Context from "./Context.tsx";
 
 interface DoublePaneProps {
   minLeftWidth: number;
