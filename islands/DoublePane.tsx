@@ -1,18 +1,14 @@
 import { useState } from "preact/hooks";
 import LeftPane from "../components/LeftPane.tsx";
 import RightPane from "../components/RightPane.tsx";
-import { UserDataResponse } from "../helpers/github-auth.ts";
-import Context from "./Context.tsx";
-import ContextSetup from "./ContextSetup.tsx";
 
 interface DoublePaneProps {
   minLeftWidth: number;
   minRightWidth: number;
-  userData: UserDataResponse | undefined;
 }
 
 const DoublePane = (
-  { minLeftWidth, minRightWidth, userData }: DoublePaneProps,
+  { minLeftWidth, minRightWidth }: DoublePaneProps,
 ) => {
   const [isDragging, setIsDragging] = useState(false);
   const [leftPaneWidth, setLeftPaneWidth] = useState("40%");
@@ -42,26 +38,22 @@ const DoublePane = (
   };
 
   return (
-    <Context>
-      <ContextSetup userData={userData}>
-        <div
-          class={`w-full flex ${isDragging ? "select-none" : "select-auto"}`}
-          onMouseMove={handleContainerMouseMove}
-          onMouseUp={handleContainerMouseUp}
-          style={{ minHeight: "50vh" }}
-        >
-          <LeftPane width={leftPaneWidth} />
+    <div
+      class={`w-full flex ${isDragging ? "select-none" : "select-auto"}`}
+      onMouseMove={handleContainerMouseMove}
+      onMouseUp={handleContainerMouseUp}
+      style={{ minHeight: "50vh" }}
+    >
+      <LeftPane width={leftPaneWidth} />
 
-          <div
-            class="cursor-ew-resize bg-black w-1"
-            onMouseDown={handleDividerMouseDown}
-          >
-          </div>
+      <div
+        class="cursor-ew-resize bg-black w-1"
+        onMouseDown={handleDividerMouseDown}
+      >
+      </div>
 
-          <RightPane width={rightPaneWidth} />
-        </div>
-      </ContextSetup>
-    </Context>
+      <RightPane width={rightPaneWidth} />
+    </div>
   );
 };
 
