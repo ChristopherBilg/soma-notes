@@ -1,23 +1,22 @@
-import { HandlerContext, PageProps } from "$fresh/server.ts";
+import { Handlers, PageProps } from "$fresh/server.ts";
 import { authHandler } from "../../helpers/auth-handler.ts";
 import { UserDataResponse } from "../../helpers/github-auth.ts";
 import DoublePane from "../../islands/DoublePane.tsx";
 
-export async function handler(
-  req: Request,
-  ctx: HandlerContext,
-): Promise<Response> {
-  const response = await authHandler(
-    req,
-    ctx,
-    new Response("", {
-      status: 307,
-      headers: { Location: "/api/login" },
-    }),
-  );
+export const handler: Handlers = {
+  async GET(req, ctx) {
+    const response = await authHandler(
+      req,
+      ctx,
+      new Response("", {
+        status: 307,
+        headers: { Location: "/api/login" },
+      }),
+    );
 
-  return response;
-}
+    return response;
+  },
+};
 
 const Notes = ({ data }: PageProps<{ userData: UserDataResponse }>) => (
   <div class="p-4 mx-auto max-w-screen-xlg">

@@ -1,16 +1,19 @@
+import { Handlers } from "$fresh/server.ts";
 import { deleteCookie } from "$std/http/cookie.ts";
 
-export function handler(req: Request): Response {
-  const headers = new Headers({
-    "location": new URL(req.url).origin,
-  });
+export const handler: Handlers = {
+  GET(req) {
+    const headers = new Headers({
+      "location": new URL(req.url).origin,
+    });
 
-  deleteCookie(headers, "github_auth_token", {
-    path: "/",
-  });
+    deleteCookie(headers, "github_auth_token", {
+      path: "/",
+    });
 
-  return new Response(null, {
-    status: 302,
-    headers,
-  });
-}
+    return new Response(null, {
+      status: 302,
+      headers,
+    });
+  },
+};

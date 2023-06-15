@@ -1,19 +1,18 @@
-import { HandlerContext, PageProps } from "$fresh/server.ts";
+import { Handlers, PageProps } from "$fresh/server.ts";
 import { authHandler } from "../helpers/auth-handler.ts";
 import { UserDataResponse } from "../helpers/github-auth.ts";
 
-export async function handler(
-  req: Request,
-  ctx: HandlerContext,
-): Promise<Response> {
-  const response = await authHandler(
-    req,
-    ctx,
-    await ctx.render(),
-  );
+export const handler: Handlers = {
+  async GET(req, ctx) {
+    const response = await authHandler(
+      req,
+      ctx,
+      await ctx.render(),
+    );
 
-  return response;
-}
+    return response;
+  },
+};
 
 const LandingPage = (
   { data }: PageProps<{ userData: UserDataResponse }>,
