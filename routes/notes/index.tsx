@@ -2,7 +2,6 @@ import { Handlers } from "$fresh/server.ts";
 import { authHandler } from "../../helpers/auth-handler.ts";
 import { UserDataResponse } from "../../helpers/github-auth.ts";
 import Context from "../../islands/Context.tsx";
-import ContextSetup from "../../islands/ContextSetup.tsx";
 import DoublePane from "../../islands/DoublePane.tsx";
 
 export const handler: Handlers = {
@@ -39,12 +38,10 @@ const Notes = ({ data }: NotesProps) => (
     </h2>
 
     <Context>
-      <ContextSetup userData={data?.userData}>
-        <DoublePane
-          minLeftWidth={200}
-          minRightWidth={200}
-        />
-      </ContextSetup>
+      <DoublePane
+        minLeftWidth={200}
+        minRightWidth={200}
+      />
     </Context>
   </div>
 );
