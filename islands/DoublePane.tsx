@@ -8,7 +8,9 @@ interface DoublePaneProps {
   minRightWidth: number;
 }
 
-const DoublePane = (props: DoublePaneProps) => {
+const DoublePane = (
+  { minLeftWidth, minRightWidth }: DoublePaneProps,
+) => {
   const [isDragging, setIsDragging] = useState(false);
   const [leftPaneWidth, setLeftPaneWidth] = useState("40%");
   const [rightPaneWidth, setRightPaneWidth] = useState("60%");
@@ -27,7 +29,7 @@ const DoublePane = (props: DoublePaneProps) => {
     const rightWidth = containerRect.width - leftWidth;
 
     if (
-      leftWidth < props.minLeftWidth || rightWidth < props.minRightWidth
+      leftWidth < minLeftWidth || rightWidth < minRightWidth
     ) {
       return;
     }

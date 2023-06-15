@@ -5,7 +5,11 @@ import NotesState, { NotesStateType } from "../signal/notes.ts";
 export const AuthContext = createContext<AuthStateType>({} as AuthStateType);
 export const NotesContext = createContext<NotesStateType>({} as NotesStateType);
 
-const Context = ({ children }: { children: ComponentChild }) => {
+interface ContextProps {
+  children: ComponentChild;
+}
+
+const Context = ({ children }: ContextProps) => {
   return (
     <AuthContext.Provider value={AuthState}>
       <NotesContext.Provider value={NotesState}>

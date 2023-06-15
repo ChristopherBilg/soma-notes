@@ -1,7 +1,11 @@
 import { UnknownPageProps } from "$fresh/server.ts";
 
-const Error404 = (props: UnknownPageProps) => {
-  return <p>Error 404: Page not found - {props.url}</p>;
+interface Error404Props {
+  url: string;
+}
+
+const Error404 = ({ url }: UnknownPageProps) => {
+  return <p>Error 404: Page not found - {url}</p>;
 };
 
 export default Error404;
