@@ -1,9 +1,12 @@
-interface Error500Props {
-  error: Error;
-}
+import { ErrorPageProps } from "$fresh/server.ts";
 
-const Error500 = ({ error }: Error500Props) => {
-  return <p>Error 500: Internal server error - {error.message}</p>;
-};
+const Error500 = ({ error, pattern, url }: ErrorPageProps) => (
+  <div>
+    <h1>Error 500: Internal server error</h1>
+    <p>{error as string}</p>
+    <p>{pattern}</p>
+    <p>{url}</p>
+  </div>
+);
 
 export default Error500;
