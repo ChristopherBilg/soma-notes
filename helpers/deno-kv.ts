@@ -2,7 +2,9 @@ import { Note } from "./../signal/notes.ts";
 
 export const getNotesByUserId = async (userId: string): Promise<Note[]> => {
   const kv = await Deno.openKv();
-  const notes = await kv.get(["notes", userId]);
+  const key = ["notes", userId];
+
+  const notes = await kv.get(key);
   kv.close();
 
   return notes.value || [];

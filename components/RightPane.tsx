@@ -1,5 +1,5 @@
-import { useContext, useEffect } from "preact/hooks";
-import { AuthContext, NotesContext } from "../islands/Context.tsx";
+import { useContext } from "preact/hooks";
+import { NotesContext } from "../islands/Context.tsx";
 import { Note } from "../signal/notes.ts";
 import CreateNoteInput from "./CreateNoteInput.tsx";
 import NoteInput from "./NoteInput.tsx";
@@ -10,11 +10,6 @@ interface RightPaneProps {
 
 const RightPane = ({ width }: RightPaneProps) => {
   const { notes } = useContext(NotesContext);
-  const { auth } = useContext(AuthContext);
-
-  useEffect(() => {
-    console.log("auth", auth);
-  }, [auth]);
 
   return (
     <div
