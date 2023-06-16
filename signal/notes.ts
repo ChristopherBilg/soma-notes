@@ -68,35 +68,33 @@ const NotesState = (): NotesStateType => {
     return uuid;
   };
 
-  const updateNote = (userId: string, uuid: string, content: string) => {
+  const updateNote = (
+    userId: string,
+    uuid: string,
+    content: string,
+    pinned?: boolean,
+  ) => {
     const now = new Date().getTime();
-    const note = notes.value.find((note: Note) => note.uuid === uuid);
+    const existingNote = notes.value.find((note: Note) => note.uuid === uuid);
 
-    if (note) {
-      note.content = content;
-      note.updatedAt = now;
-      notes.value = [...notes.value];
-    }
+    if (!existingNote) return;
 
-    notes.value = [
-      ...notes.value.map((note: Note) => {
-        if (note.uuid === uuid) {
-          return {
-            ...note,
-            content,
-            updatedAt: now,
-          };
-        }
-        return note;
-      }),
-    ];
+    existingNote.content = content;
+    existingNote.updatedAt = now;
+    if (pinned !== undefined) existingNote.pinned = pinned;
+
+    notes.value = notes.value.map((note: Note) => {
+      if (note.uuid === existingNote.uuid) return existingNote;
+
+      return note;
+    });
 
     // Application State Persistence (save)
     debouncedSaveNotesToDenoKV(userId, notes.value);
   };
 
   const deleteNote = (userId: string, uuid: string) => {
-    notes.value = [...notes.value.filter((note: Note) => note.uuid !== uuid)];
+    notes.value = notes.value.filter((note: Note) => note.uuid !== uuid);
 
     // Application State Persistence (save)
     debouncedSaveNotesToDenoKV(userId, notes.value);

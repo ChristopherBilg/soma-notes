@@ -25,7 +25,7 @@ export const handler: Handlers = {
 
     try {
       const notes = await req.json();
-      const res = setNotesByUserId(userId, notes);
+      const res = await setNotesByUserId(userId, notes);
 
       return new Response(JSON.stringify(res), { status: 201 });
     } catch (_) {
