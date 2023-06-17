@@ -1,6 +1,5 @@
 import { debounce } from "$std/async/debounce.ts";
 import { Signal, signal } from "@preact/signals";
-import { generateUUID } from "./../helpers/uuid.ts";
 
 export type NoteParent = string | null;
 
@@ -49,7 +48,7 @@ const NotesState = (): NotesStateType => {
 
   const createNote = (userId: string, parent: NoteParent, content = "") => {
     const now = new Date().getTime();
-    const uuid = generateUUID();
+    const uuid = crypto.randomUUID();
 
     const note: Note = {
       uuid,

@@ -1,6 +1,7 @@
 import { Handlers } from "$fresh/server.ts";
 import { authHandler } from "../../helpers/auth-handler.ts";
 import { UserDataResponse } from "../../helpers/github-auth.ts";
+import NoteViewer from "../../islands/NoteViewer.tsx";
 
 export const handler: Handlers = {
   async GET(req, ctx) {
@@ -13,6 +14,8 @@ export const handler: Handlers = {
       }),
     );
 
+    // TODO: If note doesn't exist, redirect to ctx.renderNotFound()
+
     return response;
   },
 };
@@ -22,11 +25,8 @@ interface NoteProps {
   params: Record<string, string>;
 }
 
-const Note = ({ data, params }: NoteProps) => {
-  console.log("data", data);
-  console.log("params", params);
-
-  return <div>Note ID: {params.note}</div>;
-};
+const Note = ({ data, params }: NoteProps) => (
+  <NoteViewer params={params} userData={data?.userData} />
+);
 
 export default Note;
