@@ -1,11 +1,16 @@
-import { ErrorPageProps } from "$fresh/server.ts";
-
-const Error500 = ({ error, pattern, url }: ErrorPageProps) => (
-  <div>
-    <h1>Error 500: Internal server error</h1>
-    <p>{error as string}</p>
-    <p>{pattern}</p>
-    <p>{url}</p>
+const Error500 = () => (
+  <div class="fixed inset-0 flex items-center justify-center">
+    <div class="relative bg-white p-6 rounded-lg">
+      <h1 class="text-center">Error 404: Page Not Found</h1>
+      <div class="flex justify-center m-2">
+        <a
+          href="/"
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Home
+        </a>
+      </div>
+    </div>
   </div>
 );
 

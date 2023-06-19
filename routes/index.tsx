@@ -20,25 +20,46 @@ interface LandingPageProps {
 
 const LandingPage = ({ data }: LandingPageProps) => {
   return (
-    <div class="p-4 mx-auto max-w-screen-xlg">
-      <h1 class="my-6 text-center">
-        Welcome to{" "}
-        <b>Soma Notes</b>, a simple, global, low-latency note keeping
-        application. You are {data?.userData.userName || "not logged in"}!
-      </h1>
+    <>
+      {data?.userData?.ok
+        ? (
+          <div class="fixed inset-0 flex items-center justify-center">
+            <div class="relative bg-white p-6 rounded-lg">
+              <h1 class="text-center">Welcome back to Soma Notes!</h1>
+              <div class="flex justify-center m-2">
+                <a
+                  href="/notes"
+                  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-l"
+                >
+                  Notes
+                </a>
 
-      {data?.userData.userId && (
-        <h2 class="my-6 text-center">
-          <a href="/notes">Notes</a>
-        </h2>
-      )}
-
-      <h2 class="my-6 text-center">
-        {data?.userData.userId
-          ? <a href="/api/logout">Logout</a>
-          : <a href="/api/login">Login</a>}
-      </h2>
-    </div>
+                <a
+                  href="/api/logout"
+                  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r"
+                >
+                  Logout
+                </a>
+              </div>
+            </div>
+          </div>
+        )
+        : (
+          <div class="fixed inset-0 flex items-center justify-center">
+            <div class="relative bg-white p-6 rounded-lg">
+              <h1 class="text-center">Welcome to Soma Notes!</h1>
+              <div class="flex justify-center m-2">
+                <a
+                  href="/api/login"
+                  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                >
+                  Signup/Login
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
+    </>
   );
 };
 
