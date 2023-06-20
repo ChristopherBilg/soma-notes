@@ -1,6 +1,7 @@
 import { useContext } from "preact/hooks";
+import { matchesSearch } from "../helpers/search.ts";
 import { Note } from "../signal/notes.ts";
-import { NotesContext } from "./Context.tsx";
+import { NotesContext, UIContext } from "./Context.tsx";
 import CreateNoteInput from "./CreateNoteInput.tsx";
 import NoteInput from "./NoteInput.tsx";
 
@@ -10,6 +11,7 @@ interface RightPaneProps {
 
 const RightPane = ({ width }: RightPaneProps) => {
   const { notes } = useContext(NotesContext);
+  const { searchField } = useContext(UIContext);
 
   return (
     <div
@@ -19,6 +21,7 @@ const RightPane = ({ width }: RightPaneProps) => {
       <div>
         <ul class="list-disc ml-4">
           {(notes.value as Note[])
+            .filter((note) => matchesSearch(searchField.value, note.content))
             .sort((a, b) => a.createdAt - b.createdAt)
             .map((note) => (
               <li>
