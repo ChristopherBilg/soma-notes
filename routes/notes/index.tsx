@@ -1,7 +1,7 @@
 import { Handlers } from "$fresh/server.ts";
 import { authHandler } from "../../helpers/auth-handler.ts";
 import { UserDataResponse } from "../../helpers/github-auth.ts";
-import DoublePane from "../../islands/DoublePane.tsx";
+import DoublePaneIsland from "../../islands/DoublePaneIsland.tsx";
 
 export const handler: Handlers = {
   async GET(req, ctx) {
@@ -36,11 +36,7 @@ const Notes = ({ data }: NotesProps) => (
         : <a href="/api/login">Login</a>}
     </h2>
 
-    <DoublePane
-      minLeftWidth={200}
-      minRightWidth={200}
-      userData={data?.userData}
-    />
+    <DoublePaneIsland userData={data?.userData} />
   </div>
 );
 

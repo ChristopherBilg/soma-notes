@@ -1,19 +1,18 @@
 import Context from "../components/Context.tsx";
 import ContextSetup from "../components/ContextSetup.tsx";
-import NoteView from "../components/NoteView.tsx";
+import DoublePane from "../components/DoublePane.tsx";
 import { UserDataResponse } from "../helpers/github-auth.ts";
 
-interface NoteViewerProps {
-  params: Record<string, string>;
+interface DoublePaneIslandProps {
   userData: UserDataResponse | undefined;
 }
 
-const NoteViewer = ({ params, userData }: NoteViewerProps) => (
+const DoublePaneIsland = ({ userData }: DoublePaneIslandProps) => (
   <Context>
     <ContextSetup userData={userData} />
 
-    <NoteView params={params} />
+    <DoublePane minLeftWidth={200} minRightWidth={200} />
   </Context>
 );
 
-export default NoteViewer;
+export default DoublePaneIsland;

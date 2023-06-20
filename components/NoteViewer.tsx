@@ -1,11 +1,11 @@
 import { useContext } from "preact/hooks";
 import { NotesContext } from "./Context.tsx";
 
-interface NoteViewProps {
+interface NoteViewerProps {
   params: Record<string, string>;
 }
 
-const NoteView = ({ params }: NoteViewProps) => {
+const NoteViewer = ({ params }: NoteViewerProps) => {
   const { notes } = useContext(NotesContext);
   const note = notes.value.find((n) => n.uuid === params.note);
 
@@ -21,4 +21,4 @@ const NoteView = ({ params }: NoteViewProps) => {
   );
 };
 
-export default NoteView;
+export default NoteViewer;

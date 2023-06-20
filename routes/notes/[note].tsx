@@ -1,7 +1,7 @@
 import { Handlers } from "$fresh/server.ts";
 import { authHandler } from "../../helpers/auth-handler.ts";
 import { UserDataResponse } from "../../helpers/github-auth.ts";
-import NoteViewer from "../../islands/NoteViewer.tsx";
+import NoteViewerIsland from "../../islands/NoteViewerIsland.tsx";
 
 export const handler: Handlers = {
   async GET(req, ctx) {
@@ -26,7 +26,7 @@ interface NoteProps {
 }
 
 const Note = ({ data, params }: NoteProps) => (
-  <NoteViewer params={params} userData={data?.userData} />
+  <NoteViewerIsland params={params} userData={data?.userData} />
 );
 
 export default Note;
