@@ -1,7 +1,7 @@
 const Error500 = () => (
   <div class="fixed inset-0 flex items-center justify-center">
     <div class="relative bg-white p-6 rounded-lg">
-      <h1 class="text-center">Error 404: Page Not Found</h1>
+      <h1 class="text-center">Error 500: Internal Server Error</h1>
       <div class="flex justify-center m-2">
         <a
           href="/"
