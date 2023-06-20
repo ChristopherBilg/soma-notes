@@ -12,8 +12,7 @@ const NoteInput = ({ uuid }: NoteInputProps) => {
 
   const handleKeyDown = (e: KeyboardEvent) => {
     if (
-      notes.value.find((note: Note) => note.uuid === uuid)?.content ===
-        "" &&
+      notes.value.find((note: Note) => note.uuid === uuid)?.content === "" &&
       e.key === "Backspace" &&
       auth?.value?.userId
     ) {
@@ -37,8 +36,7 @@ const NoteInput = ({ uuid }: NoteInputProps) => {
       placeholder="Add a note"
       type="text"
       data-uuid={uuid}
-      value={notes.value.find((note: Note) => note.uuid === uuid)
-        ?.content}
+      value={notes.value.find((note: Note) => note.uuid === uuid)?.content}
       onKeyDown={handleKeyDown}
       onInput={handleInput}
     />

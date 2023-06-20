@@ -15,9 +15,7 @@ const Context = ({ children }: ContextProps) => {
   return (
     <AuthContext.Provider value={AuthState}>
       <NotesContext.Provider value={NotesState}>
-        <UIContext.Provider value={UIState}>
-          {children}
-        </UIContext.Provider>
+        <UIContext.Provider value={UIState}>{children}</UIContext.Provider>
       </NotesContext.Provider>
     </AuthContext.Provider>
   );

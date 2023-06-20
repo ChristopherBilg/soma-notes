@@ -14,10 +14,7 @@ const RightPane = ({ width }: RightPaneProps) => {
   const { searchField } = useContext(UIContext);
 
   return (
-    <div
-      class="p-2.5 bg-gray-200 rounded-r-lg"
-      style={{ width }}
-    >
+    <div class="p-2.5 bg-gray-200 rounded-r-lg" style={{ width }}>
       <div>
         <ul class="list-disc ml-4">
           {(notes.value as Note[])

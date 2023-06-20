@@ -7,9 +7,7 @@ interface DoublePaneProps {
   minRightWidth: number;
 }
 
-const DoublePane = (
-  { minLeftWidth, minRightWidth }: DoublePaneProps,
-) => {
+const DoublePane = ({ minLeftWidth, minRightWidth }: DoublePaneProps) => {
   const [isDragging, setIsDragging] = useState(false);
   const [leftPaneWidth, setLeftPaneWidth] = useState("40%");
   const [rightPaneWidth, setRightPaneWidth] = useState("60%");
@@ -27,9 +25,7 @@ const DoublePane = (
     const leftWidth = e.clientX - containerRect.left;
     const rightWidth = containerRect.width - leftWidth;
 
-    if (
-      leftWidth < minLeftWidth || rightWidth < minRightWidth
-    ) {
+    if (leftWidth < minLeftWidth || rightWidth < minRightWidth) {
       return;
     }
 
@@ -46,11 +42,7 @@ const DoublePane = (
     >
       <LeftPane width={leftPaneWidth} />
 
-      <div
-        class="cursor-ew-resize bg-black w-1"
-        onMouseDown={handleDividerMouseDown}
-      >
-      </div>
+      <div class="cursor-ew-resize bg-black w-1" onMouseDown={handleDividerMouseDown}></div>
 
       <RightPane width={rightPaneWidth} />
     </div>

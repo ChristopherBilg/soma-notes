@@ -11,7 +11,7 @@ export const handler: Handlers = {
       new Response("", {
         status: 307,
         headers: { Location: "/api/login" },
-      }),
+      })
     );
 
     // TODO: If note doesn't exist, redirect to ctx.renderNotFound()
@@ -25,8 +25,6 @@ interface NoteProps {
   params: Record<string, string>;
 }
 
-const Note = ({ data, params }: NoteProps) => (
-  <NoteViewerIsland params={params} userData={data?.userData} />
-);
+const Note = ({ data, params }: NoteProps) => <NoteViewerIsland params={params} userData={data?.userData} />;
 
 export default Note;

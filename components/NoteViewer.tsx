@@ -12,9 +12,7 @@ const NoteViewer = ({ params }: NoteViewerProps) => {
   return (
     <>
       <div>UUID: {note?.uuid}</div>
-      <div>
-        Parent: {note?.parent ? <a href={`/notes/${note.parent}`}></a> : "No"}
-      </div>
+      <div>Parent: {note?.parent ? <a href={`/notes/${note.parent}`}></a> : "No"}</div>
       <div>Pinned: {note?.pinned ? "Yes" : "No"}</div>
       <div>Content: {note?.content}</div>
     </>
