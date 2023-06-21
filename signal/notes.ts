@@ -1,5 +1,6 @@
 import { debounce } from "$std/async/debounce.ts";
 import { Signal, signal } from "@preact/signals";
+import { USER_INPUT_DEBOUNCE_TIME_MILLIS } from './../helpers/constants.ts';
 
 export type NoteParent = string | null;
 
@@ -29,7 +30,7 @@ const debouncedSaveNotesToDenoKV = debounce(
       },
       body: JSON.stringify(notes),
     }),
-  1000,
+    USER_INPUT_DEBOUNCE_TIME_MILLIS,
 );
 
 const NotesState = (): NotesStateType => {
