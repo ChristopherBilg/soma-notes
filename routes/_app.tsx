@@ -5,7 +5,7 @@ const App = ({ Component }: AppProps) => (
   <>
     <Head>
       <meta charSet="UTF-8" />
-      <meta name="description" content="A simple, global, low-latency note keep application" />
+      <meta name="description" content="A simple, global, low-latency note keeping application" />
       <meta name="keywords" content="note, keeping, application, global, low-latency" />
       <meta name="author" content="Soma Notes" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />

@@ -1,6 +1,6 @@
 # soma-notes
 
-A simple, global, low-latency note keep application
+A simple, global, low-latency note keeping application
 
 ## Usage
 
