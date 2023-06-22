@@ -42,6 +42,19 @@ const NoteInput = ({ uuid }: NoteInputProps) => {
         newNoteInput?.focus();
       }, 0);
     }
+
+    if (e.key === "Tab") {
+      e.preventDefault();
+
+      // Update the parent of the current note to be the uuid of the previous note in the DOM tree
+      const previousNoteInput = document
+        .querySelector(`input[data-uuid="${uuid}"]`)
+        ?.parentNode?.previousElementSibling?.querySelector("input") as HTMLInputElement;
+
+      const parentUUID = notes.value.find((note: Note) => note.uuid === previousNoteInput.dataset.uuid)?.parent;
+
+      updateNote(auth.value.userId, uuid, notes.value.find((note: Note) => note.uuid === uuid)?.content, parentUUID);
+    }
   };
 
   const handleInput = (e: Event) => {
