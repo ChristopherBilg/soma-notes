@@ -18,10 +18,18 @@ const RightPane = ({ width }: RightPaneProps) => {
         <ul class="list-disc ml-4">
           {(notes.value as Note[])
             .filter((note) => matchesSearch(searchField.value, note.content))
+            .filter((note) => note.parent !== null)
             .sort((a, b) => a.createdAt - b.createdAt)
             .map((note) => (
               <li>
                 <NoteInput uuid={note.uuid} />
+                {(notes.value as Note[])
+                  .filter((childNote) => childNote.parent === note.uuid)
+                  .map((childNote) => (
+                    <li>
+                      <NoteInput uuid={childNote.uuid} />
+                    </li>
+                  ))}
               </li>
             ))}
         </ul>

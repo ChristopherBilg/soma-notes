@@ -30,6 +30,16 @@ const NoteInput = ({ uuid }: NoteInputProps) => {
         newNoteInput?.focus();
       }, 0);
     }
+
+    if (e.key === "Tab") {
+      e.preventDefault();
+
+      const newNoteUUID = createNote(auth.value.userId, uuid, "");
+      setTimeout(() => {
+        const newNoteInput = document.querySelector(`input[data-uuid="${newNoteUUID}"]`) as HTMLInputElement;
+        newNoteInput?.focus();
+      }, 0);
+    }
   };
 
   const handleInput = (e: Event) => {
