@@ -18,6 +18,7 @@ const NoteInput = ({ uuid }: NoteInputProps) => {
 
       deleteNote(auth.value.userId, uuid);
 
+      // TODO: Update all parent UUID of all child notes to be the parent of the deleted note
       // TODO: Focus on the previous note
     }
 
