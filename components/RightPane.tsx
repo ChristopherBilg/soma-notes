@@ -2,7 +2,6 @@ import { useContext } from "preact/hooks";
 import { matchesSearch } from "../helpers/search.ts";
 import { Note } from "../signal/notes.ts";
 import { NotesContext, UIContext } from "./Context.tsx";
-import CreateNoteInput from "./CreateNoteInput.tsx";
 import NoteInput from "./NoteInput.tsx";
 
 interface RightPaneProps {
@@ -25,9 +24,6 @@ const RightPane = ({ width }: RightPaneProps) => {
                 <NoteInput uuid={note.uuid} />
               </li>
             ))}
-          <li>
-            <CreateNoteInput />
-          </li>
         </ul>
       </div>
     </div>

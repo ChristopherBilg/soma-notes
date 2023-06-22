@@ -1,7 +1,7 @@
 import { Handlers } from "$fresh/server.ts";
 import { authHandler } from "../../helpers/auth-handler.ts";
 import { UserDataResponse } from "../../helpers/github-auth.ts";
-import NoteViewerIsland from "../../islands/NoteViewerIsland.tsx";
+import NoteViewerPageIsland from "../../islands/NoteViewerPageIsland.tsx";
 
 export const handler: Handlers = {
   async GET(req, ctx) {
@@ -11,7 +11,7 @@ export const handler: Handlers = {
       new Response("", {
         status: 307,
         headers: { Location: "/api/login" },
-      }),
+      })
     );
 
     // TODO: If note doesn't exist, redirect to ctx.renderNotFound()
@@ -25,8 +25,6 @@ interface NoteProps {
   params: Record<string, string>;
 }
 
-const Note = ({ data, params }: NoteProps) => (
-  <NoteViewerIsland params={params} userData={data?.userData} />
-);
+const Note = ({ data, params }: NoteProps) => <NoteViewerPageIsland params={params} userData={data?.userData} />;
 
 export default Note;

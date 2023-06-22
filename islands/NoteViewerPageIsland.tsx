@@ -3,12 +3,12 @@ import ContextSetup from "../components/ContextSetup.tsx";
 import NoteViewer from "../components/NoteViewer.tsx";
 import { UserDataResponse } from "../helpers/github-auth.ts";
 
-interface NoteViewerIslandProps {
+interface NoteViewerPageIslandProps {
   params: Record<string, string>;
   userData: UserDataResponse | undefined;
 }
 
-const NoteViewerIsland = ({ params, userData }: NoteViewerIslandProps) => (
+const NoteViewerPageIsland = ({ params, userData }: NoteViewerPageIslandProps) => (
   <Context>
     <ContextSetup userData={userData} />
 
@@ -16,4 +16,4 @@ const NoteViewerIsland = ({ params, userData }: NoteViewerIslandProps) => (
   </Context>
 );
 
-export default NoteViewerIsland;
+export default NoteViewerPageIsland;
