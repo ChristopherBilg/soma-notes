@@ -5,7 +5,8 @@ const CreateNoteButton = () => {
   const { auth } = useContext(AuthContext);
   const { createNote } = useContext(NotesContext);
 
-  const handleCreateNoteButtonClick = () => createNote(auth?.value?.userId, null, "");
+  const handleCreateNoteButtonClick = () =>
+    createNote(auth?.value?.userId, null, "");
 
   return (
     <button

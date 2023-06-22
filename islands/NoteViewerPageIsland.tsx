@@ -8,7 +8,9 @@ interface NoteViewerPageIslandProps {
   userData: UserDataResponse | undefined;
 }
 
-const NoteViewerPageIsland = ({ params, userData }: NoteViewerPageIslandProps) => (
+const NoteViewerPageIsland = (
+  { params, userData }: NoteViewerPageIslandProps,
+) => (
   <Context>
     <ContextSetup userData={userData} />
 

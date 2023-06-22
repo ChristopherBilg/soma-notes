@@ -16,10 +16,21 @@ const NoteInput = ({ uuid }: NoteInputProps) => {
     if (notes.value.find((note: Note) => note.uuid === uuid)?.content === "" && e.key === "Backspace") {
       e.preventDefault();
 
-      deleteNote(auth.value.userId, uuid);
+      // Focus on the previous note
+      const previousNoteInput = document
+        .querySelector(`input[data-uuid="${uuid}"]`)
+        ?.parentNode?.previousElementSibling?.querySelector("input") as HTMLInputElement;
+      previousNoteInput?.focus();
 
-      // TODO: Update all parent UUID of all child notes to be the parent of the deleted note
-      // TODO: Focus on the previous note
+      // Update all parent UUID of all child notes to be the parent of the deleted note
+      const parentUUID = notes.value.find((note: Note) => note.uuid === uuid)?.parent;
+      notes.value
+        .filter((note: Note) => note.parent === uuid)
+        .forEach((note: Note) => {
+          updateNote(auth.value.userId, note.uuid, note.content, parentUUID);
+        });
+
+      deleteNote(auth.value.userId, uuid);
     }
 
     if (e.key === "Enter") {

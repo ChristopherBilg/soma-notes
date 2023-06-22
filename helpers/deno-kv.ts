@@ -1,9 +1,12 @@
 import { Note } from "./../signal/notes.ts";
 
-type AuthMethod = 'github';
+type AuthMethod = "github";
 type DenoKVNotesKey = ["notes", AuthMethod, string];
 
-const getNotesKey = (authMethod: AuthMethod, userId: string): DenoKVNotesKey => {
+const getNotesKey = (
+  authMethod: AuthMethod,
+  userId: string,
+): DenoKVNotesKey => {
   return ["notes", authMethod, userId];
 };
 
