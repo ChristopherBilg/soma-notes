@@ -5,7 +5,10 @@ const Error500 = () => (
       <hr class="mb-4" />
       <h2 class="text-center">Error 500: Internal Server Error</h2>
       <div class="flex justify-center m-4">
-        <a href="/" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        <a
+          href="/"
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
           Home
         </a>
       </div>

@@ -14,7 +14,9 @@ export const setNotesByUserId = async (userId: string, notes: Note[]) => {
   const kv = await Deno.openKv();
   const key = ["notes", userId];
 
-  const res = await kv.set(key, notes);
+  let res;
+  if (notes.length === 0) await kv.delete(key);
+  else await kv.set(key, notes);
   kv.close();
 
   return res;

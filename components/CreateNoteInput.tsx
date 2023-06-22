@@ -11,7 +11,9 @@ const CreateNoteInput = () => {
       const uuid = createNote(auth.value.userId, null, "");
 
       setTimeout(() => {
-        const input = document.querySelector(`input[data-uuid="${uuid}"]`) as HTMLInputElement;
+        const input = document.querySelector(
+          `input[data-uuid="${uuid}"]`,
+        ) as HTMLInputElement;
         input.focus();
       }, 0);
     }

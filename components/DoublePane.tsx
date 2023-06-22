@@ -42,7 +42,11 @@ const DoublePane = ({ minLeftWidth, minRightWidth }: DoublePaneProps) => {
     >
       <LeftPane width={leftPaneWidth} />
 
-      <div class="cursor-ew-resize bg-black w-1" onMouseDown={handleDividerMouseDown}></div>
+      <div
+        class="cursor-ew-resize bg-black w-1"
+        onMouseDown={handleDividerMouseDown}
+      >
+      </div>
 
       <RightPane width={rightPaneWidth} />
     </div>

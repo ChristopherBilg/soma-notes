@@ -19,23 +19,36 @@ const LandingPage = ({ data }: LandingPageProps) => (
     <div class="relative bg-white p-6 rounded-lg">
       <h1 class="text-3xl text-center mb-4">Soma Notes</h1>
       <hr class="mb-4" />
-      <h2 class="text-center">Welcome {data?.userData.ok && "back "}to Soma Notes!</h2>
+      <h2 class="text-center">
+        Welcome {data?.userData.ok && "back "}to Soma Notes!
+      </h2>
       <div class="flex justify-center m-4">
-        {data?.userData.ok ? (
-          <>
-            <a href="/notes" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-l">
-              Notes
-            </a>
+        {data?.userData.ok
+          ? (
+            <>
+              <a
+                href="/notes"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-l"
+              >
+                Notes
+              </a>
 
-            <a href="/api/logout" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r">
-              Logout
+              <a
+                href="/api/logout"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r"
+              >
+                Logout
+              </a>
+            </>
+          )
+          : (
+            <a
+              href="/api/login"
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+              Login with GitHub
             </a>
-          </>
-        ) : (
-          <a href="/api/login" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Login with GitHub
-          </a>
-        )}
+          )}
       </div>
     </div>
   </div>
