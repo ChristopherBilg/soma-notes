@@ -22,7 +22,10 @@ const NoteInput = ({ uuid }: NoteInputProps) => {
     if (e.key === "Enter") {
       e.preventDefault();
 
-      createNote(auth.value.userId, null, "");
+      const newNoteUUID = createNote(auth.value.userId, null, "");
+
+      const newNoteInput = document.querySelector(`input[data-uuid="${newNoteUUID}"]`);
+      if (newNoteInput) newNoteInput.focus();
     }
   };
 
