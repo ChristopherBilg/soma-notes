@@ -16,9 +16,11 @@ const NoteInput = ({ uuid }: NoteInputProps) => {
     if (notes.value.find((note: Note) => note.uuid === uuid)?.content === "" && e.key === "Backspace") {
       e.preventDefault();
 
-      const previousNoteInput = document.querySelector(`input[data-uuid="${uuid}"]`)
-        ?.previousElementSibling as HTMLInputElement;
-      if (previousNoteInput) previousNoteInput.focus();
+      setTimeout(() => {
+        const previousNoteInput = document.querySelector(`input[data-uuid="${uuid}"]`)
+          ?.previousElementSibling as HTMLInputElement;
+        if (previousNoteInput) previousNoteInput.focus();
+      }, 0);
 
       deleteNote(auth.value.userId, uuid);
     }
