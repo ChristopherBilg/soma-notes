@@ -53,8 +53,10 @@ const NoteInput = ({ uuid }: NoteInputProps) => {
       const parentUUID = previousNoteInput?.dataset.uuid;
 
       // Re-focus on the current note
-      const currentNoteInput = document.querySelector(`input[data-uuid="${uuid}"]`) as HTMLInputElement;
-      currentNoteInput?.focus();
+      setTimeout(() => {
+        const currentNoteInput = document.querySelector(`input[data-uuid="${uuid}"]`) as HTMLInputElement;
+        currentNoteInput?.focus();
+      }, 0);
 
       updateNote(
         auth.value.userId,
