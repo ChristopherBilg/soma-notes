@@ -66,6 +66,30 @@ const NoteInput = ({ uuid }: NoteInputProps) => {
         parentUUID
       );
     }
+
+    // If Shift and Tab are pressed, update the parent of the current note to be the parent of the parent of the
+    // current note
+    if (e.key === "Tab" && e.shiftKey) {
+      e.preventDefault();
+
+      // Update the parent of the current note to be the parent of the parent of the current note
+      const parentUUID = notes.value.find((note: Note) => note.uuid === uuid)?.parent;
+      const grandparentUUID = notes.value.find((note: Note) => note.uuid === parentUUID)?.parent;
+
+      // Re-focus on the current note
+      setTimeout(() => {
+        const currentNoteInput = document.querySelector(`input[data-uuid="${uuid}"]`) as HTMLInputElement;
+        currentNoteInput?.focus();
+      }, 0);
+
+      updateNote(
+        auth.value.userId,
+        uuid,
+        notes.value.find((note: Note) => note.uuid === uuid)?.content,
+        undefined,
+        grandparentUUID
+      );
+    }
   };
 
   const handleInput = (e: Event) => {
