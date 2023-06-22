@@ -16,13 +16,9 @@ const NoteInput = ({ uuid }: NoteInputProps) => {
     if (notes.value.find((note: Note) => note.uuid === uuid)?.content === "" && e.key === "Backspace") {
       e.preventDefault();
 
-      setTimeout(() => {
-        const previousNoteInput = document.querySelector(`input[data-uuid="${uuid}"]`)?.parentNode
-          ?.previousElementSibling as HTMLInputElement;
-        if (previousNoteInput) previousNoteInput.focus();
-      }, 0);
-
       deleteNote(auth.value.userId, uuid);
+
+      // TODO: Focus on the previous note
     }
 
     if (e.key === "Enter") {
@@ -30,8 +26,8 @@ const NoteInput = ({ uuid }: NoteInputProps) => {
 
       const newNoteUUID = createNote(auth.value.userId, null, "");
       setTimeout(() => {
-        const noteInput = document.querySelector(`input[data-uuid="${newNoteUUID}"]`) as HTMLInputElement;
-        if (noteInput) input.focus();
+        const newNoteInput = document.querySelector(`input[data-uuid="${newNoteUUID}"]`) as HTMLInputElement;
+        newNoteInput?.focus();
       }, 0);
     }
   };
