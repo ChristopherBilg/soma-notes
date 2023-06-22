@@ -1,6 +1,7 @@
 import { debounce } from "$std/async/debounce.ts";
 import { Signal, signal } from "@preact/signals";
 import { USER_INPUT_DEBOUNCE_TIME_MILLIS } from "./../helpers/constants.ts";
+import { NoteParent } from './notes';
 
 export type UUID = string;
 export type NoteParent = UUID | null;
@@ -18,7 +19,7 @@ export type NotesStateType = {
   notes: Signal<Note[]>;
   loadNotes: (userId: string) => Promise<void>;
   createNote: (userId: string, parent: NoteParent, content: string) => string;
-  updateNote: (userId: string, uuid: string, content: string) => void;
+  updateNote: (userId: string, uuid: string, content: string, parent: NoteParent) => void;
   deleteNote: (userId: string, uuid: string) => void;
 };
 
@@ -74,6 +75,7 @@ const NotesState = (): NotesStateType => {
     uuid: string,
     content: string,
     pinned?: boolean,
+    parent?: NoteParent,
   ) => {
     const now = new Date().getTime();
     const existingNote = notes.value.find((note: Note) => note.uuid === uuid);
@@ -83,6 +85,7 @@ const NotesState = (): NotesStateType => {
     existingNote.content = content;
     existingNote.updatedAt = now;
     if (pinned !== undefined) existingNote.pinned = pinned;
+    if (parent !== undefined) existingNote.parent = parent;
 
     notes.value = notes.value.map((note: Note) => {
       if (note.uuid === existingNote.uuid) return existingNote;

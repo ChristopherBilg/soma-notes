@@ -34,9 +34,28 @@ const NoteInput = ({ uuid }: NoteInputProps) => {
     if (e.key === "Tab") {
       e.preventDefault();
 
-      const newNoteUUID = createNote(auth.value.userId, uuid, "");
+      // Set the parent of the current note to the previous note
+      const previousNote = e.shiftKey
+        ? notes.value
+            .filter((note: Note) => note.parent === null)
+            .sort((a, b) => b.createdAt - a.createdAt)
+            .find((note: Note) => note.createdAt < notes.value.find((note: Note) => note.uuid === uuid)?.createdAt)
+        : notes.value
+            .filter((note: Note) => note.parent === null)
+            .sort((a, b) => a.createdAt - b.createdAt)
+            .find((note: Note) => note.createdAt > notes.value.find((note: Note) => note.uuid === uuid)?.createdAt);
+
+      if (!previousNote) return;
+
+      updateNote(
+        auth.value.userId,
+        uuid,
+        notes.value.find((note: Note) => note.uuid === uuid)?.content,
+        previousNote.uuid
+      );
+
       setTimeout(() => {
-        const newNoteInput = document.querySelector(`input[data-uuid="${newNoteUUID}"]`) as HTMLInputElement;
+        const newNoteInput = document.querySelector(`input[data-uuid="${previousNote.uuid}"]`) as HTMLInputElement;
         newNoteInput?.focus();
       }, 0);
     }
