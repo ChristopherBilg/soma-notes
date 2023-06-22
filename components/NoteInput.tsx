@@ -7,27 +7,32 @@ interface NoteInputProps {
 }
 
 const NoteInput = ({ uuid }: NoteInputProps) => {
-  const { notes, deleteNote, updateNote } = useContext(NotesContext);
+  const { notes, createNote, deleteNote, updateNote } = useContext(NotesContext);
   const { auth } = useContext(AuthContext);
 
   const handleKeyDown = (e: KeyboardEvent) => {
-    if (
-      notes.value.find((note: Note) => note.uuid === uuid)?.content === "" &&
-      e.key === "Backspace" &&
-      auth?.value?.userId
-    ) {
+    if (!auth?.value?.userId) return;
+
+    if (notes.value.find((note: Note) => note.uuid === uuid)?.content === "" && e.key === "Backspace") {
       e.preventDefault();
+
       deleteNote(auth.value.userId, uuid);
+    }
+
+    if (e.key === "Enter") {
+      e.preventDefault();
+
+      createNote(auth.value.userId, null, "");
     }
   };
 
   const handleInput = (e: Event) => {
-    if (auth?.value?.userId) {
-      const target = e.target as HTMLInputElement;
-      const content = target.value;
+    if (!auth?.value?.userId) return;
 
-      updateNote(auth.value.userId, uuid, content);
-    }
+    const target = e.target as HTMLInputElement;
+    const content = target.value;
+
+    updateNote(auth.value.userId, uuid, content);
   };
 
   return (
