@@ -17,7 +17,7 @@ const NoteInput = ({ uuid }: NoteInputProps) => {
       e.preventDefault();
 
       setTimeout(() => {
-        const previousNoteInput = document.querySelector(`input[data-uuid="${uuid}"]`)
+        const previousNoteInput = document.querySelector(`input[data-uuid="${uuid}"]`)?.parentNode
           ?.previousElementSibling as HTMLInputElement;
         if (previousNoteInput) previousNoteInput.focus();
       }, 0);
