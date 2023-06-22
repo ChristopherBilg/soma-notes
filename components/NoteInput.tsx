@@ -23,9 +23,10 @@ const NoteInput = ({ uuid }: NoteInputProps) => {
       e.preventDefault();
 
       const newNoteUUID = createNote(auth.value.userId, null, "");
-
-      const newNoteInput = document.querySelector(`input[data-uuid="${newNoteUUID}"]`);
-      if (newNoteInput) newNoteInput.focus();
+      setTimeout(() => {
+        const input = document.querySelector(`input[data-uuid="${newNoteUUID}"]`) as HTMLInputElement;
+        input.focus();
+      }, 0);
     }
   };
 
