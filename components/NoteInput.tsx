@@ -52,6 +52,7 @@ const NoteInput = ({ uuid }: NoteInputProps) => {
         ?.parentNode?.previousElementSibling?.querySelector("input") as HTMLInputElement;
 
       const parentUUID = notes.value.find((note: Note) => note.uuid === previousNoteInput.dataset.uuid)?.parent;
+      console.log(parentUUID);
 
       updateNote(
         auth.value.userId,
