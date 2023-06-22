@@ -18,7 +18,7 @@ export type NotesStateType = {
   notes: Signal<Note[]>;
   loadNotes: (userId: string) => Promise<void>;
   createNote: (userId: string, parent: NoteParent, content: string) => string;
-  updateNote: (userId: string, uuid: UUID, content: string) => void;
+  updateNote: (userId: string, uuid: UUID, content: string, parent: NoteParent) => void;
   deleteNote: (userId: string, uuid: UUID) => void;
 };
 
@@ -74,6 +74,7 @@ const NotesState = (): NotesStateType => {
     uuid: UUID,
     content: string,
     pinned?: boolean,
+    parent?: NoteParent,
   ) => {
     const now = new Date().getTime();
     const existingNote = notes.value.find((note: Note) => note.uuid === uuid);
@@ -83,6 +84,7 @@ const NotesState = (): NotesStateType => {
     existingNote.content = content;
     existingNote.updatedAt = now;
     if (pinned !== undefined) existingNote.pinned = pinned;
+    if (parent !== undefined) existingNote.parent = parent;
 
     notes.value = notes.value.map((note: Note) => {
       if (note.uuid === existingNote.uuid) return existingNote;

@@ -53,7 +53,13 @@ const NoteInput = ({ uuid }: NoteInputProps) => {
 
       const parentUUID = notes.value.find((note: Note) => note.uuid === previousNoteInput.dataset.uuid)?.parent;
 
-      updateNote(auth.value.userId, uuid, notes.value.find((note: Note) => note.uuid === uuid)?.content, parentUUID);
+      updateNote(
+        auth.value.userId,
+        uuid,
+        notes.value.find((note: Note) => note.uuid === uuid)?.content,
+        undefined,
+        parentUUID
+      );
     }
   };
 
