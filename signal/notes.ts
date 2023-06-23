@@ -18,8 +18,9 @@ export type NotesStateType = {
   notes: Signal<Note[]>;
   loadNotes: (userId: string) => Promise<void>;
   createNote: (userId: string, parent: NoteParent, content: string) => string;
-  updateNote: (userId: string, uuid: UUID, content: string, parent: NoteParent) => void;
+  updateNote: (userId: string, uuid: UUID, content: string, pinned: boolean, parent: NoteParent) => void;
   deleteNote: (userId: string, uuid: UUID) => void;
+  deleteAllNotes: (userId: string) => void;
 };
 
 const debouncedSaveNotesToDenoKV = debounce(
@@ -103,7 +104,14 @@ const NotesState = (): NotesStateType => {
     debouncedSaveNotesToDenoKV(userId, notes.value);
   };
 
-  return { notes, loadNotes, createNote, updateNote, deleteNote };
+  const deleteAllNotes = (userId: string) => {
+    notes.value = [];
+
+    // Application State Persistence (save)
+    debouncedSaveNotesToDenoKV(userId, notes.value);
+  };
+
+  return { notes, loadNotes, createNote, updateNote, deleteNote, deleteAllNotes };
 };
 
 export default NotesState();

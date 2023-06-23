@@ -23,16 +23,6 @@ const RightPane = ({ width }: RightPaneProps) => {
             .map((note) => (
               <li>
                 <NoteInput uuid={note.uuid} />
-                {/* TODO: Make this recursive */}
-                <ul class="list-disc ml-4">
-                  {(notes.value as Note[])
-                    .filter((childNote) => childNote.parent === note.uuid)
-                    .map((childNote) => (
-                      <li>
-                        <NoteInput uuid={childNote.uuid} />
-                      </li>
-                    ))}
-                </ul>
               </li>
             ))}
         </ul>

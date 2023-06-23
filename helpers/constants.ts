@@ -1,1 +1,3 @@
 export const USER_INPUT_DEBOUNCE_TIME_MILLIS = 200;
+
+export const GITHUB_ADMIN_USER_IDS = [3654150];

@@ -1,6 +1,7 @@
 import { useContext } from "preact/hooks";
+import { matchesSearch } from "../helpers/search.ts";
 import { Note } from "../signal/notes.ts";
-import { AuthContext, NotesContext } from "./Context.tsx";
+import { AuthContext, NotesContext, UIContext } from "./Context.tsx";
 
 interface NoteInputProps {
   uuid: string;
@@ -9,6 +10,7 @@ interface NoteInputProps {
 const NoteInput = ({ uuid }: NoteInputProps) => {
   const { notes, createNote, deleteNote, updateNote } = useContext(NotesContext);
   const { auth } = useContext(AuthContext);
+  const { searchField } = useContext(UIContext);
 
   const handleKeyDown = (e: KeyboardEvent) => {
     if (!auth?.value?.userId) return;
@@ -27,7 +29,7 @@ const NoteInput = ({ uuid }: NoteInputProps) => {
       notes.value
         .filter((note: Note) => note.parent === uuid)
         .forEach((note: Note) => {
-          updateNote(auth.value.userId, note.uuid, note.content, parentUUID);
+          updateNote(auth.value.userId, note.uuid, note.content, undefined, parentUUID);
         });
 
       deleteNote(auth.value.userId, uuid);
@@ -69,21 +71,19 @@ const NoteInput = ({ uuid }: NoteInputProps) => {
       );
     }
 
-    // If Shift and Tab are pressed, update the parent of the current note to be the parent of the parent of the
-    // current note
     if (e.key === "Tab" && e.shiftKey) {
+      // TODO: Make this work better, it's a bit buggy.
+      //       Shift + Tab should move the note up one level in the tree,
+      //       instead of moving it to the root level (null).
       e.preventDefault();
 
-      // Update the parent of the current note to be the parent of the parent of the current note
+      // Get the parent UUID of the current note
       const parentUUID = notes.value.find((note: Note) => note.uuid === uuid)?.parent;
+
+      // Get the grandparent UUID of the current note
       const grandparentUUID = notes.value.find((note: Note) => note.uuid === parentUUID)?.parent;
 
-      // Re-focus on the current note
-      setTimeout(() => {
-        const currentNoteInput = document.querySelector(`input[data-uuid="${uuid}"]`) as HTMLInputElement;
-        currentNoteInput?.focus();
-      }, 0);
-
+      // Update the parent of the current note to be the grandparent of the current note
       updateNote(
         auth.value.userId,
         uuid,
@@ -104,15 +104,29 @@ const NoteInput = ({ uuid }: NoteInputProps) => {
   };
 
   return (
-    <input
-      class="border-none bg-transparent rounded-md w-full"
-      placeholder="Add a note"
-      type="text"
-      data-uuid={uuid}
-      value={notes.value.find((note: Note) => note.uuid === uuid)?.content}
-      onKeyDown={handleKeyDown}
-      onInput={handleInput}
-    />
+    <>
+      <input
+        class="border-none bg-transparent rounded-md w-full"
+        placeholder="Add a note"
+        type="text"
+        data-uuid={uuid}
+        value={notes.value.find((note: Note) => note.uuid === uuid)?.content}
+        onKeyDown={handleKeyDown}
+        onInput={handleInput}
+      />
+
+      <ul class="list-disc ml-4">
+        {(notes.value as Note[])
+          .filter((note) => matchesSearch(searchField.value, note.content))
+          .filter((childNote) => childNote.parent === uuid)
+          .sort((a, b) => a.createdAt - b.createdAt)
+          .map((childNote) => (
+            <li>
+              <NoteInput uuid={childNote.uuid} />
+            </li>
+          ))}
+      </ul>
+    </>
   );
 };
 
