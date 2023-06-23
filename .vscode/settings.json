@@ -1,6 +1,4 @@
 {
   "editor.defaultFormatter": "denoland.vscode-deno",
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  "deno.enable": true
 }

@@ -8,28 +8,42 @@ interface NoteInputProps {
 }
 
 const NoteInput = ({ uuid }: NoteInputProps) => {
-  const { notes, createNote, deleteNote, updateNote } = useContext(NotesContext);
+  const { notes, createNote, deleteNote, updateNote } = useContext(
+    NotesContext,
+  );
   const { auth } = useContext(AuthContext);
   const { searchField } = useContext(UIContext);
 
   const handleKeyDown = (e: KeyboardEvent) => {
     if (!auth?.value?.userId) return;
 
-    if (notes.value.find((note: Note) => note.uuid === uuid)?.content === "" && e.key === "Backspace") {
+    if (
+      notes.value.find((note: Note) => note.uuid === uuid)?.content === "" &&
+      e.key === "Backspace"
+    ) {
       e.preventDefault();
 
       // Focus on the previous note
       const previousNoteInput = document
         .querySelector(`input[data-uuid="${uuid}"]`)
-        ?.parentNode?.previousElementSibling?.querySelector("input") as HTMLInputElement;
+        ?.parentNode?.previousElementSibling?.querySelector(
+          "input",
+        ) as HTMLInputElement;
       previousNoteInput?.focus();
 
       // Update all parent UUID of all child notes to be the parent of the deleted note
-      const parentUUID = notes.value.find((note: Note) => note.uuid === uuid)?.parent;
+      const parentUUID = notes.value.find((note: Note) => note.uuid === uuid)
+        ?.parent;
       notes.value
         .filter((note: Note) => note.parent === uuid)
         .forEach((note: Note) => {
-          updateNote(auth.value.userId, note.uuid, note.content, undefined, parentUUID);
+          updateNote(
+            auth.value.userId,
+            note.uuid,
+            note.content,
+            undefined,
+            parentUUID,
+          );
         });
 
       deleteNote(auth.value.userId, uuid);
@@ -38,11 +52,14 @@ const NoteInput = ({ uuid }: NoteInputProps) => {
     if (e.key === "Enter") {
       e.preventDefault();
 
-      const parentUUID = notes.value.find((note: Note) => note.uuid === uuid)?.parent;
+      const parentUUID = notes.value.find((note: Note) => note.uuid === uuid)
+        ?.parent;
 
       const newNoteUUID = createNote(auth.value.userId, parentUUID, "");
       setTimeout(() => {
-        const newNoteInput = document.querySelector(`input[data-uuid="${newNoteUUID}"]`) as HTMLInputElement;
+        const newNoteInput = document.querySelector(
+          `input[data-uuid="${newNoteUUID}"]`,
+        ) as HTMLInputElement;
         newNoteInput?.focus();
       }, 0);
     }
@@ -53,12 +70,16 @@ const NoteInput = ({ uuid }: NoteInputProps) => {
       // Update the parent of the current note to be the uuid of the previous note in the DOM tree
       const previousNoteInput = document
         .querySelector(`input[data-uuid="${uuid}"]`)
-        ?.parentNode?.previousElementSibling?.querySelector("input") as HTMLInputElement;
+        ?.parentNode?.previousElementSibling?.querySelector(
+          "input",
+        ) as HTMLInputElement;
       const parentUUID = previousNoteInput?.dataset.uuid;
 
       // Re-focus on the current note
       setTimeout(() => {
-        const currentNoteInput = document.querySelector(`input[data-uuid="${uuid}"]`) as HTMLInputElement;
+        const currentNoteInput = document.querySelector(
+          `input[data-uuid="${uuid}"]`,
+        ) as HTMLInputElement;
         currentNoteInput?.focus();
       }, 0);
 
@@ -67,7 +88,7 @@ const NoteInput = ({ uuid }: NoteInputProps) => {
         uuid,
         notes.value.find((note: Note) => note.uuid === uuid)?.content,
         undefined,
-        parentUUID
+        parentUUID,
       );
     }
 
@@ -78,10 +99,13 @@ const NoteInput = ({ uuid }: NoteInputProps) => {
       e.preventDefault();
 
       // Get the parent UUID of the current note
-      const parentUUID = notes.value.find((note: Note) => note.uuid === uuid)?.parent;
+      const parentUUID = notes.value.find((note: Note) => note.uuid === uuid)
+        ?.parent;
 
       // Get the grandparent UUID of the current note
-      const grandparentUUID = notes.value.find((note: Note) => note.uuid === parentUUID)?.parent;
+      const grandparentUUID = notes.value.find((note: Note) =>
+        note.uuid === parentUUID
+      )?.parent;
 
       // Update the parent of the current note to be the grandparent of the current note
       updateNote(
@@ -89,7 +113,7 @@ const NoteInput = ({ uuid }: NoteInputProps) => {
         uuid,
         notes.value.find((note: Note) => note.uuid === uuid)?.content,
         undefined,
-        grandparentUUID
+        grandparentUUID,
       );
     }
   };
