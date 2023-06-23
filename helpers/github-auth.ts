@@ -4,6 +4,12 @@ export interface AccessTokenResponse {
   accessToken: string | null;
 }
 
+const NullAccessTokenResponse: AccessTokenResponse = {
+  ok: false,
+  error: null,
+  accessToken: null,
+};
+
 export const getAccessToken = async (
   code: string,
 ): Promise<AccessTokenResponse> => {
@@ -24,9 +30,8 @@ export const getAccessToken = async (
   );
   if (!response.ok) {
     return {
-      ok: false,
+      ...NullAccessTokenResponse,
       error: await response.text(),
-      accessToken: null,
     };
   }
 
@@ -34,23 +39,21 @@ export const getAccessToken = async (
   const accessToken = data?.["access_token"];
   if (!accessToken) {
     return {
-      ok: false,
+      ...NullAccessTokenResponse,
       error: "Access token not found in response.",
-      accessToken: null,
     };
   }
 
   if (typeof accessToken !== "string") {
     return {
-      ok: false,
+      ...NullAccessTokenResponse,
       error: "Access token is not a string.",
-      accessToken: null,
     };
   }
 
   return {
+    ...NullAccessTokenResponse,
     ok: true,
-    error: null,
     accessToken,
   };
 };
@@ -63,6 +66,14 @@ export interface UserDataResponse {
   avatarUrl: string | null;
 }
 
+export const NullUserDataResponse: UserDataResponse = {
+  ok: false,
+  error: null,
+  userId: null,
+  userName: null,
+  avatarUrl: null,
+};
+
 export const getUserData = async (
   accessToken: string,
 ): Promise<UserDataResponse> => {
@@ -73,28 +84,22 @@ export const getUserData = async (
   });
   if (!response.ok) {
     return {
-      ok: false,
+      ...NullUserDataResponse,
       error: await response.text(),
-      userId: null,
-      userName: null,
-      avatarUrl: null,
     };
   }
 
   const userData = await response.json();
   if (!userData) {
     return {
-      ok: false,
+      ...NullUserDataResponse,
       error: "User data not found in response.",
-      userId: null,
-      userName: null,
-      avatarUrl: null,
     };
   }
 
   return {
+    ...NullUserDataResponse,
     ok: true,
-    error: null,
     userId: userData.id as string,
     userName: userData.login as string,
     avatarUrl: userData["avatar_url"] as string,

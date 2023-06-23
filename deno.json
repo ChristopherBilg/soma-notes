@@ -1,7 +1,10 @@
 {
   "lock": false,
   "tasks": {
-    "start": "deno run -A --watch=static/,routes/ dev.ts"
+    "start": "deno run -A --watch=static/,routes/ dev.ts",
+    "fmt": "deno fmt",
+    "lint": "deno lint",
+    "check": "deno check **/*.tsx"
   },
   "importMap": "./import_map.json",
   "compilerOptions": {

@@ -8,7 +8,7 @@ import DoublePaneIsland from "../../islands/DoublePaneIsland.tsx";
 
 export const handler: Handlers = {
   async GET(req, ctx) {
-    const response = await authHandler(
+    const [response] = await authHandler(
       req,
       ctx,
       new Response("", {

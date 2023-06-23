@@ -4,7 +4,7 @@ import { UserDataResponse } from "../helpers/github-auth.ts";
 
 export const handler: Handlers = {
   async GET(req, ctx) {
-    const response = await authHandler(req, ctx, await ctx.render());
+    const [response] = await authHandler(req, ctx, await ctx.render());
 
     return response;
   },
