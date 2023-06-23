@@ -36,7 +36,9 @@ const NoteInput = ({ uuid }: NoteInputProps) => {
     if (e.key === "Enter") {
       e.preventDefault();
 
-      const newNoteUUID = createNote(auth.value.userId, null, "");
+      const parentUUID = notes.value.find((note: Note) => note.uuid === uuid)?.parent;
+
+      const newNoteUUID = createNote(auth.value.userId, parentUUID, "");
       setTimeout(() => {
         const newNoteInput = document.querySelector(`input[data-uuid="${newNoteUUID}"]`) as HTMLInputElement;
         newNoteInput?.focus();
