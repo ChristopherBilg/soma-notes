@@ -17,7 +17,7 @@ export const handler: Handlers = {
     );
 
     // Check to see if the requested note UUID exists for this user
-    const notes = await getNotesByUserId(String(userData.userId));
+    const notes = await getNotesByUserId(userData.userId || "");
 
     const url = new URL(req.url);
     const requestedNoteUUID = url.pathname.split("/").at(-1);

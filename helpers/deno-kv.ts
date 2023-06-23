@@ -7,7 +7,7 @@ const getNotesKey = (
   authMethod: AuthMethod,
   userId: string,
 ): DenoKVNotesKey => {
-  return ["notes", authMethod, userId];
+  return ["notes", authMethod, String(userId)];
 };
 
 export const getNotesByUserId = async (userId: string): Promise<Note[]> => {

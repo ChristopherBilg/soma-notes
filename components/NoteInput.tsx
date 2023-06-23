@@ -14,13 +14,15 @@ const NoteInput = ({ uuid }: NoteInputProps) => {
   const { auth } = useContext(AuthContext);
   const { searchField } = useContext(UIContext);
 
+  const note = notes.value.find((note: Note) => note.uuid === uuid);
+
   const handleKeyDown = (e: KeyboardEvent) => {
     if (!auth?.value?.userId) return;
+    if (!note) return;
 
-    if (
-      notes.value.find((note: Note) => note.uuid === uuid)?.content === "" &&
-      e.key === "Backspace"
-    ) {
+    if (e.key === "Backspace") {
+      if (note.content !== "") return;
+
       e.preventDefault();
 
       // Focus on the previous note
@@ -32,8 +34,7 @@ const NoteInput = ({ uuid }: NoteInputProps) => {
       previousNoteInput?.focus();
 
       // Update all parent UUID of all child notes to be the parent of the deleted note
-      const parentUUID = notes.value.find((note: Note) => note.uuid === uuid)
-        ?.parent;
+      const parentUUID = note.parent;
       notes.value
         .filter((note: Note) => note.parent === uuid)
         .forEach((note: Note) => {
@@ -52,8 +53,7 @@ const NoteInput = ({ uuid }: NoteInputProps) => {
     if (e.key === "Enter") {
       e.preventDefault();
 
-      const parentUUID = notes.value.find((note: Note) => note.uuid === uuid)
-        ?.parent;
+      const parentUUID = note.parent;
 
       const newNoteUUID = createNote(auth.value.userId, parentUUID, "");
       setTimeout(() => {
@@ -86,23 +86,20 @@ const NoteInput = ({ uuid }: NoteInputProps) => {
       updateNote(
         auth.value.userId,
         uuid,
-        notes.value.find((note: Note) => note.uuid === uuid)?.content,
+        note.content,
         undefined,
         parentUUID,
       );
     }
 
     if (e.key === "Tab" && e.shiftKey) {
-      // TODO: Make this work better, it's a bit buggy.
-      //       Shift + Tab should move the note up one level in the tree,
-      //       instead of moving it to the root level (null).
       e.preventDefault();
 
       // Update the parent of the current note to be the grandparent of the current note
       updateNote(
         auth.value.userId,
         uuid,
-        notes.value.find((note: Note) => note.uuid === uuid)?.content,
+        note.content,
         undefined,
         null,
       );
@@ -125,7 +122,7 @@ const NoteInput = ({ uuid }: NoteInputProps) => {
         placeholder="Add a note"
         type="text"
         data-uuid={uuid}
-        value={notes.value.find((note: Note) => note.uuid === uuid)?.content}
+        value={note?.content}
         onKeyDown={handleKeyDown}
         onInput={handleInput}
       />
