@@ -83,13 +83,11 @@ const NotesState = (): NotesStateType => {
     pinned?: boolean,
     parent?: NoteParent,
   ) => {
-    const now = new Date().getTime();
     const existingNote = notes.value.find((note: Note) => note.uuid === uuid);
-
     if (!existingNote) return;
 
     existingNote.content = content;
-    existingNote.updatedAt = now;
+    existingNote.updatedAt = new Date().getTime();
     if (pinned !== undefined) existingNote.pinned = pinned;
     if (parent !== undefined) existingNote.parent = parent;
 
