@@ -31,7 +31,7 @@ const NoteViewer = ({ params }: NoteViewerProps) => {
           {note.pinned ? "Unpin" : "Pin"}
         </button>
         
-        <a href={`/notes/${note.parent}`} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        <a href={`/notes${note.parent ? `/${note.parent}` : ""}`} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
           Parent
         </a>
       </div>
