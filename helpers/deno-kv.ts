@@ -11,6 +11,7 @@ const getNotesKey = (
 };
 
 export const getNotesByUserId = async (userId: string): Promise<Note[]> => {
+  // @ts-ignore Property openKv does indeed exist on type 'typeof Deno'
   const kv = await Deno.openKv();
   const key = getNotesKey("github", userId);
 
@@ -21,6 +22,7 @@ export const getNotesByUserId = async (userId: string): Promise<Note[]> => {
 };
 
 export const setNotesByUserId = async (userId: string, notes: Note[]) => {
+  // @ts-ignore Property openKv does indeed exist on type 'typeof Deno'
   const kv = await Deno.openKv();
   const key = getNotesKey("github", userId);
 

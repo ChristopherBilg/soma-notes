@@ -26,11 +26,13 @@ const NoteInput = ({ uuid }: NoteInputProps) => {
       e.preventDefault();
 
       // Focus on the previous note
-      const previousNoteInput = document
-        .querySelector(`input[data-uuid="${uuid}"]`)
-        ?.parentNode?.previousElementSibling?.querySelector(
-          "input",
-        ) as HTMLInputElement;
+      const thisNoteInput = document.querySelector(
+        `input[data-uuid="${uuid}"]`,
+      ) as HTMLInputElement;
+      const parentLIInput = thisNoteInput?.parentNode as HTMLLIElement;
+      const previousLIInput = parentLIInput
+        ?.previousElementSibling as HTMLLIElement;
+      const previousNoteInput = previousLIInput?.querySelector("input");
       previousNoteInput?.focus();
 
       // Update all parent UUID of all child notes to be the parent of the deleted note
@@ -39,7 +41,7 @@ const NoteInput = ({ uuid }: NoteInputProps) => {
         .filter((note: Note) => note.parent === uuid)
         .forEach((note: Note) => {
           updateNote(
-            auth.value.userId,
+            auth.value.userId || "",
             note.uuid,
             note.content,
             undefined,
@@ -68,11 +70,13 @@ const NoteInput = ({ uuid }: NoteInputProps) => {
       e.preventDefault();
 
       // Update the parent of the current note to be the uuid of the previous note in the DOM tree
-      const previousNoteInput = document
-        .querySelector(`input[data-uuid="${uuid}"]`)
-        ?.parentNode?.previousElementSibling?.querySelector(
-          "input",
-        ) as HTMLInputElement;
+      const thisNoteInput = document.querySelector(
+        `input[data-uuid="${uuid}"]`,
+      );
+      const parentLIInput = thisNoteInput?.parentNode as HTMLLIElement;
+      const previousLIInput = parentLIInput
+        ?.previousElementSibling as HTMLLIElement;
+      const previousNoteInput = previousLIInput?.querySelector("input");
       const parentUUID = previousNoteInput?.dataset.uuid;
 
       // Re-focus on the current note
