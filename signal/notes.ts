@@ -22,8 +22,8 @@ export type NotesStateType = {
     userId: string,
     uuid: UUID,
     content: string,
-    pinned: boolean,
-    parent: NoteParent,
+    pinned?: boolean,
+    parent?: NoteParent,
   ) => void;
   deleteNote: (userId: string, uuid: UUID) => void;
   deleteAllNotes: (userId: string) => void;

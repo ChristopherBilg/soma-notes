@@ -98,22 +98,13 @@ const NoteInput = ({ uuid }: NoteInputProps) => {
       //       instead of moving it to the root level (null).
       e.preventDefault();
 
-      // Get the parent UUID of the current note
-      const parentUUID = notes.value.find((note: Note) => note.uuid === uuid)
-        ?.parent;
-
-      // Get the grandparent UUID of the current note
-      const grandparentUUID = notes.value.find((note: Note) =>
-        note.uuid === parentUUID
-      )?.parent;
-
       // Update the parent of the current note to be the grandparent of the current note
       updateNote(
         auth.value.userId,
         uuid,
         notes.value.find((note: Note) => note.uuid === uuid)?.content,
         undefined,
-        grandparentUUID,
+        null,
       );
     }
   };
