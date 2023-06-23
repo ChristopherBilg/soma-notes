@@ -25,25 +25,15 @@ const NoteInput = ({ uuid }: NoteInputProps) => {
 
       e.preventDefault();
 
-      // Focus on the previous note
-      const thisNoteInput = document.querySelector(
-        `input[data-uuid="${uuid}"]`,
-      ) as HTMLInputElement;
-      const parentLIInput = thisNoteInput?.parentNode as HTMLLIElement;
-      const previousLIInput = parentLIInput
-        ?.previousElementSibling as HTMLLIElement;
-      const previousNoteInput = previousLIInput?.querySelector("input");
-      previousNoteInput?.focus();
-
       // Update all parent UUID of all child notes to be the parent of the deleted note
       const parentUUID = note.parent;
       notes.value
-        .filter((note: Note) => note.parent === uuid)
-        .forEach((note: Note) => {
+        .filter((n: Note) => n.parent === uuid)
+        .forEach((n: Note) => {
           updateNote(
             auth.value.userId || "",
-            note.uuid,
-            note.content,
+            n.uuid,
+            n.content,
             undefined,
             parentUUID,
           );
@@ -55,58 +45,7 @@ const NoteInput = ({ uuid }: NoteInputProps) => {
     if (e.key === "Enter") {
       e.preventDefault();
 
-      const parentUUID = note.parent;
-
-      const newNoteUUID = createNote(auth.value.userId, parentUUID, "");
-      setTimeout(() => {
-        const newNoteInput = document.querySelector(
-          `input[data-uuid="${newNoteUUID}"]`,
-        ) as HTMLInputElement;
-        newNoteInput?.focus();
-      }, 0);
-    }
-
-    if (e.key === "Tab") {
-      e.preventDefault();
-
-      // Update the parent of the current note to be the uuid of the previous note in the DOM tree
-      const thisNoteInput = document.querySelector(
-        `input[data-uuid="${uuid}"]`,
-      );
-      const parentLIInput = thisNoteInput?.parentNode as HTMLLIElement;
-      const previousLIInput = parentLIInput
-        ?.previousElementSibling as HTMLLIElement;
-      const previousNoteInput = previousLIInput?.querySelector("input");
-      const parentUUID = previousNoteInput?.dataset.uuid;
-
-      // Re-focus on the current note
-      setTimeout(() => {
-        const currentNoteInput = document.querySelector(
-          `input[data-uuid="${uuid}"]`,
-        ) as HTMLInputElement;
-        currentNoteInput?.focus();
-      }, 0);
-
-      updateNote(
-        auth.value.userId,
-        uuid,
-        note.content,
-        undefined,
-        parentUUID,
-      );
-    }
-
-    if (e.key === "Tab" && e.shiftKey) {
-      e.preventDefault();
-
-      // Update the parent of the current note to be the grandparent of the current note
-      updateNote(
-        auth.value.userId,
-        uuid,
-        note.content,
-        undefined,
-        null,
-      );
+      createNote(auth.value.userId, note.parent, "");
     }
   };
 
