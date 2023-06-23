@@ -41,7 +41,7 @@ const Notes = ({ data }: NotesProps) => (
         Logout
       </a>
 
-      {GITHUB_ADMIN_USER_IDS.includes(data?.userData.userId) && (
+      {GITHUB_ADMIN_USER_IDS.includes(Number(data?.userData.userId)) && (
         <DeleteAllNotesButtonIsland />
       )}
 
