@@ -34,6 +34,13 @@ const LandingPage = ({ data }: LandingPageProps) => (
               </a>
 
               <a
+                href="/user"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4"
+              >
+                Settings
+              </a>
+
+              <a
                 href="/api/logout"
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r"
               >

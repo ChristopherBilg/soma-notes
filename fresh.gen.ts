@@ -12,6 +12,7 @@ import * as $5 from "./routes/api/notes.ts";
 import * as $6 from "./routes/index.tsx";
 import * as $7 from "./routes/notes/[note].tsx";
 import * as $8 from "./routes/notes/index.tsx";
+import * as $9 from "./routes/user/index.tsx";
 import * as $$0 from "./islands/CreateNoteButtonIsland.tsx";
 import * as $$1 from "./islands/DeleteAllNotesButtonIsland.tsx";
 import * as $$2 from "./islands/DoublePaneIsland.tsx";
@@ -28,6 +29,7 @@ const manifest = {
     "./routes/index.tsx": $6,
     "./routes/notes/[note].tsx": $7,
     "./routes/notes/index.tsx": $8,
+    "./routes/user/index.tsx": $9,
   },
   islands: {
     "./islands/CreateNoteButtonIsland.tsx": $$0,
