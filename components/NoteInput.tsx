@@ -39,13 +39,43 @@ const NoteInput = ({ uuid }: NoteInputProps) => {
           );
         });
 
+      // Focus on the previous note sibling
+      let previousNote = notes.value
+        .filter((n: Note) => n.parent === note.parent)
+        .sort((a, b) => a.createdAt - b.createdAt)
+        .findLast((n: Note) => n.createdAt < note.createdAt && n.uuid !== uuid);
+
+      // If there is no previous note sibling, focus on the parent note
+      if (!previousNote) {
+        previousNote = notes.value.find((n: Note) => n.uuid === note.parent);
+      }
+
+      if (previousNote) {
+        setTimeout(() => {
+          const previousNoteInput = document.querySelector(
+            `input[data-uuid="${previousNote?.uuid}"]`,
+          ) as HTMLInputElement;
+
+          previousNoteInput?.focus();
+        }, 0);
+      }
+
       deleteNote(auth.value.userId, uuid);
     }
 
     if (e.key === "Enter") {
       e.preventDefault();
 
-      createNote(auth.value.userId, note.parent, "");
+      const newNoteUUID = createNote(auth.value.userId, note.parent, "");
+
+      // Focus on the new note
+      setTimeout(() => {
+        const newNoteInput = document.querySelector(
+          `input[data-uuid="${newNoteUUID}"]`,
+        ) as HTMLInputElement;
+
+        newNoteInput?.focus();
+      }, 0);
     }
 
     if (e.key === "Tab") {
@@ -67,6 +97,15 @@ const NoteInput = ({ uuid }: NoteInputProps) => {
           undefined,
           parentNote.parent,
         );
+
+        // Focus on the current note
+        setTimeout(() => {
+          const currentNoteInput = document.querySelector(
+            `input[data-uuid="${uuid}"]`,
+          ) as HTMLInputElement;
+
+          currentNoteInput?.focus();
+        }, 0);
       } else {
         // Get the previous note
         const previousNote = notes.value
@@ -86,6 +125,15 @@ const NoteInput = ({ uuid }: NoteInputProps) => {
           undefined,
           previousNote.uuid,
         );
+
+        // Focus on the current note
+        setTimeout(() => {
+          const currentNoteInput = document.querySelector(
+            `input[data-uuid="${uuid}"]`,
+          ) as HTMLInputElement;
+
+          currentNoteInput?.focus();
+        }, 0);
       }
     }
   };
