@@ -11,13 +11,9 @@ const NoteViewer = ({ params }: NoteViewerProps) => {
   const { notes, updateNote } = useContext(NotesContext);
 
   const note = notes.value.find((n) => n.uuid === params.note);
+  if (!note) return null;
+
   const parentNoteHref = note?.parent ? `/notes/${note.parent}` : "/notes";
-  if (!note && window) {
-    window.location.href = parentNoteHref;
-    return null;
-  } else if (!note) {
-    return null;
-  }
 
   const handleNotePinButtonClick = () =>
     updateNote(
@@ -36,8 +32,11 @@ const NoteViewer = ({ params }: NoteViewerProps) => {
         >
           {note.pinned ? "Unpin" : "Pin"}
         </button>
-        
-        <a href={parentNoteHref} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+
+        <a
+          href={parentNoteHref}
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
           Parent
         </a>
       </div>

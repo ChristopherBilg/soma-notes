@@ -1,7 +1,7 @@
 # TODO
 
-- [ ] Fix Tab functionality
-- [ ] Fix Shift + Tab functionality
+- [x] Fix Tab functionality
+- [x] Fix Shift + Tab functionality
 - [ ] Fix all areas where we should be re-focusing on input HTML elements
 - [ ] Create a basic page for /notes/:note
 - [ ] Make /notes/:note display notes similarly to RightPane

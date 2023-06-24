@@ -47,6 +47,47 @@ const NoteInput = ({ uuid }: NoteInputProps) => {
 
       createNote(auth.value.userId, note.parent, "");
     }
+
+    if (e.key === "Tab") {
+      e.preventDefault();
+
+      if (e.shiftKey) {
+        // Get the previous note
+        const parentNote = notes.value.find((n: Note) =>
+          n.uuid === note.parent
+        );
+
+        if (!parentNote) return;
+
+        // Update the current note's parent to be the previous note's UUID
+        updateNote(
+          auth.value.userId || "",
+          note.uuid,
+          note.content,
+          undefined,
+          parentNote.parent,
+        );
+      } else {
+        // Get the previous note
+        const previousNote = notes.value
+          .filter((n: Note) => n.parent === note.parent)
+          .sort((a, b) => a.createdAt - b.createdAt)
+          .findLast((n: Note) =>
+            n.createdAt < note.createdAt && n.uuid !== uuid
+          );
+
+        if (!previousNote) return;
+
+        // Update the current note's parent to be the previous note's UUID
+        updateNote(
+          auth.value.userId || "",
+          note.uuid,
+          note.content,
+          undefined,
+          previousNote.uuid,
+        );
+      }
+    }
   };
 
   const handleInput = (e: Event) => {
