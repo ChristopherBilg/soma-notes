@@ -17,6 +17,7 @@ import * as $$0 from "./islands/CreateNoteButtonIsland.tsx";
 import * as $$1 from "./islands/DeleteAllNotesButtonIsland.tsx";
 import * as $$2 from "./islands/DoublePaneIsland.tsx";
 import * as $$3 from "./islands/NoteViewerPageIsland.tsx";
+import * as $$4 from "./islands/UserSettingsIsland.tsx";
 
 const manifest = {
   routes: {
@@ -36,6 +37,7 @@ const manifest = {
     "./islands/DeleteAllNotesButtonIsland.tsx": $$1,
     "./islands/DoublePaneIsland.tsx": $$2,
     "./islands/NoteViewerPageIsland.tsx": $$3,
+    "./islands/UserSettingsIsland.tsx": $$4,
   },
   baseUrl: import.meta.url,
   config,

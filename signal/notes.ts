@@ -17,6 +17,7 @@ export interface Note {
 export type NotesStateType = {
   notes: Signal<Note[]>;
   loadNotes: (userId: string) => Promise<void>;
+  setNotes: (userId: string, notes: Note[]) => void;
   createNote: (userId: string, parent: NoteParent, content: string) => string;
   updateNote: (
     userId: string,
@@ -53,6 +54,13 @@ const NotesState = (): NotesStateType => {
     });
 
     notes.value = await response.json();
+  };
+
+  const setNotes = (userId: string, newNotes: Note[]) => {
+    notes.value = [...notes.value, ...newNotes];
+
+    // Application State Persistence (save)
+    debouncedSaveNotesToDenoKV(userId, notes.value);
   };
 
   const createNote = (userId: string, parent: NoteParent, content = "") => {
@@ -118,6 +126,7 @@ const NotesState = (): NotesStateType => {
   return {
     notes,
     loadNotes,
+    setNotes,
     createNote,
     updateNote,
     deleteNote,

@@ -1,6 +1,7 @@
 import { Handlers } from "$fresh/server.ts";
 import { authHandler } from "../../helpers/auth-handler.ts";
 import { UserDataResponse } from "../../helpers/github-auth.ts";
+import UserSettingsIsland from "../../islands/UserSettingsIsland.tsx";
 
 export const handler: Handlers = {
   async GET(req, ctx) {
@@ -23,10 +24,6 @@ interface UserProps {
 
 const User = ({ data }: UserProps) => (
   <div class="p-4 mx-auto max-w-screen-xlg">
-    <h1 class="my-6 text-center">
-      Soma Notes: User Settings ({data?.userData.userName})
-    </h1>
-
     <div class="flex justify-evenly m-4">
       <a
         href="/api/logout"
@@ -43,8 +40,7 @@ const User = ({ data }: UserProps) => (
       </a>
     </div>
 
-    { /* TODO: Add note importing */ }
-    { /* TODO: Add note exporting */ }
+    <UserSettingsIsland userData={data?.userData} />
   </div>
 );
 
