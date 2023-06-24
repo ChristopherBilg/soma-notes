@@ -12,10 +12,12 @@ const NoteViewer = ({ params }: NoteViewerProps) => {
 
   const note = notes.value.find((n) => n.uuid === params.note);
   const parentNoteHref = note?.parent ? `/notes/${note.parent}` : "/notes";
-  if (!note) {
+  if (!note && location) {
     location.href = parentNoteHref;
     return null;
-  };
+  } else if (!note) {
+    return null;
+  }
 
   const handleNotePinButtonClick = () =>
     updateNote(
