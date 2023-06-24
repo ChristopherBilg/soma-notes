@@ -12,8 +12,8 @@ const NoteViewer = ({ params }: NoteViewerProps) => {
 
   const note = notes.value.find((n) => n.uuid === params.note);
   const parentNoteHref = note?.parent ? `/notes/${note.parent}` : "/notes";
-  if (!note && location) {
-    location.href = parentNoteHref;
+  if (!note && window) {
+    window.location.href = parentNoteHref;
     return null;
   } else if (!note) {
     return null;
