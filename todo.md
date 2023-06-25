@@ -12,6 +12,7 @@
 # To-Do | Phase 1
 
 - [ ] Arrow key support for navigating notes (up/down)
+- [ ] Note reordering (using Ctrl + up/down)
 - [ ] Hide/show nested notes (using a checkbox?)
 - [ ] Initial setup of note linnking/highlighting/heatmap
 - [ ] Additional auth methods
