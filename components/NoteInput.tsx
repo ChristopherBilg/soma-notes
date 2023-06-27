@@ -147,6 +147,61 @@ const NoteInput = ({ uuid, isIndividualNoteView }: NoteInputProps) => {
         }, 0);
       }
     }
+
+    if (e.key === "ArrowUp") {
+      e.preventDefault();
+
+      // Write a function to recursively get the deepest child note of previous sibling note with the same parent
+      const getDeepestChildNote = (note: Note): Note => {
+        const childNotes = notes.value.filter((n: Note) =>
+          n.parent === note.uuid
+        ).sort((a, b) => a.createdAt - b.createdAt);
+
+        if (childNotes.length === 0) return note;
+
+        const lastChildNote = childNotes[childNotes.length - 1];
+
+        return getDeepestChildNote(lastChildNote);
+      };
+
+      // Get the previous sibling note
+      const previousSiblingNote = notes.value
+        .filter((n: Note) => n.parent === note.parent)
+        .sort((a, b) => a.createdAt - b.createdAt)
+        .findLast((n: Note) =>
+          n.createdAt < note.createdAt && n.uuid !== uuid
+        );
+
+      if (previousSiblingNote) {
+        // Get the deepest child note of the previous sibling note
+        const deepestChildNote = getDeepestChildNote(previousSiblingNote);
+
+        setTimeout(() => {
+          const deepestChildNoteInput = document.querySelector(
+            `input[data-uuid="${deepestChildNote.uuid}"]`,
+          ) as HTMLInputElement;
+
+          deepestChildNoteInput?.focus();
+        }, 0);
+
+        return;
+      }
+
+      // If there is no previous sibling , get the parent note
+      const parentNote = notes.value.find((n: Note) => n.uuid === note.parent);
+
+      if (parentNote) {
+        setTimeout(() => {
+          const parentNoteInput = document.querySelector(
+            `input[data-uuid="${parentNote.uuid}"]`,
+          ) as HTMLInputElement;
+  
+          parentNoteInput?.focus();
+        }, 0);
+
+        return;
+      }
+    }
   };
 
   const handleInput = (e: Event) => {
