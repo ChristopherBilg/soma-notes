@@ -28,6 +28,7 @@ export type NotesStateType = {
   ) => void;
   deleteNote: (userId: string, uuid: UUID) => void;
   deleteAllNotes: (userId: string) => void;
+  flushNotes: () => void;
 };
 
 const debouncedSaveNotesToDenoKV = debounce(
@@ -123,6 +124,8 @@ const NotesState = (): NotesStateType => {
     debouncedSaveNotesToDenoKV(userId, notes.value);
   };
 
+  const flushNotes = () => debouncedSaveNotesToDenoKV.flush();
+
   return {
     notes,
     loadNotes,
@@ -131,6 +134,7 @@ const NotesState = (): NotesStateType => {
     updateNote,
     deleteNote,
     deleteAllNotes,
+    flushNotes,
   };
 };
 

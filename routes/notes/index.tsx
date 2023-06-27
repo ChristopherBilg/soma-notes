@@ -1,4 +1,5 @@
 import { Handlers } from "$fresh/server.ts";
+import AnchorButton from "../../components/AnchorButton.tsx";
 import { authHandler } from "../../helpers/auth-handler.ts";
 import { GITHUB_ADMIN_USER_IDS } from "../../helpers/constants.ts";
 import { UserDataResponse } from "../../helpers/github-auth.ts";
@@ -30,16 +31,20 @@ const Notes = ({ data }: NotesProps) => (
     <h1 class="my-6 text-center">
       Welcome to{" "}
       <b>Soma Notes</b>, a simple, global, low-latency note keeping application.
-      You are logged in as {data?.userData.userName}!
+      You are logged in as <b>{data?.userData.userName}</b>!
     </h1>
 
-    <div class="flex justify-evenly m-4">
-      <a
+    <div class="flex justify-center m-4">
+      <AnchorButton
         href="/api/logout"
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-      >
-        Logout
-      </a>
+        title="Logout"
+        roundedLeft
+      />
+
+      <AnchorButton
+        href="/user"
+        title="Settings"
+      />
 
       {GITHUB_ADMIN_USER_IDS.includes(Number(data?.userData.userId)) && (
         <DeleteAllNotesButtonIsland />

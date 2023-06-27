@@ -1,5 +1,6 @@
 import { useContext } from "preact/hooks";
 import { AuthContext, NotesContext } from "./Context.tsx";
+import AnchorButton from "./AnchorButton.tsx";
 
 const CreateNoteButton = () => {
   const { auth } = useContext(AuthContext);
@@ -10,12 +11,11 @@ const CreateNoteButton = () => {
   };
 
   return (
-    <button
-      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    <AnchorButton
       onClick={handleCreateNoteButtonClick}
-    >
-      Create Note [+]
-    </button>
+      title="Create Note [+]"
+      roundedRight
+    />
   );
 };
 

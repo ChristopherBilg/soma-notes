@@ -1,5 +1,6 @@
 import { useContext } from "preact/hooks";
 import { AuthContext, NotesContext } from "./Context.tsx";
+import AnchorButton from "./AnchorButton.tsx";
 
 const DeleteAllNotesButton = () => {
   const { auth } = useContext(AuthContext);
@@ -10,12 +11,10 @@ const DeleteAllNotesButton = () => {
   };
 
   return (
-    <button
-      class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+    <AnchorButton
       onClick={handleDeleteAllNotesButtonClick}
-    >
-      Delete All Notes [-]
-    </button>
+      title="Delete All Notes [-]"
+    />
   );
 };
 

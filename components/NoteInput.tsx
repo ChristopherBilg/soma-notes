@@ -5,10 +5,11 @@ import { AuthContext, NotesContext, UIContext } from "./Context.tsx";
 
 interface NoteInputProps {
   uuid: string;
+  isIndividualNoteView?: boolean;
 }
 
-const NoteInput = ({ uuid }: NoteInputProps) => {
-  const { notes, createNote, deleteNote, updateNote } = useContext(
+const NoteInput = ({ uuid, isIndividualNoteView }: NoteInputProps) => {
+  const { notes, createNote, deleteNote, updateNote, flushNotes } = useContext(
     NotesContext,
   );
   const { auth } = useContext(AuthContext);
@@ -61,12 +62,22 @@ const NoteInput = ({ uuid }: NoteInputProps) => {
       }
 
       deleteNote(auth.value.userId, uuid);
+
+      if (isIndividualNoteView) {
+        flushNotes();
+
+        const parentNoteHref = note?.parent
+          ? `/notes/${note.parent}`
+          : "/notes";
+        window.location.href = parentNoteHref;
+      }
     }
 
     if (e.key === "Enter") {
       e.preventDefault();
 
-      const newNoteUUID = createNote(auth.value.userId, note.parent, "");
+      const parentNoteUUID = isIndividualNoteView ? uuid : note.parent;
+      const newNoteUUID = createNote(auth.value.userId, parentNoteUUID, "");
 
       // Focus on the new note
       setTimeout(() => {

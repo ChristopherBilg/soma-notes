@@ -1,6 +1,7 @@
 import { useContext } from "preact/hooks";
 import { AuthContext, NotesContext } from "./Context.tsx";
 import NoteInput from "./NoteInput.tsx";
+import AnchorButton from "./AnchorButton.tsx";
 
 interface NoteViewerProps {
   params: Record<string, string>;
@@ -26,26 +27,30 @@ const NoteViewer = ({ params }: NoteViewerProps) => {
   return (
     <div class="p-4 mx-auto max-w-screen-lg">
       <div class="flex justify-evenly m-4">
-        <button
-          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        <AnchorButton
           onClick={handleNotePinButtonClick}
-        >
-          {note.pinned ? "Unpin" : "Pin"}
-        </button>
+          title={note.pinned ? "Unpin" : "Pin"}
+          rounded
+        />
 
-        <a
+        <AnchorButton
+          href="/notes"
+          title="Notes"
+          rounded
+        />
+
+        <AnchorButton
           href={parentNoteHref}
-          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Parent
-        </a>
+          title="Parent"
+          rounded
+        />
       </div>
 
       <div class="p-2.5 bg-gray-200 rounded-lg">
         <div>
           <ul class="list-disc ml-4">
             <li>
-              <NoteInput uuid={note.uuid} />
+              <NoteInput uuid={note.uuid} isIndividualNoteView />
             </li>
           </ul>
         </div>

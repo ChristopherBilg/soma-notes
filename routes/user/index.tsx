@@ -1,4 +1,5 @@
 import { Handlers } from "$fresh/server.ts";
+import AnchorButton from "../../components/AnchorButton.tsx";
 import { authHandler } from "../../helpers/auth-handler.ts";
 import { UserDataResponse } from "../../helpers/github-auth.ts";
 import UserSettingsIsland from "../../islands/UserSettingsIsland.tsx";
@@ -25,19 +26,17 @@ interface UserProps {
 const User = ({ data }: UserProps) => (
   <div class="p-4 mx-auto max-w-screen-xlg">
     <div class="flex justify-evenly m-4">
-      <a
+      <AnchorButton
         href="/api/logout"
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-      >
-        Logout
-      </a>
+        title="Logout"
+        rounded
+      />
 
-      <a
+      <AnchorButton
         href="/notes"
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-      >
-        Notes
-      </a>
+        title="Notes"
+        rounded
+      />
     </div>
 
     <UserSettingsIsland userData={data?.userData} />
