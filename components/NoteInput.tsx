@@ -168,9 +168,7 @@ const NoteInput = ({ uuid, isIndividualNoteView }: NoteInputProps) => {
       const previousSiblingNote = notes.value
         .filter((n: Note) => n.parent === note.parent)
         .sort((a, b) => a.createdAt - b.createdAt)
-        .findLast((n: Note) =>
-          n.createdAt < note.createdAt && n.uuid !== uuid
-        );
+        .findLast((n: Note) => n.createdAt < note.createdAt && n.uuid !== uuid);
 
       if (previousSiblingNote) {
         // Get the deepest child note of the previous sibling note
@@ -195,8 +193,76 @@ const NoteInput = ({ uuid, isIndividualNoteView }: NoteInputProps) => {
           const parentNoteInput = document.querySelector(
             `input[data-uuid="${parentNote.uuid}"]`,
           ) as HTMLInputElement;
-  
+
           parentNoteInput?.focus();
+        }, 0);
+
+        return;
+      }
+    }
+
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+
+      const getNextSiblingNote = (note: Note): Note | undefined => {
+        const siblingNotes = notes.value
+          .filter((n: Note) => n.parent === note.parent)
+          .sort((a, b) => a.createdAt - b.createdAt);
+
+        const nextSiblingNote = siblingNotes.find(
+          (n: Note) => n.createdAt > note.createdAt && n.uuid !== uuid,
+        );
+
+        return nextSiblingNote;
+      };
+
+      const getFirstChildNote = (note: Note): Note | undefined => {
+        const childNotes = notes.value
+          .filter((n: Note) => n.parent === note.uuid)
+          .sort((a, b) => a.createdAt - b.createdAt);
+
+        if (childNotes.length !== 0) return childNotes[0];
+
+        return;
+      };
+
+      const getNextNote = (note: Note): Note | undefined => {
+        const nextSiblingNote = getNextSiblingNote(note);
+
+        if (nextSiblingNote) return nextSiblingNote;
+
+        const parentNote = notes.value.find((n: Note) =>
+          n.uuid === note.parent
+        );
+
+        if (parentNote) return getNextNote(parentNote);
+
+        return;
+      };
+
+      const firstChildNote = getFirstChildNote(note);
+
+      if (firstChildNote) {
+        setTimeout(() => {
+          const firstChildNoteInput = document.querySelector(
+            `input[data-uuid="${firstChildNote.uuid}"]`,
+          ) as HTMLInputElement;
+
+          firstChildNoteInput?.focus();
+        }, 0);
+
+        return;
+      }
+
+      const nextNote = getNextNote(note);
+
+      if (nextNote) {
+        setTimeout(() => {
+          const nextNoteInput = document.querySelector(
+            `input[data-uuid="${nextNote.uuid}"]`,
+          ) as HTMLInputElement;
+
+          nextNoteInput?.focus();
         }, 0);
 
         return;

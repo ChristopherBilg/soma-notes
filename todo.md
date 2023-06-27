@@ -11,9 +11,9 @@
 
 # To-Do | Phase 1
 
-- [X] Turn all `button`s into new components
+- [x] Turn all `button`s into new components
 - [ ] Hide/show nested notes (using a checkbox?)
-- [ ] Arrow key support for navigating notes (up/down)
+- [x] Arrow key support for navigating notes
 - [ ] Note reordering (using Ctrl + up/down)
 - [ ] Initial setup of note linking/highlighting/heatmap
 
