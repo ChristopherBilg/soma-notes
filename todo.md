@@ -12,9 +12,8 @@
 # To-Do | Phase 1
 
 - [x] Turn all `button`s into new components
-- [ ] Hide/show nested notes (using a checkbox?)
 - [x] Arrow key support for navigating notes
-- [ ] Note reordering (using Ctrl + up/down)
+- [-] Hide/show nested notes (using a checkbox?)
 - [ ] Initial setup of note linking/highlighting/heatmap
 
 # To-Do | Phase 2
@@ -26,3 +25,7 @@
 - [ ] Subscriptions using Stripe
 - [ ] Additional auth methods
   - [ ] Setup in a way that adding additional OAuth methods is simple
+
+# To-Do | Phase 3
+
+- [ ] Note reordering (using Alt + up/down)
