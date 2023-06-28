@@ -31,7 +31,9 @@ const NoteViewer = ({ params }: NoteViewerProps) => {
     const descendants = findDescendantNotes(note, notes.value);
     const newNotesFocused = descendants.every((n) => n.focused);
 
-    descendants.forEach((n) => setNoteFocused(auth.value.userId || "", n.uuid, !newNotesFocused));
+    descendants.forEach((n) =>
+      setNoteFocused(auth.value.userId || "", n.uuid, !newNotesFocused)
+    );
     setNotesFocused(!newNotesFocused);
   };
 

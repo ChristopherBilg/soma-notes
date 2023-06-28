@@ -13,8 +13,14 @@
 
 - [x] Turn all `button`s into new components
 - [x] Arrow key support for navigating notes
-- [X] Hide/show nested notes (using a checkbox?)
-- [-] Initial setup of note linking/highlighting/heatmap
+- [x] Hide/show nested notes (using a checkbox?)
+- [ ] Full local development mode (can use environment variables)
+  - [ ] Should also emulate a local "account" (for testing)
+- [ ] Initial setup of note linking/highlighting/heatmap
+
+> Once Phase 1 is complete, I will be able to use this app as my primary
+> note-taking app for all of my personal notes (work, side-notes, personal,
+> contacts, etc.)
 
 # To-Do | Phase 2
 

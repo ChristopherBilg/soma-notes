@@ -5,4 +5,4 @@ export const findDescendantNotes = (note: Note, notes: Note[]): Note[] => {
   return descendants.reduce((acc, curr) => {
     return [...acc, curr, ...findDescendantNotes(curr, notes)];
   }, [] as Note[]).concat(note);
-}
+};

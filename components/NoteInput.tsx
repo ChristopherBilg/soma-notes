@@ -9,7 +9,14 @@ interface NoteInputProps {
 }
 
 const NoteInput = ({ uuid, isIndividualNoteView }: NoteInputProps) => {
-  const { notes, createNote, deleteNote, updateNote, flushNotes, setNoteFocused } = useContext(
+  const {
+    notes,
+    createNote,
+    deleteNote,
+    updateNote,
+    flushNotes,
+    setNoteFocused,
+  } = useContext(
     NotesContext,
   );
   const { auth } = useContext(AuthContext);
@@ -286,7 +293,8 @@ const NoteInput = ({ uuid, isIndividualNoteView }: NoteInputProps) => {
           type="radio"
           class="mr-2"
           checked={!note?.focused}
-          onClick={() => setNoteFocused(auth.value.userId || "", uuid, !note?.focused)}
+          onClick={() =>
+            setNoteFocused(auth.value.userId || "", uuid, !note?.focused)}
         />
 
         <input
