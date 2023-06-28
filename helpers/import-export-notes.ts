@@ -27,6 +27,7 @@ export const importNotes = (callbackFunc: (notes: Note[]) => void) => {
           updatedAt: data.updatedAt || now,
           pinned: data.pinned || false,
           parent: data.parent || null,
+          focused: data.focused ?? true,
         };
 
         allImportedNotes.push(note);

@@ -12,6 +12,7 @@ export interface Note {
   createdAt: number;
   updatedAt: number;
   pinned: boolean;
+  focused: boolean;
 }
 
 export type NotesStateType = {
@@ -29,6 +30,7 @@ export type NotesStateType = {
   deleteNote: (userId: string, uuid: UUID) => void;
   deleteAllNotes: (userId: string) => void;
   flushNotes: () => void;
+  setNoteFocused: (userId: string, uuid: UUID, focused: boolean) => void;
 };
 
 const debouncedSaveNotesToDenoKV = debounce(
@@ -75,6 +77,7 @@ const NotesState = (): NotesStateType => {
       createdAt: now,
       updatedAt: now,
       pinned: false,
+      focused: true,
     };
 
     notes.value = [...notes.value, note];
@@ -126,6 +129,19 @@ const NotesState = (): NotesStateType => {
 
   const flushNotes = () => debouncedSaveNotesToDenoKV.flush();
 
+  const setNoteFocused = (userId: string, uuid: UUID, focused: boolean) => {
+    notes.value = notes.value.map((note: Note) => {
+      if (note.uuid === uuid) {
+        note.focused = focused;
+      }
+
+      return note;
+    });
+
+    // Application State Persistence (save)
+    debouncedSaveNotesToDenoKV(userId, notes.value);
+  };
+
   return {
     notes,
     loadNotes,
@@ -135,6 +151,7 @@ const NotesState = (): NotesStateType => {
     deleteNote,
     deleteAllNotes,
     flushNotes,
+    setNoteFocused,
   };
 };
 

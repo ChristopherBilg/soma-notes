@@ -15,7 +15,7 @@ const RightPane = ({ width }: RightPaneProps) => {
   return (
     <div class="p-2.5 bg-gray-200 rounded-r-lg" style={{ width }}>
       <div>
-        <ul class="list-disc ml-4">
+        <ul class="ml-4">
           {(notes.value as Note[])
             .filter((note) => matchesSearch(searchField.value, note.content))
             .filter((note) => note.parent === null)

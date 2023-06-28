@@ -13,8 +13,8 @@
 
 - [x] Turn all `button`s into new components
 - [x] Arrow key support for navigating notes
-- [-] Hide/show nested notes (using a checkbox?)
-- [ ] Initial setup of note linking/highlighting/heatmap
+- [X] Hide/show nested notes (using a checkbox?)
+- [-] Initial setup of note linking/highlighting/heatmap
 
 # To-Do | Phase 2
 

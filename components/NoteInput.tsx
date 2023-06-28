@@ -9,7 +9,7 @@ interface NoteInputProps {
 }
 
 const NoteInput = ({ uuid, isIndividualNoteView }: NoteInputProps) => {
-  const { notes, createNote, deleteNote, updateNote, flushNotes } = useContext(
+  const { notes, createNote, deleteNote, updateNote, flushNotes, setNoteFocused } = useContext(
     NotesContext,
   );
   const { auth } = useContext(AuthContext);
@@ -281,27 +281,38 @@ const NoteInput = ({ uuid, isIndividualNoteView }: NoteInputProps) => {
 
   return (
     <>
-      <input
-        class="border-none bg-transparent rounded-md w-full"
-        placeholder="Add a note"
-        type="text"
-        data-uuid={uuid}
-        value={note?.content}
-        onKeyDown={handleKeyDown}
-        onInput={handleInput}
-      />
+      <div class="flex">
+        <input
+          type="radio"
+          class="mr-2"
+          checked={!note?.focused}
+          onClick={() => setNoteFocused(auth.value.userId || "", uuid, !note?.focused)}
+        />
 
-      <ul class="list-disc ml-4">
-        {(notes.value as Note[])
-          .filter((note) => matchesSearch(searchField.value, note.content))
-          .filter((childNote) => childNote.parent === uuid)
-          .sort((a, b) => a.createdAt - b.createdAt)
-          .map((childNote) => (
-            <li>
-              <NoteInput uuid={childNote.uuid} />
-            </li>
-          ))}
-      </ul>
+        <input
+          class="border-none bg-transparent rounded-md w-full"
+          placeholder="Add a note"
+          type="text"
+          data-uuid={uuid}
+          value={note?.content}
+          onKeyDown={handleKeyDown}
+          onInput={handleInput}
+        />
+      </div>
+
+      {note?.focused && (
+        <ul class="ml-4">
+          {(notes.value as Note[])
+            .filter((note) => matchesSearch(searchField.value, note.content))
+            .filter((childNote) => childNote.parent === uuid)
+            .sort((a, b) => a.createdAt - b.createdAt)
+            .map((childNote) => (
+              <li>
+                <NoteInput uuid={childNote.uuid} />
+              </li>
+            ))}
+        </ul>
+      )}
     </>
   );
 };
