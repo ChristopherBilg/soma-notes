@@ -14,6 +14,7 @@
 - [x] Turn all `button`s into new components
 - [x] Arrow key support for navigating notes
 - [x] Hide/show nested notes (using a checkbox?)
+- [ ] Delete should find the last note the same way that `ArrowUp` does
 - [ ] Full local development mode (can use environment variables)
   - [ ] Should also emulate a local "account" (for testing)
 - [ ] Initial setup of note linking/highlighting/heatmap
@@ -31,6 +32,7 @@
 - [ ] Subscriptions using Stripe
 - [ ] Additional auth methods
   - [ ] Setup in a way that adding additional OAuth methods is simple
+- [ ] More accurate, in-depth note linking/highlighting/heatmap
 
 # To-Do | Phase 3
 
