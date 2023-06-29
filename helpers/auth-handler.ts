@@ -13,7 +13,7 @@ export const authHandler = async (
   unauthenticatedResponse: Response,
 ): Promise<[Response, UserDataResponse]> => {
   // Development mode: Skip the OAuth flow
-  if (Deno.env.get("environment") === "development") {
+  if (Deno.env.get("ENVIRONMENT") === "development") {
     const userData: UserDataResponse = {
       ok: true,
       error: null,

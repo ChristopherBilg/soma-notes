@@ -1,7 +1,6 @@
 import { Handlers } from "$fresh/server.ts";
 import AnchorButton from "../../components/AnchorButton.tsx";
 import { authHandler } from "../../helpers/auth-handler.ts";
-import { GITHUB_ADMIN_USER_IDS } from "../../helpers/constants.ts";
 import { UserDataResponse } from "../../helpers/github-auth.ts";
 import CreateNoteButtonIsland from "../../islands/CreateNoteButtonIsland.tsx";
 import DeleteAllNotesButtonIsland from "../../islands/DeleteAllNotesButtonIsland.tsx";
@@ -46,7 +45,7 @@ const Notes = ({ data }: NotesProps) => (
         title="Settings"
       />
 
-      {GITHUB_ADMIN_USER_IDS.includes(Number(data?.userData.userId)) && (
+      {Deno.env.get("ENVIRONMENT") === "development" && (
         <DeleteAllNotesButtonIsland />
       )}
 
