@@ -15,8 +15,8 @@ export const authHandler = async (
   // Development mode: Skip the OAuth flow
   if (Deno.env.get("ENVIRONMENT") === "development") {
     const userData: UserDataResponse = {
+      ...NullUserDataResponse,
       ok: true,
-      error: null,
       userId: "-1",
       userName: "dev",
       avatarUrl: "https://avatars.githubusercontent.com/u/1?v=4",

@@ -1,6 +1,7 @@
-import { useState } from "preact/hooks";
+import { useContext, useState } from "preact/hooks";
 import LeftPane from "./LeftPane.tsx";
 import RightPane from "./RightPane.tsx";
+import { UIContext } from "./Context.tsx";
 
 interface DoublePaneProps {
   minLeftWidth: number;
@@ -8,9 +9,9 @@ interface DoublePaneProps {
 }
 
 const DoublePane = ({ minLeftWidth, minRightWidth }: DoublePaneProps) => {
+  const { leftPaneWidth, setLeftPaneWidth, rightPaneWidth, setRightPaneWidth } =
+    useContext(UIContext);
   const [isDragging, setIsDragging] = useState(false);
-  const [leftPaneWidth, setLeftPaneWidth] = useState("40%");
-  const [rightPaneWidth, setRightPaneWidth] = useState("60%");
 
   const handleDividerMouseDown = () => setIsDragging(true);
   const handleContainerMouseUp = () => setIsDragging(false);
@@ -40,7 +41,7 @@ const DoublePane = ({ minLeftWidth, minRightWidth }: DoublePaneProps) => {
       onMouseUp={handleContainerMouseUp}
       style={{ minHeight: "50vh" }}
     >
-      <LeftPane width={leftPaneWidth} />
+      <LeftPane width={leftPaneWidth.value} />
 
       <div
         class="cursor-ew-resize bg-black w-1"
@@ -48,7 +49,7 @@ const DoublePane = ({ minLeftWidth, minRightWidth }: DoublePaneProps) => {
       >
       </div>
 
-      <RightPane width={rightPaneWidth} />
+      <RightPane width={rightPaneWidth.value} />
     </div>
   );
 };

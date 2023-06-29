@@ -1,5 +1,5 @@
 import { useContext } from "preact/hooks";
-import { matchesSearch } from "../helpers/search.ts";
+import { matchesSearch } from "../helpers/notes.ts";
 import { Note } from "../signal/notes.ts";
 import { AuthContext, NotesContext, UIContext } from "./Context.tsx";
 import { focusNote, getDeepestChildNote } from "../helpers/notes.ts";

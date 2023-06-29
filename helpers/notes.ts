@@ -56,6 +56,21 @@ export const exportNotes = (notes: Note[]) => {
   downloadAnchorNode.remove();
 };
 
+export const matchesSearch = (search: string, text: string): boolean => {
+  if (search.length === 0) {
+    return true;
+  }
+
+  const searchWords = search.split(" ");
+  const textWords = text.split(" ");
+
+  return searchWords.every((searchWord) => {
+    return textWords.some((textWord) => {
+      return textWord.toLowerCase().includes(searchWord.toLowerCase());
+    });
+  });
+};
+
 export const findDescendantNotes = (note: Note, notes: Note[]): Note[] => {
   const descendants = notes.filter((n) => n.parent === note.uuid);
   return descendants.reduce((acc, curr) => {
@@ -84,4 +99,23 @@ export const getDeepestChildNote = (note: Note, notes: Note[]): Note => {
   const lastChildNote = childNotes[childNotes.length - 1];
 
   return getDeepestChildNote(lastChildNote, notes);
+};
+
+export const getNgrams = (str: string, n: number): string[][] | null => {
+  const processedStr = str
+    .replace(/[^a-zA-Z0-9]/g, " ") // Replace non-alphanumeric characters with spaces
+    .replace(/\s+/g, " ") // Replace multiple spaces with single space
+    .trim() // Remove leading and trailing whitespace
+    .toLowerCase(); // Convert to lowercase
+
+  const words = processedStr.split(" ");
+  const ngrams = [];
+
+  if (words.length < n) return null;
+
+  for (let i = 0; i < words.length - n + 1; i++) {
+    ngrams.push(words.slice(i, i + n));
+  }
+
+  return ngrams;
 };
