@@ -2,6 +2,7 @@
   "lock": false,
   "tasks": {
     "start": "deno run -A --watch=static/,routes/ dev.ts",
+    "dev": "deno run -A --unstable --watch=static/,routes/ dev.ts",
     "fmt": "deno fmt",
     "lint": "deno lint",
     "check": "deno check **/*.tsx"

@@ -12,6 +12,21 @@ export const authHandler = async (
   context: HandlerContext,
   unauthenticatedResponse: Response,
 ): Promise<[Response, UserDataResponse]> => {
+  // Development mode: Skip the OAuth flow
+  if (Deno.env.get("environment") === "development") {
+    const userData: UserDataResponse = {
+      ok: true,
+      error: null,
+      userId: "-1",
+      userName: "dev",
+      avatarUrl: "https://avatars.githubusercontent.com/u/1?v=4",
+    };
+    return [
+      await context.render({ userData }),
+      userData,
+    ];
+  }
+
   // Get cookie from request header and parse it
   const maybeAccessToken = getCookies(request.headers)["github_auth_token"];
   if (maybeAccessToken) {

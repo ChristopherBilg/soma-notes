@@ -1,6 +1,6 @@
 import { useContext } from "preact/hooks";
 import { AuthContext, NotesContext } from "./Context.tsx";
-import { exportNotes, importNotes } from "../helpers/import-export-notes.ts";
+import { exportNotes, importNotes } from "../helpers/notes.ts";
 import AnchorButton from "./AnchorButton.tsx";
 
 const UserSettings = () => {

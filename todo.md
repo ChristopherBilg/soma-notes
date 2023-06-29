@@ -15,8 +15,7 @@
 - [x] Arrow key support for navigating notes
 - [x] Hide/show nested notes (using a checkbox?)
 - [x] Delete should find the last note the same way that `ArrowUp` does
-- [-] Full local development mode (can use environment variables)
-  - [-] Should also emulate a local "account" (for testing)
+- [x] Full local development mode (can use environment variables)
 - [ ] Initial setup of note linking/highlighting/heatmap
 
 > Once Phase 1 is complete, I will be able to use this app as my primary
