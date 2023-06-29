@@ -2,7 +2,7 @@ import { useContext } from "preact/hooks";
 import { matchesSearch } from "../helpers/search.ts";
 import { Note } from "../signal/notes.ts";
 import { AuthContext, NotesContext, UIContext } from "./Context.tsx";
-import { focusNote } from "../helpers/notes.ts";
+import { focusNote, getDeepestChildNote } from "../helpers/notes.ts";
 
 interface NoteInputProps {
   uuid: string;
@@ -34,6 +34,29 @@ const NoteInput = ({ uuid, isIndividualNoteView }: NoteInputProps) => {
 
       e.preventDefault();
 
+      // Get the previous sibling note
+      const previousSiblingNote = notes.value
+        .filter((n: Note) => n.parent === note.parent)
+        .sort((a, b) => a.createdAt - b.createdAt)
+        .findLast((n: Note) => n.createdAt < note.createdAt && n.uuid !== uuid);
+
+      if (previousSiblingNote) {
+        // Get the deepest child note of the previous sibling note
+        const deepestChildNote = getDeepestChildNote(
+          previousSiblingNote,
+          notes.value,
+        );
+
+        focusNote(deepestChildNote.uuid);
+      } else {
+        // If there is no previous sibling, get the parent note
+        const parentNote = notes.value.find((n: Note) =>
+          n.uuid === note.parent
+        );
+
+        if (parentNote) focusNote(parentNote.uuid);
+      }
+
       // Update all parent UUID of all child notes to be the parent of the deleted note
       notes.value
         .filter((n: Note) => n.parent === uuid)
@@ -47,20 +70,7 @@ const NoteInput = ({ uuid, isIndividualNoteView }: NoteInputProps) => {
           );
         });
 
-      // Focus on the previous note sibling
-      let previousNote = notes.value
-        .filter((n: Note) => n.parent === note.parent)
-        .sort((a, b) => a.createdAt - b.createdAt)
-        .findLast((n: Note) => n.createdAt < note.createdAt && n.uuid !== uuid);
-
-      // If there is no previous note sibling, focus on the parent note
-      if (!previousNote) {
-        previousNote = notes.value.find((n: Note) => n.uuid === note.parent);
-      }
-
-      // Focus on the previous note sibling
-      if (previousNote) focusNote(previousNote.uuid);
-
+      // Delete the note and, if needed, redirect to the parent note
       deleteNote(auth.value.userId, uuid);
 
       if (isIndividualNoteView) {
@@ -133,19 +143,6 @@ const NoteInput = ({ uuid, isIndividualNoteView }: NoteInputProps) => {
     if (e.key === "ArrowUp") {
       e.preventDefault();
 
-      // Write a function to recursively get the deepest child note of previous sibling note with the same parent
-      const getDeepestChildNote = (note: Note): Note => {
-        const childNotes = notes.value.filter((n: Note) =>
-          n.parent === note.uuid
-        ).sort((a, b) => a.createdAt - b.createdAt);
-
-        if (childNotes.length === 0) return note;
-
-        const lastChildNote = childNotes[childNotes.length - 1];
-
-        return getDeepestChildNote(lastChildNote);
-      };
-
       // Get the previous sibling note
       const previousSiblingNote = notes.value
         .filter((n: Note) => n.parent === note.parent)
@@ -154,7 +151,10 @@ const NoteInput = ({ uuid, isIndividualNoteView }: NoteInputProps) => {
 
       if (previousSiblingNote) {
         // Get the deepest child note of the previous sibling note
-        const deepestChildNote = getDeepestChildNote(previousSiblingNote);
+        const deepestChildNote = getDeepestChildNote(
+          previousSiblingNote,
+          notes.value,
+        );
 
         focusNote(deepestChildNote.uuid);
 

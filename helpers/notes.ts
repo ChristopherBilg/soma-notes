@@ -16,3 +16,16 @@ export const focusNote = (uuid: UUID) => {
     previousNoteInput?.focus();
   }, 0);
 };
+
+export const getDeepestChildNote = (note: Note, notes: Note[]): Note => {
+  const childNotes = notes.filter((n: Note) => n.parent === note.uuid).sort((
+    a,
+    b,
+  ) => a.createdAt - b.createdAt);
+
+  if (childNotes.length === 0) return note;
+
+  const lastChildNote = childNotes[childNotes.length - 1];
+
+  return getDeepestChildNote(lastChildNote, notes);
+};
