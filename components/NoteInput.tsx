@@ -86,11 +86,18 @@ const NoteInput = ({ uuid, isIndividualNoteView }: NoteInputProps) => {
     if (e.key === "Enter") {
       e.preventDefault();
 
-      const parentNoteUUID = isIndividualNoteView ? uuid : note.parent;
-      const newNoteUUID = createNote(auth.value.userId, parentNoteUUID, "");
+      if (e.shiftKey) {
+        const newNoteUUID = createNote(auth.value.userId, uuid, "");
 
-      // Focus on the new note
-      focusNote(newNoteUUID);
+        // Focus on the new note
+        focusNote(newNoteUUID);
+      } else {
+        const parentNoteUUID = isIndividualNoteView ? uuid : note.parent;
+        const newNoteUUID = createNote(auth.value.userId, parentNoteUUID, "");
+
+        // Focus on the new note
+        focusNote(newNoteUUID);
+      }
     }
 
     if (e.key === "Tab") {
