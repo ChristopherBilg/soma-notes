@@ -2,6 +2,7 @@ import { useContext } from "preact/hooks";
 import { matchesSearch } from "../helpers/search.ts";
 import { Note } from "../signal/notes.ts";
 import { AuthContext, NotesContext, UIContext } from "./Context.tsx";
+import { focusNote } from "../helpers/notes.ts";
 
 interface NoteInputProps {
   uuid: string;
@@ -34,7 +35,6 @@ const NoteInput = ({ uuid, isIndividualNoteView }: NoteInputProps) => {
       e.preventDefault();
 
       // Update all parent UUID of all child notes to be the parent of the deleted note
-      const parentUUID = note.parent;
       notes.value
         .filter((n: Note) => n.parent === uuid)
         .forEach((n: Note) => {
@@ -43,7 +43,7 @@ const NoteInput = ({ uuid, isIndividualNoteView }: NoteInputProps) => {
             n.uuid,
             n.content,
             undefined,
-            parentUUID,
+            note.parent,
           );
         });
 
@@ -58,15 +58,8 @@ const NoteInput = ({ uuid, isIndividualNoteView }: NoteInputProps) => {
         previousNote = notes.value.find((n: Note) => n.uuid === note.parent);
       }
 
-      if (previousNote) {
-        setTimeout(() => {
-          const previousNoteInput = document.querySelector(
-            `input[data-uuid="${previousNote?.uuid}"]`,
-          ) as HTMLInputElement;
-
-          previousNoteInput?.focus();
-        }, 0);
-      }
+      // Focus on the previous note sibling
+      if (previousNote) focusNote(previousNote.uuid);
 
       deleteNote(auth.value.userId, uuid);
 
@@ -87,13 +80,7 @@ const NoteInput = ({ uuid, isIndividualNoteView }: NoteInputProps) => {
       const newNoteUUID = createNote(auth.value.userId, parentNoteUUID, "");
 
       // Focus on the new note
-      setTimeout(() => {
-        const newNoteInput = document.querySelector(
-          `input[data-uuid="${newNoteUUID}"]`,
-        ) as HTMLInputElement;
-
-        newNoteInput?.focus();
-      }, 0);
+      focusNote(newNoteUUID);
     }
 
     if (e.key === "Tab") {
@@ -117,13 +104,7 @@ const NoteInput = ({ uuid, isIndividualNoteView }: NoteInputProps) => {
         );
 
         // Focus on the current note
-        setTimeout(() => {
-          const currentNoteInput = document.querySelector(
-            `input[data-uuid="${uuid}"]`,
-          ) as HTMLInputElement;
-
-          currentNoteInput?.focus();
-        }, 0);
+        focusNote(uuid);
       } else {
         // Get the previous note
         const previousNote = notes.value
@@ -145,13 +126,7 @@ const NoteInput = ({ uuid, isIndividualNoteView }: NoteInputProps) => {
         );
 
         // Focus on the current note
-        setTimeout(() => {
-          const currentNoteInput = document.querySelector(
-            `input[data-uuid="${uuid}"]`,
-          ) as HTMLInputElement;
-
-          currentNoteInput?.focus();
-        }, 0);
+        focusNote(uuid);
       }
     }
 
@@ -181,13 +156,7 @@ const NoteInput = ({ uuid, isIndividualNoteView }: NoteInputProps) => {
         // Get the deepest child note of the previous sibling note
         const deepestChildNote = getDeepestChildNote(previousSiblingNote);
 
-        setTimeout(() => {
-          const deepestChildNoteInput = document.querySelector(
-            `input[data-uuid="${deepestChildNote.uuid}"]`,
-          ) as HTMLInputElement;
-
-          deepestChildNoteInput?.focus();
-        }, 0);
+        focusNote(deepestChildNote.uuid);
 
         return;
       }
@@ -195,17 +164,7 @@ const NoteInput = ({ uuid, isIndividualNoteView }: NoteInputProps) => {
       // If there is no previous sibling , get the parent note
       const parentNote = notes.value.find((n: Note) => n.uuid === note.parent);
 
-      if (parentNote) {
-        setTimeout(() => {
-          const parentNoteInput = document.querySelector(
-            `input[data-uuid="${parentNote.uuid}"]`,
-          ) as HTMLInputElement;
-
-          parentNoteInput?.focus();
-        }, 0);
-
-        return;
-      }
+      if (parentNote) focusNote(parentNote.uuid);
     }
 
     if (e.key === "ArrowDown") {
@@ -250,13 +209,7 @@ const NoteInput = ({ uuid, isIndividualNoteView }: NoteInputProps) => {
       const firstChildNote = getFirstChildNote(note);
 
       if (firstChildNote) {
-        setTimeout(() => {
-          const firstChildNoteInput = document.querySelector(
-            `input[data-uuid="${firstChildNote.uuid}"]`,
-          ) as HTMLInputElement;
-
-          firstChildNoteInput?.focus();
-        }, 0);
+        focusNote(firstChildNote.uuid);
 
         return;
       }
@@ -264,13 +217,7 @@ const NoteInput = ({ uuid, isIndividualNoteView }: NoteInputProps) => {
       const nextNote = getNextNote(note);
 
       if (nextNote) {
-        setTimeout(() => {
-          const nextNoteInput = document.querySelector(
-            `input[data-uuid="${nextNote.uuid}"]`,
-          ) as HTMLInputElement;
-
-          nextNoteInput?.focus();
-        }, 0);
+        focusNote(nextNote.uuid);
 
         return;
       }
