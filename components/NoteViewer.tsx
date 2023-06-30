@@ -69,7 +69,7 @@ const NoteViewer = ({ params }: NoteViewerProps) => {
         />
       </div>
 
-      <div class="p-2.5 bg-gray-200 rounded-lg">
+      <div class="p-2.5 rounded-lg border-2">
         <div>
           <ul class="ml-4">
             <li>

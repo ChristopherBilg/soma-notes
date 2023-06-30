@@ -21,7 +21,7 @@ const LeftPane = ({ width }: LeftPaneProps) => {
     .sort((a, b) => b.updatedAt - a.updatedAt);
 
   return (
-    <div class="p-2.5 bg-gray-300 rounded-l-lg" style={{ width }}>
+    <div class="p-2.5 rounded-l-lg border-2" style={{ width }}>
       <b>Pinned</b>
       {pinnedNotes.length > 0
         ? (
