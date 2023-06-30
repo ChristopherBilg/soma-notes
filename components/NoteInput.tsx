@@ -3,7 +3,6 @@ import { matchesSearch } from "../helpers/notes.ts";
 import { Note } from "../signal/notes.ts";
 import { AuthContext, NotesContext, UIContext } from "./Context.tsx";
 import { focusNote, getDeepestChildNote } from "../helpers/notes.ts";
-import AnchorButton from "./AnchorButton.tsx";
 
 interface NoteInputProps {
   uuid: string;
