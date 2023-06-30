@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "preact/hooks";
 import { AuthContext, NotesContext } from "./Context.tsx";
 import NoteInput from "./NoteInput.tsx";
 import AnchorButton from "./AnchorButton.tsx";
-import { Note } from "../signal/notes.ts";
 import { findDescendantNotes } from "../helpers/notes.ts";
 
 interface NoteViewerProps {
@@ -11,20 +10,12 @@ interface NoteViewerProps {
 
 const NoteViewer = ({ params }: NoteViewerProps) => {
   const { auth } = useContext(AuthContext);
-  const { notes, updateNote, setNoteFocused } = useContext(NotesContext);
+  const { notes, setNoteFocused } = useContext(NotesContext);
 
   const note = notes.value.find((n) => n.uuid === params.note);
   if (!note) return null;
 
   const parentNoteHref = note?.parent ? `/notes/${note.parent}` : "/notes";
-
-  const handleNotePinButtonClick = () =>
-    updateNote(
-      auth?.value.userId || "",
-      note.uuid,
-      note.content,
-      !note.pinned,
-    );
 
   const [notesFocused, setNotesFocused] = useState(true);
   const handleFocusNotesButtonClick = () => {
@@ -44,17 +35,12 @@ const NoteViewer = ({ params }: NoteViewerProps) => {
   }, []);
 
   return (
-    <div class="p-4 mx-auto max-w-screen-lg">
+    <div class="p-4 mx-auto max-w-screen-xlg">
       <div class="flex justify-center m-4">
-        <AnchorButton
-          onClick={handleNotePinButtonClick}
-          title={note.pinned ? "Unpin" : "Pin"}
-          roundedLeft
-        />
-
         <AnchorButton
           onClick={handleFocusNotesButtonClick}
           title={notesFocused ? "Unfocus all" : "Focus all"}
+          roundedLeft
         />
 
         <AnchorButton

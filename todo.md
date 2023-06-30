@@ -16,6 +16,7 @@
 - [x] Hide/show nested notes (using a checkbox?)
 - [x] Delete should find the last note the same way that `ArrowUp` does
 - [x] Full local development mode (can use environment variables)
+- [x] Note completion; like pinning, but displays as a strikethrough
 - [-] Initial setup of note linking/highlighting/heatmap
 
 > Once Phase 1 is complete, I will be able to use this app as my primary

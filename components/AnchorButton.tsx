@@ -8,11 +8,20 @@ interface AnchorButtonProps {
   roundedRight?: boolean;
   svgIcon?: JSX.Element;
   onClick?: () => void;
+  lighter?: boolean;
 }
 
 const AnchorButton = (
-  { rounded, href, roundedLeft, roundedRight, svgIcon, title, onClick }:
-    AnchorButtonProps,
+  {
+    rounded,
+    href,
+    roundedLeft,
+    roundedRight,
+    svgIcon,
+    title,
+    onClick,
+    lighter,
+  }: AnchorButtonProps,
 ) => {
   return (href || onClick)
     ? (
@@ -24,7 +33,12 @@ const AnchorButton = (
           href={href}
           onClick={onClick}
           class={`
-          bg-gray-900 hover:bg-gray-700 text-white no-underline py-1 inline-flex items-center
+          text-white no-underline py-1 inline-flex items-center
+          ${
+            lighter
+              ? "bg-gray-500 hover:bg-gray-400"
+              : "bg-gray-900 hover:bg-gray-700"
+          }
           ${roundedLeft ? "rounded-l" : ""}
           ${roundedRight ? "rounded-r" : ""}
           ${rounded ? "rounded" : ""}

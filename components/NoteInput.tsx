@@ -3,6 +3,7 @@ import { matchesSearch } from "../helpers/notes.ts";
 import { Note } from "../signal/notes.ts";
 import { AuthContext, NotesContext, UIContext } from "./Context.tsx";
 import { focusNote, getDeepestChildNote } from "../helpers/notes.ts";
+import AnchorButton from "./AnchorButton.tsx";
 
 interface NoteInputProps {
   uuid: string;
@@ -252,13 +253,44 @@ const NoteInput = ({ uuid, isIndividualNoteView }: NoteInputProps) => {
         />
 
         <input
-          class="border-none bg-transparent rounded-md w-full"
+          class={`
+            border-none bg-transparent rounded-md w-full
+            ${note?.completed ? "line-through" : ""}
+          `}
           placeholder="Add a note"
           type="text"
           data-uuid={uuid}
           value={note?.content}
           onKeyDown={handleKeyDown}
           onInput={handleInput}
+        />
+
+        <AnchorButton
+          title={"P"}
+          onClick={() =>
+            updateNote(
+              auth.value.userId || "",
+              uuid,
+              note?.content || "",
+              !note?.pinned,
+            )}
+          roundedLeft
+          lighter
+        />
+
+        <AnchorButton
+          title={"C"}
+          onClick={() =>
+            updateNote(
+              auth.value.userId || "",
+              uuid,
+              note?.content || "",
+              undefined,
+              undefined,
+              !note?.completed,
+            )}
+          roundedRight
+          lighter
         />
       </div>
 
