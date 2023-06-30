@@ -10,12 +10,21 @@ interface NoteViewerProps {
 
 const NoteViewer = ({ params }: NoteViewerProps) => {
   const { auth } = useContext(AuthContext);
-  const { notes, setNoteFocused } = useContext(NotesContext);
+  const { notes, setNoteFocused, updateNote } = useContext(NotesContext);
 
   const note = notes.value.find((n) => n.uuid === params.note);
   if (!note) return null;
 
   const parentNoteHref = note?.parent ? `/notes/${note.parent}` : "/notes";
+
+  const handlePinNoteButtonClick = () => {
+    updateNote(
+      auth.value.userId || "",
+      note.uuid,
+      note.content,
+      !note.pinned,
+    );
+  };
 
   const [notesFocused, setNotesFocused] = useState(true);
   const handleFocusNotesButtonClick = () => {
@@ -38,9 +47,14 @@ const NoteViewer = ({ params }: NoteViewerProps) => {
     <div class="p-4 mx-auto max-w-screen-xlg">
       <div class="flex justify-center m-4">
         <AnchorButton
+          onClick={handlePinNoteButtonClick}
+          title={note.pinned ? "Unpin" : "Pin"}
+          roundedLeft
+        />
+
+        <AnchorButton
           onClick={handleFocusNotesButtonClick}
           title={notesFocused ? "Unfocus all" : "Focus all"}
-          roundedLeft
         />
 
         <AnchorButton

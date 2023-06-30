@@ -253,44 +253,13 @@ const NoteInput = ({ uuid, isIndividualNoteView }: NoteInputProps) => {
         />
 
         <input
-          class={`
-            border-none bg-transparent rounded-md w-full
-            ${note?.completed ? "line-through" : ""}
-          `}
+          class="border-none bg-transparent rounded-md w-full"
           placeholder="Add a note"
           type="text"
           data-uuid={uuid}
           value={note?.content}
           onKeyDown={handleKeyDown}
           onInput={handleInput}
-        />
-
-        <AnchorButton
-          title={"P"}
-          onClick={() =>
-            updateNote(
-              auth.value.userId || "",
-              uuid,
-              note?.content || "",
-              !note?.pinned,
-            )}
-          roundedLeft
-          lighter
-        />
-
-        <AnchorButton
-          title={"C"}
-          onClick={() =>
-            updateNote(
-              auth.value.userId || "",
-              uuid,
-              note?.content || "",
-              undefined,
-              undefined,
-              !note?.completed,
-            )}
-          roundedRight
-          lighter
         />
       </div>
 
