@@ -5,7 +5,8 @@
     "dev": "deno run -A --unstable --watch=static/,routes/ dev.ts",
     "fmt": "deno fmt",
     "lint": "deno lint",
-    "check": "deno check **/*.tsx"
+    "check": "deno check **/*.tsx",
+    "test": "deno test"
   },
   "importMap": "./import_map.json",
   "compilerOptions": {

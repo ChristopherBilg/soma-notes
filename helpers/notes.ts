@@ -101,20 +101,33 @@ export const getDeepestChildNote = (note: Note, notes: Note[]): Note => {
   return getDeepestChildNote(lastChildNote, notes);
 };
 
-export const getNgrams = (str: string, n: number): string[][] | null => {
-  const processedStr = str
+export const getNgrams = (splitStr: string[], n: number): string[][] | null => {
+  const ngrams = [];
+
+  if (splitStr.length < n) return null;
+
+  for (let i = 0; i < splitStr.length - n + 1; i++) {
+    ngrams.push(splitStr.slice(i, i + n));
+  }
+
+  return ngrams;
+};
+
+const processStrForNgrams = (str: string): string =>
+  str
     .replace(/[^a-zA-Z0-9]/g, " ") // Replace non-alphanumeric characters with spaces
     .replace(/\s+/g, " ") // Replace multiple spaces with single space
     .trim() // Remove leading and trailing whitespace
     .toLowerCase(); // Convert to lowercase
 
-  const words = processedStr.split(" ");
+export const getAllNgrams = (str: string): string[][] => {
+  const processedStr = processStrForNgrams(str);
+  const splitStr = processedStr.split(" ");
   const ngrams = [];
 
-  if (words.length < n) return null;
-
-  for (let i = 0; i < words.length - n + 1; i++) {
-    ngrams.push(words.slice(i, i + n));
+  for (let i = 1; i <= splitStr.length; i++) {
+    const ngram = getNgrams(splitStr, i);
+    if (ngram) ngrams.push(...ngram);
   }
 
   return ngrams;

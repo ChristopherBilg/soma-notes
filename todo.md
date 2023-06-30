@@ -31,8 +31,8 @@
 - [ ] Subscriptions using Stripe
 - [ ] Additional auth methods
   - [ ] Setup in a way that adding additional OAuth methods is simple
-- [ ] More accurate, in-depth note linking/highlighting/heatmap
 
 # To-Do | Phase 3
 
 - [ ] Note reordering (using Alt + up/down)
+- [ ] More accurate, in-depth note linking/highlighting/heatmap
