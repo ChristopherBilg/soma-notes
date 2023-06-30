@@ -23,9 +23,11 @@ export type NotesStateType = {
   updateNote: (
     userId: string,
     uuid: UUID,
-    content: string,
-    pinned?: boolean,
-    parent?: NoteParent,
+    options?: {
+      content?: string;
+      pinned?: boolean;
+      parent?: NoteParent;
+    },
   ) => void;
   deleteNote: (userId: string, uuid: UUID) => void;
   deleteAllNotes: (userId: string) => void;
@@ -44,6 +46,16 @@ const debouncedSaveNotesToDenoKV = debounce(
     }),
   USER_INPUT_DEBOUNCE_TIME_MILLIS,
 );
+
+const NullNote: Note = {
+  uuid: "",
+  content: "",
+  parent: null,
+  createdAt: 0,
+  updatedAt: 0,
+  pinned: false,
+  focused: true,
+};
 
 const NotesState = (): NotesStateType => {
   const notes = signal<Note[]>([]);
@@ -71,13 +83,12 @@ const NotesState = (): NotesStateType => {
     const uuid = crypto.randomUUID();
 
     const note: Note = {
+      ...NullNote,
       uuid,
       content: content,
       parent,
       createdAt: now,
       updatedAt: now,
-      pinned: false,
-      focused: true,
     };
 
     notes.value = [...notes.value, note];
@@ -91,17 +102,19 @@ const NotesState = (): NotesStateType => {
   const updateNote = (
     userId: string,
     uuid: UUID,
-    content: string,
-    pinned?: boolean,
-    parent?: NoteParent,
+    options?: {
+      content?: string;
+      pinned?: boolean;
+      parent?: NoteParent;
+    },
   ) => {
     const existingNote = notes.value.find((note: Note) => note.uuid === uuid);
     if (!existingNote) return;
 
-    existingNote.content = content;
     existingNote.updatedAt = new Date().getTime();
-    if (pinned !== undefined) existingNote.pinned = pinned;
-    if (parent !== undefined) existingNote.parent = parent;
+    if (options?.content !== undefined) existingNote.content = options?.content;
+    if (options?.pinned !== undefined) existingNote.pinned = options?.pinned;
+    if (options?.parent !== undefined) existingNote.parent = options?.parent;
 
     notes.value = notes.value.map((note: Note) => {
       if (note.uuid === existingNote.uuid) return existingNote;

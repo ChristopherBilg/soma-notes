@@ -21,8 +21,9 @@ const NoteViewer = ({ params }: NoteViewerProps) => {
     updateNote(
       auth.value.userId || "",
       note.uuid,
-      note.content,
-      !note.pinned,
+      {
+        pinned: !note.pinned,
+      },
     );
   };
 

@@ -64,9 +64,9 @@ const NoteInput = ({ uuid, isIndividualNoteView }: NoteInputProps) => {
           updateNote(
             auth.value.userId || "",
             n.uuid,
-            n.content,
-            undefined,
-            note.parent,
+            {
+              parent: note.parent,
+            },
           );
         });
 
@@ -115,9 +115,9 @@ const NoteInput = ({ uuid, isIndividualNoteView }: NoteInputProps) => {
         updateNote(
           auth.value.userId || "",
           note.uuid,
-          note.content,
-          undefined,
-          parentNote.parent,
+          {
+            parent: parentNote.parent,
+          },
         );
 
         // Focus on the current note
@@ -137,9 +137,9 @@ const NoteInput = ({ uuid, isIndividualNoteView }: NoteInputProps) => {
         updateNote(
           auth.value.userId || "",
           note.uuid,
-          note.content,
-          undefined,
-          previousNote.uuid,
+          {
+            parent: previousNote.uuid,
+          },
         );
 
         // Focus on the current note
@@ -237,7 +237,7 @@ const NoteInput = ({ uuid, isIndividualNoteView }: NoteInputProps) => {
     const target = e.target as HTMLInputElement;
     const content = target.value;
 
-    updateNote(auth.value.userId, uuid, content);
+    updateNote(auth.value.userId, uuid, { content });
   };
 
   return (
