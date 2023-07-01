@@ -14,18 +14,14 @@ const UserSettings = () => {
 
   return (
     <div class="flex flex-col justify-center items-center">
-      <h1 class="text-2xl font-bold">User Settings</h1>
+      <h1 class="text-2xl font-bold mb-4">User Settings</h1>
 
-      <br />
-
-      <div class="flex flex-col justify-center items-center">
+      <div class="flex flex-col justify-center items-center gap-6">
         <AnchorButton
           onClick={handleImportNotesButtonClick}
           title="Import Notes From JSON file"
           rounded
         />
-
-        <br />
 
         <AnchorButton
           onClick={handleExportNotesButtonClick}

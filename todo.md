@@ -24,16 +24,13 @@
 
 # To-Do | Phase 2
 
-- [ ] Add support for multiple note types
-  - [ ] Markdown
-  - [ ] Code
-  - [ ] Rich Text
 - [ ] Subscriptions using Stripe
 - [ ] Additional auth methods
   - [ ] Setup in a way that adding additional OAuth methods is simple
 
 # To-Do | Phase 3
 
+- [ ] Breadcrumbs on the /notes/:note page
 - [ ] Note reordering (using Alt + up/down)
 - [ ] Change notes from input to textarea to support multi-line notes
 - [ ] More accurate, in-depth note linking/highlighting/heatmap

@@ -11,7 +11,8 @@
   "importMap": "./import_map.json",
   "compilerOptions": {
     "jsx": "react-jsx",
-    "jsxImportSource": "preact"
+    "jsxImportSource": "preact",
+    "noUnusedLocals": true
   },
   "fmt": {
     "exclude": [".devcontainer", ".github", ".vscode"]

@@ -22,35 +22,35 @@ const LeftPane = ({ width }: LeftPaneProps) => {
 
   return (
     <div class="p-2.5 rounded-l-lg border-2" style={{ width }}>
-      <b>Pinned</b>
-      {pinnedNotes.length > 0
-        ? (
-          <ul class="list-disc list-inside">
-            {pinnedNotes.map((note) => (
-              <li>
-                <a href={`/notes/${note.uuid}`}>{note.content}</a>
-              </li>
-            ))}
-          </ul>
-        )
-        : <p>No pinned notes</p>}
+      <div class="mb-4">
+        <b>Pinned</b>
+        {pinnedNotes.length > 0
+          ? (
+            <ul class="list-disc list-inside">
+              {pinnedNotes.map((note) => (
+                <li>
+                  <a href={`/notes/${note.uuid}`}>{note.content}</a>
+                </li>
+              ))}
+            </ul>
+          )
+          : <p>No pinned notes</p>}
+      </div>
 
-      <br />
-
-      <b>Recently Modified</b>
-      {recentNotes.length > 0
-        ? (
-          <ul class="list-disc list-inside">
-            {recentNotes.map((note) => (
-              <li>
-                <a href={`/notes/${note.uuid}`}>{note.content}</a>
-              </li>
-            ))}
-          </ul>
-        )
-        : <p>No recent notes</p>}
-
-      <br />
+      <div class="mb-4">
+        <b>Recently Modified</b>
+        {recentNotes.length > 0
+          ? (
+            <ul class="list-disc list-inside">
+              {recentNotes.map((note) => (
+                <li>
+                  <a href={`/notes/${note.uuid}`}>{note.content}</a>
+                </li>
+              ))}
+            </ul>
+          )
+          : <p>No recent notes</p>}
+      </div>
 
       <b>Search</b>
       <input
