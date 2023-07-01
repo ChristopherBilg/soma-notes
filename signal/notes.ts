@@ -1,3 +1,4 @@
+// Copyright 2023 Soma Notes
 import { debounce } from "$std/async/debounce.ts";
 import { Signal, signal } from "@preact/signals";
 import { USER_INPUT_DEBOUNCE_TIME_MILLIS } from "./../helpers/constants.ts";

@@ -1,3 +1,4 @@
+// Copyright 2023 Soma Notes
 /// <reference no-default-lib="true" />
 /// <reference lib="dom" />
 /// <reference lib="dom.iterable" />

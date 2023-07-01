@@ -1,3 +1,4 @@
+// Copyright 2023 Soma Notes
 import { useContext } from "preact/hooks";
 import { matchesSearch } from "../helpers/notes.ts";
 import { Note } from "../signal/notes.ts";

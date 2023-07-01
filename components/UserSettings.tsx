@@ -1,3 +1,4 @@
+// Copyright 2023 Soma Notes
 import { useContext } from "preact/hooks";
 import { AuthContext, NotesContext } from "./Context.tsx";
 import { exportNotes, importNotes } from "../helpers/notes.ts";

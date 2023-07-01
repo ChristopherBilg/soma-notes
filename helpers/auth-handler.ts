@@ -1,3 +1,4 @@
+// Copyright 2023 Soma Notes
 import { HandlerContext } from "$fresh/server.ts";
 import { getCookies, setCookie } from "$std/http/cookie.ts";
 import {

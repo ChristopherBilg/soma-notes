@@ -1,3 +1,4 @@
+// Copyright 2023 Soma Notes
 import { JSX } from "preact/jsx-runtime";
 
 interface AnchorButtonProps {

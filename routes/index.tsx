@@ -1,3 +1,4 @@
+// Copyright 2023 Soma Notes
 import { Handlers } from "$fresh/server.ts";
 import AnchorButton from "../components/AnchorButton.tsx";
 import { authHandler } from "../helpers/auth-handler.ts";

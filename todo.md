@@ -27,6 +27,8 @@
 - [ ] Subscriptions using Stripe
 - [ ] Additional auth methods
   - [ ] Setup in a way that adding additional OAuth methods is simple
+  - [ ] As long as the above is true, adding only one additional OAuth method is
+        sufficient
 
 # To-Do | Phase 3
 

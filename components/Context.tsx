@@ -1,3 +1,4 @@
+// Copyright 2023 Soma Notes
 import { ComponentChild, createContext } from "preact";
 import AuthState, { AuthStateType } from "../signal/auth.ts";
 import NotesState, { NotesStateType } from "../signal/notes.ts";

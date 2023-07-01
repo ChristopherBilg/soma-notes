@@ -1,3 +1,4 @@
+// Copyright 2023 Soma Notes
 export interface AccessTokenResponse {
   ok: boolean;
   error: string | null;

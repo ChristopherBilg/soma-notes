@@ -1,3 +1,4 @@
+// Copyright 2023 Soma Notes
 import { Handlers } from "$fresh/server.ts";
 import { authHandler } from "../../helpers/auth-handler.ts";
 import { getNotesByUserId } from "../../helpers/deno-kv.ts";

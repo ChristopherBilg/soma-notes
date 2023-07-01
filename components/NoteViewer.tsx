@@ -1,3 +1,4 @@
+// Copyright 2023 Soma Notes
 import { useContext, useEffect, useState } from "preact/hooks";
 import { AuthContext, NotesContext } from "./Context.tsx";
 import NoteInput from "./NoteInput.tsx";

@@ -1,0 +1,4 @@
+{
+  "**/*.{ts,tsx}": "// Copyright 2023 Soma Notes",
+  "ignore": ["fresh.gen.ts", "dev.ts"]
+}

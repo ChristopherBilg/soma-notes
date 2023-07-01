@@ -1,3 +1,4 @@
+// Copyright 2023 Soma Notes
 import { Note } from "./../signal/notes.ts";
 
 type AuthMethod = "github";

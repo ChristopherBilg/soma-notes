@@ -1,3 +1,4 @@
+// Copyright 2023 Soma Notes
 import Context from "../components/Context.tsx";
 import ContextSetup from "../components/ContextSetup.tsx";
 import NoteViewer from "../components/NoteViewer.tsx";

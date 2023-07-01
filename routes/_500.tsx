@@ -1,3 +1,4 @@
+// Copyright 2023 Soma Notes
 import AnchorButton from "../components/AnchorButton.tsx";
 
 const Error500 = () => (

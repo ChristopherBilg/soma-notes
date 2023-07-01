@@ -1,3 +1,4 @@
+// Copyright 2023 Soma Notes
 import { useContext, useEffect } from "preact/hooks";
 import { UserDataResponse } from "../helpers/github-auth.ts";
 import { AuthContext, NotesContext } from "./Context.tsx";

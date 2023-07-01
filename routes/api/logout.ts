@@ -1,3 +1,4 @@
+// Copyright 2023 Soma Notes
 import { Handlers } from "$fresh/server.ts";
 import { deleteCookie } from "$std/http/cookie.ts";
 

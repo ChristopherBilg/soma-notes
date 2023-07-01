@@ -1,3 +1,4 @@
+// Copyright 2023 Soma Notes
 import { Note, UUID } from "../signal/notes.ts";
 
 export const importNotes = (callbackFunc: (notes: Note[]) => void) => {

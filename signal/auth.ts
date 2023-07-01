@@ -1,3 +1,4 @@
+// Copyright 2023 Soma Notes
 import { Signal, signal } from "@preact/signals";
 
 export interface Auth {

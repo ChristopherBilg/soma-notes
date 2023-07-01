@@ -1,3 +1,4 @@
+// Copyright 2023 Soma Notes
 import { Handlers } from "$fresh/server.ts";
 import { getNotesByUserId, setNotesByUserId } from "./../../helpers/deno-kv.ts";
 

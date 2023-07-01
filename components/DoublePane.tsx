@@ -1,3 +1,4 @@
+// Copyright 2023 Soma Notes
 import { useContext, useState } from "preact/hooks";
 import LeftPane from "./LeftPane.tsx";
 import RightPane from "./RightPane.tsx";

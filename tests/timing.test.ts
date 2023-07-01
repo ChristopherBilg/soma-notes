@@ -1,3 +1,4 @@
+// Copyright 2023 Soma Notes
 import { assertEquals } from "$std/testing/asserts.ts";
 import { getAllNgrams, getNgrams } from "../helpers/notes.ts";
 

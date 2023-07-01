@@ -6,7 +6,8 @@
     "fmt": "deno fmt",
     "lint": "deno lint",
     "check": "deno check **/*.tsx",
-    "test": "deno test"
+    "test": "deno test -A --parallel --fail-fast",
+    "license-check": "deno run --allow-read https://deno.land/x/license_checker@v3.2.3/main.ts"
   },
   "importMap": "./import_map.json",
   "compilerOptions": {
