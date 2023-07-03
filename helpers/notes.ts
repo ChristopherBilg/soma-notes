@@ -83,7 +83,7 @@ export const findDescendantNotes = (note: Note, notes: Note[]): Note[] => {
 export const focusNote = (uuid: UUID) => {
   setTimeout(() => {
     const previousNoteInput = document.querySelector(
-      `input[data-uuid="${uuid}"]`,
+      `textarea[data-uuid="${uuid}"]`,
     ) as HTMLInputElement;
 
     previousNoteInput?.focus();

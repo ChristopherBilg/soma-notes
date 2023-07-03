@@ -1,5 +1,5 @@
 // Copyright 2023 Soma Notes
-import { useContext } from "preact/hooks";
+import { useContext, useEffect } from "preact/hooks";
 import { matchesSearch } from "../helpers/notes.ts";
 import { Note } from "../signal/notes.ts";
 import { AuthContext, NotesContext, UIContext } from "./Context.tsx";
@@ -232,6 +232,16 @@ const NoteInput = ({ uuid, isIndividualNoteView }: NoteInputProps) => {
     }
   };
 
+  const adjustTextareaHeight = () => {
+    const textarea = document.querySelector(
+      `textarea[data-uuid="${uuid}"]`,
+    ) as HTMLTextAreaElement;
+    if (!textarea) return;
+
+    textarea.style.height = "1px";
+    textarea.style.height = `${textarea.scrollHeight}px`;
+  };
+
   const handleInput = (e: Event) => {
     if (!auth?.value?.userId) return;
 
@@ -240,6 +250,10 @@ const NoteInput = ({ uuid, isIndividualNoteView }: NoteInputProps) => {
 
     updateNote(auth.value.userId, uuid, { content });
   };
+
+  useEffect(() => {
+    adjustTextareaHeight();
+  }, [note?.content]);
 
   return (
     <>
@@ -251,9 +265,9 @@ const NoteInput = ({ uuid, isIndividualNoteView }: NoteInputProps) => {
             setNoteFocused(auth.value.userId || "", uuid, !note?.focused)}
         />
 
-        <input
+        <textarea
           class={`
-            border-none bg-transparent rounded-md w-full ml-2
+            border-none bg-transparent rounded-md w-full ml-2 resize-none
             ${note?.completed ? "line-through" : ""}
           `}
           placeholder="Add a note"
@@ -262,6 +276,7 @@ const NoteInput = ({ uuid, isIndividualNoteView }: NoteInputProps) => {
           value={note?.content}
           onKeyDown={handleKeyDown}
           onInput={handleInput}
+          spellcheck={false}
         />
       </div>
 

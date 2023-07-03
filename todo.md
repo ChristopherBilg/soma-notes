@@ -26,8 +26,8 @@
 
 - [x] Button for completing notes
 - [x] Breadcrumbs on the /notes/:note page
+- [x] Change notes from input to textarea to support multi-line notes
 - [ ] Note reordering (using Alt + up/down)
-- [ ] Change notes from input to textarea to support multi-line notes
 
 # To-Do | Phase 3
 
