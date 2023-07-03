@@ -21,7 +21,7 @@ const BreadCrumbs = ({ note, finalNote }: BreadCrumbsProps) => {
         >
           {`${note.content}`}
         </a>
-        {finalNote ? "" : " / "}
+        {" / "}
       </div>
     )
     : (

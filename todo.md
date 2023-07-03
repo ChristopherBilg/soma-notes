@@ -27,14 +27,14 @@
 - [x] Button for completing notes
 - [x] Breadcrumbs on the /notes/:note page
 - [x] Change notes from input to textarea to support multi-line notes
-- [ ] Small bug: Breadcrumbs not always removing `/` from the end of the path
-- [ ] Note reordering (using Alt + up/down)
+- [x] Small bug: Breadcrumbs not always removing `/` from the end of the path
+- [-] Additional auth methods
+  - [ ] Setup in a way that adding additional OAuth methods is simple
+  - [-] As long as the above is true, adding only one additional OAuth method is
+    sufficient
 
 # To-Do | Phase 3
 
 - [ ] Note linking/highlighting/heatmap
 - [ ] Subscriptions using Stripe
-- [ ] Additional auth methods
-  - [ ] Setup in a way that adding additional OAuth methods is simple
-  - [ ] As long as the above is true, adding only one additional OAuth method is
-        sufficient
+- [ ] Note reordering (using Alt + up/down)
