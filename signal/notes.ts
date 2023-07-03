@@ -14,6 +14,7 @@ export interface Note {
   updatedAt: number;
   pinned: boolean;
   focused: boolean;
+  completed: boolean;
 }
 
 export type NotesStateType = {
@@ -28,6 +29,7 @@ export type NotesStateType = {
       content?: string;
       pinned?: boolean;
       parent?: NoteParent;
+      completed?: boolean;
     },
   ) => void;
   deleteNote: (userId: string, uuid: UUID) => void;
@@ -56,6 +58,7 @@ const NullNote: Note = {
   updatedAt: 0,
   pinned: false,
   focused: true,
+  completed: false,
 };
 
 const NotesState = (): NotesStateType => {
@@ -107,6 +110,7 @@ const NotesState = (): NotesStateType => {
       content?: string;
       pinned?: boolean;
       parent?: NoteParent;
+      completed?: boolean;
     },
   ) => {
     const existingNote = notes.value.find((note: Note) => note.uuid === uuid);
@@ -116,6 +120,9 @@ const NotesState = (): NotesStateType => {
     if (options?.content !== undefined) existingNote.content = options?.content;
     if (options?.pinned !== undefined) existingNote.pinned = options?.pinned;
     if (options?.parent !== undefined) existingNote.parent = options?.parent;
+    if (options?.completed !== undefined) {
+      existingNote.completed = options?.completed;
+    }
 
     notes.value = notes.value.map((note: Note) => {
       if (note.uuid === existingNote.uuid) return existingNote;

@@ -4,6 +4,7 @@ import { AuthContext, NotesContext } from "./Context.tsx";
 import NoteInput from "./NoteInput.tsx";
 import AnchorButton from "./AnchorButton.tsx";
 import { findDescendantNotes } from "../helpers/notes.ts";
+import BreadCrumbs from "./BreadCrumbs.tsx";
 
 interface NoteViewerProps {
   params: Record<string, string>;
@@ -16,14 +17,22 @@ const NoteViewer = ({ params }: NoteViewerProps) => {
   const note = notes.value.find((n) => n.uuid === params.note);
   if (!note) return null;
 
-  const parentNoteHref = note?.parent ? `/notes/${note.parent}` : "/notes";
-
   const handlePinNoteButtonClick = () => {
     updateNote(
       auth.value.userId || "",
       note.uuid,
       {
         pinned: !note.pinned,
+      },
+    );
+  };
+
+  const handleCompleteNoteButtonClick = () => {
+    updateNote(
+      auth.value.userId || "",
+      note.uuid,
+      {
+        completed: !note.completed,
       },
     );
   };
@@ -55,20 +64,24 @@ const NoteViewer = ({ params }: NoteViewerProps) => {
         />
 
         <AnchorButton
+          onClick={handleCompleteNoteButtonClick}
+          title={note.completed ? "Uncomplete" : "Complete"}
+        />
+
+        <AnchorButton
           onClick={handleFocusNotesButtonClick}
           title={notesFocused ? "Unfocus all" : "Focus all"}
-        />
-
-        <AnchorButton
-          href="/notes"
-          title="Notes"
-        />
-
-        <AnchorButton
-          href={parentNoteHref}
-          title="Parent"
           roundedRight
         />
+      </div>
+
+      <div class="flex justify-center m-4">
+        <p class="truncate">
+          <BreadCrumbs
+            note={notes.value.find((n) => n.uuid === note.parent)}
+            finalNote
+          />
+        </p>
       </div>
 
       <div class="p-2.5 rounded-lg border-2">

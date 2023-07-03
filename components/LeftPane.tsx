@@ -30,7 +30,12 @@ const LeftPane = ({ width }: LeftPaneProps) => {
             <ul class="list-disc list-inside">
               {pinnedNotes.map((note) => (
                 <li>
-                  <a href={`/notes/${note.uuid}`}>{note.content}</a>
+                  <a
+                    class={note.completed ? "line-through" : ""}
+                    href={`/notes/${note.uuid}`}
+                  >
+                    {note.content}
+                  </a>
                 </li>
               ))}
             </ul>
@@ -45,7 +50,12 @@ const LeftPane = ({ width }: LeftPaneProps) => {
             <ul class="list-disc list-inside">
               {recentNotes.map((note) => (
                 <li>
-                  <a href={`/notes/${note.uuid}`}>{note.content}</a>
+                  <a
+                    class={note.completed ? "line-through" : ""}
+                    href={`/notes/${note.uuid}`}
+                  >
+                    {note.content}
+                  </a>
                 </li>
               ))}
             </ul>

@@ -246,14 +246,16 @@ const NoteInput = ({ uuid, isIndividualNoteView }: NoteInputProps) => {
       <div class="flex">
         <input
           type="radio"
-          class="mr-2"
           checked={!note?.focused}
           onClick={() =>
             setNoteFocused(auth.value.userId || "", uuid, !note?.focused)}
         />
 
         <input
-          class="border-none bg-transparent rounded-md w-full"
+          class={`
+            border-none bg-transparent rounded-md w-full ml-2
+            ${note?.completed ? "line-through" : ""}
+          `}
           placeholder="Add a note"
           type="text"
           data-uuid={uuid}

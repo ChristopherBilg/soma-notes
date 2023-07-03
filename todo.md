@@ -16,8 +16,7 @@
 - [x] Hide/show nested notes (using a checkbox?)
 - [x] Delete should find the last note the same way that `ArrowUp` does
 - [x] Full local development mode (can use environment variables)
-- [-] Initial setup of note linking/highlighting/heatmap
-- [-] Write down any and all additiiional features; especially from Notation.app
+- [x] Write down any and all additional features; especially from Notation.app
 
 > Once Phase 1 is complete, I will be able to use this app as my primary
 > note-taking app for all of my personal notes (work, side-notes, personal,
@@ -25,14 +24,14 @@
 
 # To-Do | Phase 2
 
-- [ ] Breadcrumbs on the /notes/:note page
+- [x] Button for completing notes
+- [x] Breadcrumbs on the /notes/:note page
 - [ ] Note reordering (using Alt + up/down)
 - [ ] Change notes from input to textarea to support multi-line notes
-- [ ] More accurate, in-depth note linking/highlighting/heatmap
-- [ ] Buttons (or some other method) to toggle pin/completed/etc.
 
 # To-Do | Phase 3
 
+- [ ] Note linking/highlighting/heatmap
 - [ ] Subscriptions using Stripe
 - [ ] Additional auth methods
   - [ ] Setup in a way that adding additional OAuth methods is simple
