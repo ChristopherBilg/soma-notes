@@ -2,7 +2,7 @@
 import Context from "../components/Context.tsx";
 import ContextSetup from "../components/ContextSetup.tsx";
 import NoteViewer from "../components/NoteViewer.tsx";
-import { UserDataResponse } from "../helpers/github-auth.ts";
+import { UserDataResponse } from "../helpers/auth/index.ts";
 
 interface NoteViewerPageIslandProps {
   params: Record<string, string>;

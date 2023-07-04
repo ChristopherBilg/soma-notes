@@ -2,6 +2,7 @@
 import { debounce } from "$std/async/debounce.ts";
 import { Signal, signal } from "@preact/signals";
 import { USER_INPUT_DEBOUNCE_TIME_MILLIS } from "./../helpers/constants.ts";
+import { AuthUser } from "./auth.ts";
 
 export type UUID = string;
 export type NoteParent = UUID | null;
@@ -19,11 +20,11 @@ export interface Note {
 
 export type NotesStateType = {
   notes: Signal<Note[]>;
-  loadNotes: (userId: string) => Promise<void>;
-  setNotes: (userId: string, notes: Note[]) => void;
-  createNote: (userId: string, parent: NoteParent, content: string) => string;
+  loadNotes: (user: AuthUser) => Promise<void>;
+  setNotes: (user: AuthUser, notes: Note[]) => void;
+  createNote: (user: AuthUser, parent: NoteParent, content: string) => string;
   updateNote: (
-    userId: string,
+    user: AuthUser,
     uuid: UUID,
     options?: {
       content?: string;
@@ -32,18 +33,19 @@ export type NotesStateType = {
       completed?: boolean;
     },
   ) => void;
-  deleteNote: (userId: string, uuid: UUID) => void;
-  deleteAllNotes: (userId: string) => void;
+  deleteNote: (user: AuthUser, uuid: UUID) => void;
+  deleteAllNotes: (user: AuthUser) => void;
   flushNotes: () => void;
-  setNoteFocused: (userId: string, uuid: UUID, focused: boolean) => void;
+  setNoteFocused: (user: AuthUser, uuid: UUID, focused: boolean) => void;
 };
 
 const debouncedSaveNotesToDenoKV = debounce(
-  async (userId: string, notes: Note[]) =>
+  async (user: AuthUser, notes: Note[]) =>
     await fetch("/api/notes", {
       method: "POST",
       headers: {
-        "x-user-id": userId,
+        "x-provider": user.provider || "",
+        "x-user-id": user.userId || "",
       },
       body: JSON.stringify(notes),
     }),
@@ -65,24 +67,25 @@ const NotesState = (): NotesStateType => {
   const notes = signal<Note[]>([]);
 
   // Application State Persistence (load)
-  const loadNotes = async (userId: string) => {
+  const loadNotes = async (user: AuthUser) => {
     const response = await fetch("/api/notes", {
       headers: {
-        "x-user-id": userId,
+        "x-provider": user.provider || "",
+        "x-user-id": user.userId || "",
       },
     });
 
     notes.value = await response.json();
   };
 
-  const setNotes = (userId: string, newNotes: Note[]) => {
+  const setNotes = (user: AuthUser, newNotes: Note[]) => {
     notes.value = [...notes.value, ...newNotes];
 
     // Application State Persistence (save)
-    debouncedSaveNotesToDenoKV(userId, notes.value);
+    debouncedSaveNotesToDenoKV(user, notes.value);
   };
 
-  const createNote = (userId: string, parent: NoteParent, content = "") => {
+  const createNote = (user: AuthUser, parent: NoteParent, content = "") => {
     const now = new Date().getTime();
     const uuid = crypto.randomUUID();
 
@@ -98,13 +101,13 @@ const NotesState = (): NotesStateType => {
     notes.value = [...notes.value, note];
 
     // Application State Persistence (save)
-    debouncedSaveNotesToDenoKV(userId, notes.value);
+    debouncedSaveNotesToDenoKV(user, notes.value);
 
     return uuid;
   };
 
   const updateNote = (
-    userId: string,
+    user: AuthUser,
     uuid: UUID,
     options?: {
       content?: string;
@@ -131,26 +134,26 @@ const NotesState = (): NotesStateType => {
     });
 
     // Application State Persistence (save)
-    debouncedSaveNotesToDenoKV(userId, notes.value);
+    debouncedSaveNotesToDenoKV(user, notes.value);
   };
 
-  const deleteNote = (userId: string, uuid: UUID) => {
+  const deleteNote = (user: AuthUser, uuid: UUID) => {
     notes.value = notes.value.filter((note: Note) => note.uuid !== uuid);
 
     // Application State Persistence (save)
-    debouncedSaveNotesToDenoKV(userId, notes.value);
+    debouncedSaveNotesToDenoKV(user, notes.value);
   };
 
-  const deleteAllNotes = (userId: string) => {
+  const deleteAllNotes = (user: AuthUser) => {
     notes.value = [];
 
     // Application State Persistence (save)
-    debouncedSaveNotesToDenoKV(userId, notes.value);
+    debouncedSaveNotesToDenoKV(user, notes.value);
   };
 
   const flushNotes = () => debouncedSaveNotesToDenoKV.flush();
 
-  const setNoteFocused = (userId: string, uuid: UUID, focused: boolean) => {
+  const setNoteFocused = (user: AuthUser, uuid: UUID, focused: boolean) => {
     notes.value = notes.value.map((note: Note) => {
       if (note.uuid === uuid) {
         note.focused = focused;
@@ -160,7 +163,7 @@ const NotesState = (): NotesStateType => {
     });
 
     // Application State Persistence (save)
-    debouncedSaveNotesToDenoKV(userId, notes.value);
+    debouncedSaveNotesToDenoKV(user, notes.value);
   };
 
   return {

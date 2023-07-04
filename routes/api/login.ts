@@ -1,13 +1,33 @@
 // Copyright 2023 Soma Notes
-import { Handlers } from "$fresh/server.ts";
+import { Handlers, Status } from "$fresh/server.ts";
+import { createGitHubOAuth2Client, createGoogleOAuth2Client, signIn } from "deno-kv-oauth";
 
 export const handler: Handlers = {
-  GET(req) {
-    const url = new URL("https://github.com/login/oauth/authorize");
+  async GET(req) {
+    const url = new URL(req.url);
+    const provider = url.searchParams.get("provider");
 
-    url.searchParams.set("client_id", Deno.env.get("GITHUB_CLIENT_ID") || "");
-    url.searchParams.set("redirect_uri", new URL(req.url).origin);
+    if (!provider) return new Response("Bad request", { status: Status.BadRequest });
 
-    return Response.redirect(url, 302);
+    let oauth2Client;
+    switch (provider) {
+      case "google":
+        oauth2Client = createGoogleOAuth2Client({
+          redirectUri: "https://somanotes.com",
+          defaults: {
+            scope: "https://www.googleapis.com/auth/userinfo.profile",
+          },
+        });
+        break;
+      case "github":
+        oauth2Client = createGitHubOAuth2Client();
+        break;
+      default:
+        return new Response("Bad request", { status: Status.BadRequest });
+    }
+
+    if (!oauth2Client) return new Response("Bad request", { status: Status.BadRequest });
+
+    return await signIn(req, oauth2Client);
   },
 };

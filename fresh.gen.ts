@@ -6,13 +6,14 @@ import config from "./deno.json" assert { type: "json" };
 import * as $0 from "./routes/_404.tsx";
 import * as $1 from "./routes/_500.tsx";
 import * as $2 from "./routes/_app.tsx";
-import * as $3 from "./routes/api/login.ts";
-import * as $4 from "./routes/api/logout.ts";
-import * as $5 from "./routes/api/notes.ts";
-import * as $6 from "./routes/index.tsx";
-import * as $7 from "./routes/notes/[note].tsx";
-import * as $8 from "./routes/notes/index.tsx";
-import * as $9 from "./routes/user/index.tsx";
+import * as $3 from "./routes/api/callback.ts";
+import * as $4 from "./routes/api/login.ts";
+import * as $5 from "./routes/api/logout.ts";
+import * as $6 from "./routes/api/notes.ts";
+import * as $7 from "./routes/index.tsx";
+import * as $8 from "./routes/notes/[note].tsx";
+import * as $9 from "./routes/notes/index.tsx";
+import * as $10 from "./routes/user/index.tsx";
 import * as $$0 from "./islands/CreateNoteButtonIsland.tsx";
 import * as $$1 from "./islands/DeleteAllNotesButtonIsland.tsx";
 import * as $$2 from "./islands/DoublePaneIsland.tsx";
@@ -24,13 +25,14 @@ const manifest = {
     "./routes/_404.tsx": $0,
     "./routes/_500.tsx": $1,
     "./routes/_app.tsx": $2,
-    "./routes/api/login.ts": $3,
-    "./routes/api/logout.ts": $4,
-    "./routes/api/notes.ts": $5,
-    "./routes/index.tsx": $6,
-    "./routes/notes/[note].tsx": $7,
-    "./routes/notes/index.tsx": $8,
-    "./routes/user/index.tsx": $9,
+    "./routes/api/callback.ts": $3,
+    "./routes/api/login.ts": $4,
+    "./routes/api/logout.ts": $5,
+    "./routes/api/notes.ts": $6,
+    "./routes/index.tsx": $7,
+    "./routes/notes/[note].tsx": $8,
+    "./routes/notes/index.tsx": $9,
+    "./routes/user/index.tsx": $10,
   },
   islands: {
     "./islands/CreateNoteButtonIsland.tsx": $$0,

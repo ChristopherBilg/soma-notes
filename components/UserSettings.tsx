@@ -9,7 +9,7 @@ const UserSettings = () => {
   const { notes, setNotes } = useContext(NotesContext);
 
   const handleImportNotesButtonClick = () =>
-    importNotes((newNotes) => setNotes(auth.value.userId || "", newNotes));
+    importNotes((newNotes) => setNotes(auth.value, newNotes));
 
   const handleExportNotesButtonClick = () => exportNotes(notes.value);
 

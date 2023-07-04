@@ -2,7 +2,7 @@
 import Context from "../components/Context.tsx";
 import ContextSetup from "../components/ContextSetup.tsx";
 import UserSettings from "../components/UserSettings.tsx";
-import { UserDataResponse } from "../helpers/github-auth.ts";
+import { UserDataResponse } from "../helpers/auth/index.ts";
 
 interface UserSettingsIslandProps {
   userData: UserDataResponse | undefined;

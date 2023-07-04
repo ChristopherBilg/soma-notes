@@ -7,7 +7,7 @@ interface AnchorButtonProps {
   rounded?: boolean;
   roundedLeft?: boolean;
   roundedRight?: boolean;
-  svgIcon?: JSX.Element;
+  icon?: JSX.Element;
   onClick?: () => void;
   lighter?: boolean;
 }
@@ -18,7 +18,7 @@ const AnchorButton = (
     href,
     roundedLeft,
     roundedRight,
-    svgIcon,
+    icon,
     title,
     onClick,
     lighter,
@@ -27,8 +27,8 @@ const AnchorButton = (
   return (href || onClick)
     ? (
       <div
-        class={svgIcon ? "flex flex-col" : ""}
-        style={svgIcon ? "width: 195px" : ""}
+        class={icon ? "flex flex-col" : ""}
+        style={icon ? "width: 195px" : ""}
       >
         <a
           href={href}
@@ -43,16 +43,16 @@ const AnchorButton = (
           ${roundedLeft ? "rounded-l" : ""}
           ${roundedRight ? "rounded-r" : ""}
           ${rounded ? "rounded" : ""}
-          ${!svgIcon ? "px-4" : ""}
+          ${!icon ? "px-4" : ""}
           ${onClick ? "cursor-pointer" : ""}
         `}
         >
-          {svgIcon && (
+          {icon && (
             <div class="m-0.5 p-auto">
-              {svgIcon}
+              {icon}
             </div>
           )}
-          <span class={svgIcon ? "ml-1.5" : ""}>{title}</span>
+          <span class={icon ? "ml-1.5" : ""}>{title}</span>
         </a>
       </div>
     )

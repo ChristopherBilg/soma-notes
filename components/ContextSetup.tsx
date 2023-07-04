@@ -1,6 +1,6 @@
 // Copyright 2023 Soma Notes
 import { useContext, useEffect } from "preact/hooks";
-import { UserDataResponse } from "../helpers/github-auth.ts";
+import { UserDataResponse } from "../helpers/auth/index.ts";
 import { AuthContext, NotesContext } from "./Context.tsx";
 
 interface ContextSetupProps {
@@ -8,14 +8,15 @@ interface ContextSetupProps {
 }
 
 const ContextSetup = ({ userData }: ContextSetupProps) => {
+  const { user } = userData || {};
   const { setAuth, clearAuth } = useContext(AuthContext);
 
-  if (userData) setAuth(userData);
+  if (user) setAuth(user);
   else clearAuth();
 
   const { loadNotes } = useContext(NotesContext);
   useEffect(() => {
-    if (userData?.userId) loadNotes(userData.userId);
+    if (user?.userId) loadNotes(user);
   }, [userData]);
 
   return null;

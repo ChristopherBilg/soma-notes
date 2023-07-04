@@ -63,7 +63,7 @@ const NoteInput = ({ uuid, isIndividualNoteView }: NoteInputProps) => {
         .filter((n: Note) => n.parent === uuid)
         .forEach((n: Note) => {
           updateNote(
-            auth.value.userId || "",
+            auth.value,
             n.uuid,
             {
               parent: note.parent,
@@ -72,7 +72,7 @@ const NoteInput = ({ uuid, isIndividualNoteView }: NoteInputProps) => {
         });
 
       // Delete the note and, if needed, redirect to the parent note
-      deleteNote(auth.value.userId, uuid);
+      deleteNote(auth.value, uuid);
 
       if (isIndividualNoteView) {
         flushNotes();
@@ -88,13 +88,13 @@ const NoteInput = ({ uuid, isIndividualNoteView }: NoteInputProps) => {
       e.preventDefault();
 
       if (e.shiftKey) {
-        const newNoteUUID = createNote(auth.value.userId, uuid, "");
+        const newNoteUUID = createNote(auth.value, uuid, "");
 
         // Focus on the new note
         focusNote(newNoteUUID);
       } else {
         const parentNoteUUID = isIndividualNoteView ? uuid : note.parent;
-        const newNoteUUID = createNote(auth.value.userId, parentNoteUUID, "");
+        const newNoteUUID = createNote(auth.value, parentNoteUUID, "");
 
         // Focus on the new note
         focusNote(newNoteUUID);
@@ -114,7 +114,7 @@ const NoteInput = ({ uuid, isIndividualNoteView }: NoteInputProps) => {
 
         // Update the current note's parent to be the previous note's UUID
         updateNote(
-          auth.value.userId || "",
+          auth.value,
           note.uuid,
           {
             parent: parentNote.parent,
@@ -136,7 +136,7 @@ const NoteInput = ({ uuid, isIndividualNoteView }: NoteInputProps) => {
 
         // Update the current note's parent to be the previous note's UUID
         updateNote(
-          auth.value.userId || "",
+          auth.value,
           note.uuid,
           {
             parent: previousNote.uuid,
@@ -248,7 +248,7 @@ const NoteInput = ({ uuid, isIndividualNoteView }: NoteInputProps) => {
     const target = e.target as HTMLInputElement;
     const content = target.value;
 
-    updateNote(auth.value.userId, uuid, { content });
+    updateNote(auth.value, uuid, { content });
   };
 
   useEffect(() => {
@@ -261,8 +261,7 @@ const NoteInput = ({ uuid, isIndividualNoteView }: NoteInputProps) => {
         <input
           type="radio"
           checked={!note?.focused}
-          onClick={() =>
-            setNoteFocused(auth.value.userId || "", uuid, !note?.focused)}
+          onClick={() => setNoteFocused(auth.value, uuid, !note?.focused)}
         />
 
         <textarea

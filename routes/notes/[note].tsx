@@ -1,8 +1,8 @@
 // Copyright 2023 Soma Notes
-import { Handlers } from "$fresh/server.ts";
+import { Handlers, Status } from "$fresh/server.ts";
 import { authHandler } from "../../helpers/auth-handler.ts";
-import { getNotesByUserId } from "../../helpers/deno-kv.ts";
-import { UserDataResponse } from "../../helpers/github-auth.ts";
+import { getNotesByUser } from "../../helpers/deno-kv.ts";
+import { UserDataResponse } from "../../helpers/auth/index.ts";
 import NoteViewerPageIsland from "../../islands/NoteViewerPageIsland.tsx";
 import { Note } from "../../signal/notes.ts";
 
@@ -12,13 +12,13 @@ export const handler: Handlers = {
       req,
       ctx,
       new Response("", {
-        status: 307,
+        status: Status.TemporaryRedirect,
         headers: { Location: "/api/login" },
       }),
     );
 
     // Check to see if the requested note UUID exists for this user
-    const notes = await getNotesByUserId(userData.userId || "");
+    const notes = await getNotesByUser(userData.user);
 
     const url = new URL(req.url);
     const requestedNoteUUID = url.pathname.split("/").at(-1);

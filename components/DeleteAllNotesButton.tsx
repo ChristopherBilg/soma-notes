@@ -8,7 +8,7 @@ const DeleteAllNotesButton = () => {
   const { deleteAllNotes } = useContext(NotesContext);
 
   const handleDeleteAllNotesButtonClick = () => {
-    if (auth?.value.userId) deleteAllNotes(auth.value.userId);
+    if (auth?.value.userId) deleteAllNotes(auth.value);
   };
 
   return (

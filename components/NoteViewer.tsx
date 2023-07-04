@@ -19,7 +19,7 @@ const NoteViewer = ({ params }: NoteViewerProps) => {
 
   const handlePinNoteButtonClick = () => {
     updateNote(
-      auth.value.userId || "",
+      auth.value,
       note.uuid,
       {
         pinned: !note.pinned,
@@ -29,7 +29,7 @@ const NoteViewer = ({ params }: NoteViewerProps) => {
 
   const handleCompleteNoteButtonClick = () => {
     updateNote(
-      auth.value.userId || "",
+      auth.value,
       note.uuid,
       {
         completed: !note.completed,
@@ -43,7 +43,7 @@ const NoteViewer = ({ params }: NoteViewerProps) => {
     const newNotesFocused = descendants.every((n) => n.focused);
 
     descendants.forEach((n) =>
-      setNoteFocused(auth.value.userId || "", n.uuid, !newNotesFocused)
+      setNoteFocused(auth.value, n.uuid, !newNotesFocused)
     );
     setNotesFocused(!newNotesFocused);
   };

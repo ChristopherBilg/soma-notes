@@ -1,33 +1,38 @@
 // Copyright 2023 Soma Notes
 import { Signal, signal } from "@preact/signals";
 
-export interface Auth {
+export enum AuthProvider {
+  Google = "google",
+  GitHub = "github",
+}
+
+export interface AuthUser {
+  provider: AuthProvider | null;
   userId: string | null;
   userName: string | null;
-  avatarUrl: string | null;
 }
 
 export type AuthStateType = {
-  auth: Signal<Auth>;
-  setAuth: (newAuth: Auth) => void;
+  auth: Signal<AuthUser>;
+  setAuth: (newAuth: AuthUser) => void;
   clearAuth: () => void;
 };
 
-const NullAuth: Auth = {
+export const NullAuthUser: AuthUser = {
+  provider: null,
   userId: null,
   userName: null,
-  avatarUrl: null,
 };
 
 const AuthState = (): AuthStateType => {
-  const auth = signal<Auth>(NullAuth);
+  const auth = signal<AuthUser>(NullAuthUser);
 
-  const setAuth = (newAuth: Auth) => {
+  const setAuth = (newAuth: AuthUser) => {
     auth.value = newAuth;
   };
 
   const clearAuth = () => {
-    auth.value = NullAuth;
+    auth.value = NullAuthUser;
   };
 
   return { auth, setAuth, clearAuth };

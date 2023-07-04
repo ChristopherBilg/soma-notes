@@ -1,8 +1,8 @@
 // Copyright 2023 Soma Notes
-import { Handlers } from "$fresh/server.ts";
+import { Handlers, Status } from "$fresh/server.ts";
 import AnchorButton from "../../components/AnchorButton.tsx";
 import { authHandler } from "../../helpers/auth-handler.ts";
-import { UserDataResponse } from "../../helpers/github-auth.ts";
+import { UserDataResponse } from "../../helpers/auth/index.ts";
 import UserSettingsIsland from "../../islands/UserSettingsIsland.tsx";
 
 export const handler: Handlers = {
@@ -11,7 +11,7 @@ export const handler: Handlers = {
       req,
       ctx,
       new Response("", {
-        status: 307,
+        status: Status.TemporaryRedirect,
         headers: { Location: "/api/login" },
       }),
     );

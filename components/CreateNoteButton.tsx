@@ -8,7 +8,7 @@ const CreateNoteButton = () => {
   const { createNote } = useContext(NotesContext);
 
   const handleCreateNoteButtonClick = () => {
-    if (auth?.value.userId) createNote(auth.value.userId, null, "");
+    if (auth?.value.userId) createNote(auth.value, null, "");
   };
 
   return (

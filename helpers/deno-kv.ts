@@ -1,20 +1,23 @@
 // Copyright 2023 Soma Notes
+import { AuthProvider, AuthUser } from "../signal/auth.ts";
 import { Note } from "./../signal/notes.ts";
 
-type AuthMethod = "github";
-type DenoKVNotesKey = ["notes", AuthMethod, string];
+type DenoKVNotesKey = ["notes", AuthProvider, string];
 
 const getNotesKey = (
-  authMethod: AuthMethod,
+  provider: AuthProvider,
   userId: string,
 ): DenoKVNotesKey => {
-  return ["notes", authMethod, String(userId)];
+  return ["notes", provider, String(userId)];
 };
 
-export const getNotesByUserId = async (userId: string): Promise<Note[]> => {
+export const getNotesByUser = async (user: AuthUser): Promise<Note[]> => {
   // @ts-ignore Property openKv does indeed exist on type 'typeof Deno'
   const kv = await Deno.openKv();
-  const key = getNotesKey("github", userId);
+  const key = getNotesKey(
+    user.provider || AuthProvider.GitHub,
+    user.userId || "",
+  );
 
   const notes = await kv.get(key);
   kv.close();
@@ -22,15 +25,14 @@ export const getNotesByUserId = async (userId: string): Promise<Note[]> => {
   return notes.value || [];
 };
 
-export const setNotesByUserId = async (userId: string, notes: Note[]) => {
+export const setNotesByUser = async (user: AuthUser, notes: Note[]) => {
   // @ts-ignore Property openKv does indeed exist on type 'typeof Deno'
   const kv = await Deno.openKv();
-  const key = getNotesKey("github", userId);
+  const key = getNotesKey(
+    user.provider || AuthProvider.GitHub,
+    user.userId || "",
+  );
 
-  let res;
-  if (notes.length === 0) await kv.delete(key);
-  else await kv.set(key, notes);
+  await kv.set(key, notes);
   kv.close();
-
-  return res;
 };
