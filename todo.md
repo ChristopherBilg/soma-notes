@@ -29,12 +29,15 @@
 - [x] Change notes from input to textarea to support multi-line notes
 - [x] Small bug: Breadcrumbs not always removing `/` from the end of the path
 - [-] Additional auth methods
-  - [ ] Setup in a way that adding additional OAuth methods is simple
+  - [-] Setup in a way that adding additional OAuth methods is simple
   - [-] As long as the above is true, adding only one additional OAuth method is
     sufficient
+- [x] Change all `interfaces` to `types`
+- [x] Clean up all code
 
 # To-Do | Phase 3
 
 - [ ] Note linking/highlighting/heatmap
 - [ ] Subscriptions using Stripe
 - [ ] Note reordering (using Alt + up/down)
+- [ ] Clean up all code

@@ -22,9 +22,9 @@ export const handler: Handlers = {
   },
 };
 
-interface NotesProps {
+type NotesProps = {
   data: { userData: UserDataResponse } | null;
-}
+};
 
 const Notes = ({ data }: NotesProps) => {
   const { userData } = data || {};

@@ -13,9 +13,9 @@ export const handler: Handlers = {
   },
 };
 
-interface LandingPageProps {
+type LandingPageProps = {
   data: { userData: UserDataResponse } | null;
-}
+};
 
 const LandingPage = ({ data }: LandingPageProps) => (
   <div class="fixed inset-0 flex items-center justify-center">
@@ -51,7 +51,7 @@ const LandingPage = ({ data }: LandingPageProps) => (
             <div class="flex flex-col gap-3">
               <AnchorButton
                 title="Sign in with Google"
-                href="/api/login?provider=google"
+                href="/api/login?provider=github"
                 icon={
                   <img
                     class="mx-1.5"

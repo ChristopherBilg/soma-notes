@@ -1,7 +1,7 @@
 // Copyright 2023 Soma Notes
 import { JSX } from "preact/jsx-runtime";
 
-interface AnchorButtonProps {
+type AnchorButtonProps = {
   title: string;
   href?: string;
   rounded?: boolean;
@@ -10,7 +10,7 @@ interface AnchorButtonProps {
   icon?: JSX.Element;
   onClick?: () => void;
   lighter?: boolean;
-}
+};
 
 const AnchorButton = (
   {

@@ -6,11 +6,11 @@ export enum AuthProvider {
   GitHub = "github",
 }
 
-export interface AuthUser {
+export type AuthUser = {
   provider: AuthProvider | null;
   userId: string | null;
   userName: string | null;
-}
+};
 
 export type AuthStateType = {
   auth: Signal<AuthUser>;

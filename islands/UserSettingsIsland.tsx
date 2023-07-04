@@ -4,9 +4,9 @@ import ContextSetup from "../components/ContextSetup.tsx";
 import UserSettings from "../components/UserSettings.tsx";
 import { UserDataResponse } from "../helpers/auth/index.ts";
 
-interface UserSettingsIslandProps {
+type UserSettingsIslandProps = {
   userData: UserDataResponse | undefined;
-}
+};
 
 const UserSettingsIsland = ({ userData }: UserSettingsIslandProps) => (
   <Context>

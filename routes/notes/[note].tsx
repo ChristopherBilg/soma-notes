@@ -32,10 +32,10 @@ export const handler: Handlers = {
   },
 };
 
-interface NoteProps {
+type NoteProps = {
   data: { userData: UserDataResponse } | null;
   params: Record<string, string>;
-}
+};
 
 const Note = ({ data, params }: NoteProps) => (
   <NoteViewerPageIsland params={params} userData={data?.userData} />

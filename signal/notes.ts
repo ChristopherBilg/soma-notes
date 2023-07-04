@@ -7,7 +7,7 @@ import { AuthUser } from "./auth.ts";
 export type UUID = string;
 export type NoteParent = UUID | null;
 
-export interface Note {
+export type Note = {
   uuid: UUID;
   content: string;
   parent: NoteParent;
@@ -16,7 +16,7 @@ export interface Note {
   pinned: boolean;
   focused: boolean;
   completed: boolean;
-}
+};
 
 export type NotesStateType = {
   notes: Signal<Note[]>;

@@ -4,9 +4,9 @@ import { matchesSearch } from "../helpers/notes.ts";
 import { Note } from "../signal/notes.ts";
 import { NotesContext, UIContext } from "./Context.tsx";
 
-interface LeftPaneProps {
+type LeftPaneProps = {
   width: string;
-}
+};
 
 const LeftPane = ({ width }: LeftPaneProps) => {
   const { notes } = useContext(NotesContext);

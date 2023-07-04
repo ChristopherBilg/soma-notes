@@ -4,10 +4,10 @@ import LeftPane from "./LeftPane.tsx";
 import RightPane from "./RightPane.tsx";
 import { UIContext } from "./Context.tsx";
 
-interface DoublePaneProps {
+type DoublePaneProps = {
   minLeftWidth: number;
   minRightWidth: number;
-}
+};
 
 const DoublePane = ({ minLeftWidth, minRightWidth }: DoublePaneProps) => {
   const { leftPaneWidth, setLeftPaneWidth, rightPaneWidth, setRightPaneWidth } =

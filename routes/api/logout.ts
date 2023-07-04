@@ -4,6 +4,6 @@ import { signOut } from "deno-kv-oauth";
 
 export const handler: Handlers = {
   async GET(req) {
-    return await signOut(req, 'https://somanotes.com')
+    return await signOut(req, "https://somanotes.com");
   },
 };

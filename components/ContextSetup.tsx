@@ -3,9 +3,9 @@ import { useContext, useEffect } from "preact/hooks";
 import { UserDataResponse } from "../helpers/auth/index.ts";
 import { AuthContext, NotesContext } from "./Context.tsx";
 
-interface ContextSetupProps {
+type ContextSetupProps = {
   userData: UserDataResponse | undefined;
-}
+};
 
 const ContextSetup = ({ userData }: ContextSetupProps) => {
   const { user } = userData || {};

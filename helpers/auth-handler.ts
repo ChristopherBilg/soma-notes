@@ -5,7 +5,6 @@ import { getGitHubUserData } from "./auth/github.ts";
 import { NullUserDataResponse, UserDataResponse } from "./auth/index.ts";
 import {
   createGitHubOAuth2Client,
-  createGoogleOAuth2Client,
   getSessionAccessToken,
   getSessionId,
 } from "deno-kv-oauth";
@@ -32,25 +31,10 @@ export const authHandler = async (
     ];
   }
 
-  const url = new URL(request.url);
-  const provider = url.searchParams.get("provider");
-  let oauth2Client;
-
-  switch (provider) {
-    case "google":
-      oauth2Client = createGoogleOAuth2Client({
-        redirectUri: "https://somanotes.com/api/callback",
-        defaults: {
-          scope: "https://www.googleapis.com/auth/userinfo.profile",
-        },
-      });
-      break;
-    case "github":
-      oauth2Client = createGitHubOAuth2Client();
-      break;
-    default:
-      return [unauthenticatedResponse, NullUserDataResponse];
-  }
+  // TODO: Try making an oauth2 client per provider until one is successful (or all fail)
+  //       If one is successful, then use that one for the rest of the session
+  //       If all fail, then return [unauthenticatedResponse, NullUserDataResponse]
+  const oauth2Client = createGitHubOAuth2Client();
 
   const sessionId = await getSessionId(request);
   const isSignedIn = !!sessionId;
@@ -59,56 +43,17 @@ export const authHandler = async (
   const accessToken = await getSessionAccessToken(oauth2Client, sessionId);
   if (!accessToken) return [unauthenticatedResponse, NullUserDataResponse];
 
-  let userData: UserDataResponse = NullUserDataResponse;
-  switch (provider) {
-    case "google":
-      break;
-    case "github":
-      userData = await getGitHubUserData(accessToken);
-      return [await context.render({ userData }), userData];
-    default:
-      return [unauthenticatedResponse, NullUserDataResponse];
-  }
+  // TODO: Once we have a successful auth client, we should get the user data from the provider
+  //       and return it as part of the response
+  //       If the user data is not available, then return [unauthenticatedResponse, NullUserDataResponse]
+  //       If the user data is available, then return [context.render({ userData }), userData]
+  //       Note: The user data should always be available if the access token is valid and the provider is online
+
+  const userData = await getGitHubUserData(accessToken);
+  if (!userData.ok) return [unauthenticatedResponse, userData];
 
   return [
     await context.render({ userData }),
     userData,
   ];
-
-  // // Get cookie from request header and parse it
-  // const maybeAccessToken = getCookies(request.headers)["github_auth_token"];
-  // if (maybeAccessToken) {
-  // const userData = await getUserData(maybeAccessToken);
-  //   if (userData.ok) {
-  //     return [
-  //       await context.render({ userData }),
-  //       userData,
-  //     ];
-  //   }
-  // }
-
-  // // If no cookie, then check to see if this is an OAuth callback request
-  // const url = new URL(request.url);
-  // const code = url.searchParams.get("code");
-  // if (!code) return [unauthenticatedResponse, NullUserDataResponse];
-
-  // // If there is a code, then we need to exchange it for an access token
-  // const accessToken = await getAccessToken(code);
-  // if (!accessToken.ok) return [unauthenticatedResponse, NullUserDataResponse];
-
-  // // If we have an access token, then we can get the user data
-  // const userData = await getUserData(accessToken.accessToken as string);
-  // if (!userData.ok) return [unauthenticatedResponse, NullUserDataResponse];
-
-  // // If we have user data from the URL code, then we can set the cookie and render the page
-  // const response = await context.render({ userData });
-
-  // setCookie(response.headers, {
-  //   name: "github_auth_token",
-  //   value: accessToken.accessToken as string,
-  //   maxAge: 60 * 60 * 24 * 7,
-  //   httpOnly: true,
-  // });
-
-  // return [response, userData];
 };

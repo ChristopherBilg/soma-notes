@@ -5,9 +5,9 @@ import { Note } from "../signal/notes.ts";
 import { NotesContext, UIContext } from "./Context.tsx";
 import NoteInput from "./NoteInput.tsx";
 
-interface RightPaneProps {
+type RightPaneProps = {
   width: string;
-}
+};
 
 const RightPane = ({ width }: RightPaneProps) => {
   const { notes } = useContext(NotesContext);

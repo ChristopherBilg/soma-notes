@@ -6,9 +6,9 @@ import AnchorButton from "./AnchorButton.tsx";
 import { findDescendantNotes } from "../helpers/notes.ts";
 import BreadCrumbs from "./BreadCrumbs.tsx";
 
-interface NoteViewerProps {
+type NoteViewerProps = {
   params: Record<string, string>;
-}
+};
 
 const NoteViewer = ({ params }: NoteViewerProps) => {
   const { auth } = useContext(AuthContext);

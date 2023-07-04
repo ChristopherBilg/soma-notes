@@ -5,10 +5,10 @@ import { Note } from "../signal/notes.ts";
 import { AuthContext, NotesContext, UIContext } from "./Context.tsx";
 import { focusNote, getDeepestChildNote } from "../helpers/notes.ts";
 
-interface NoteInputProps {
+type NoteInputProps = {
   uuid: string;
   isIndividualNoteView?: boolean;
-}
+};
 
 const NoteInput = ({ uuid, isIndividualNoteView }: NoteInputProps) => {
   const {

@@ -4,10 +4,10 @@ import ContextSetup from "../components/ContextSetup.tsx";
 import NoteViewer from "../components/NoteViewer.tsx";
 import { UserDataResponse } from "../helpers/auth/index.ts";
 
-interface NoteViewerPageIslandProps {
+type NoteViewerPageIslandProps = {
   params: Record<string, string>;
   userData: UserDataResponse | undefined;
-}
+};
 
 const NoteViewerPageIsland = (
   { params, userData }: NoteViewerPageIslandProps,

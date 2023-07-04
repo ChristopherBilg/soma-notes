@@ -3,10 +3,10 @@ import { useContext } from "preact/hooks";
 import { Note } from "../signal/notes.ts";
 import { NotesContext } from "./Context.tsx";
 
-interface BreadCrumbsProps {
+type BreadCrumbsProps = {
   note: Note | undefined;
   finalNote?: boolean;
-}
+};
 
 const BreadCrumbs = ({ note, finalNote }: BreadCrumbsProps) => {
   const { notes } = useContext(NotesContext);

@@ -8,9 +8,9 @@ export const AuthContext = createContext<AuthStateType>({} as AuthStateType);
 export const NotesContext = createContext<NotesStateType>({} as NotesStateType);
 export const UIContext = createContext<UIStateType>({} as UIStateType);
 
-interface ContextProps {
+type ContextProps = {
   children: ComponentChild;
-}
+};
 
 const Context = ({ children }: ContextProps) => {
   return (

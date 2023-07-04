@@ -20,9 +20,9 @@ export const handler: Handlers = {
   },
 };
 
-interface UserProps {
+type UserProps = {
   data: { userData: UserDataResponse } | null;
-}
+};
 
 const User = ({ data }: UserProps) => (
   <div class="p-4 mx-auto max-w-screen-xlg">

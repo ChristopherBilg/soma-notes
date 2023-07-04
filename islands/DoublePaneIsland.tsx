@@ -4,9 +4,9 @@ import ContextSetup from "../components/ContextSetup.tsx";
 import DoublePane from "../components/DoublePane.tsx";
 import { UserDataResponse } from "../helpers/auth/index.ts";
 
-interface DoublePaneIslandProps {
+type DoublePaneIslandProps = {
   userData: UserDataResponse | undefined;
-}
+};
 
 const DoublePaneIsland = ({ userData }: DoublePaneIslandProps) => (
   <Context>
