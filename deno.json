@@ -1,0 +1,39 @@
+{
+  "lock": false,
+  "tasks": {
+    "start": "deno run -A --watch=static/,routes/ dev.ts",
+    "dev": "deno run -A --unstable --watch=static/,routes/ dev.ts",
+    "fmt": "deno fmt",
+    "lint": "deno lint",
+    "check": "deno check **/*.tsx **/*.ts",
+    "test": "deno test -A --parallel --fail-fast",
+    "license-check": "deno run --allow-read https://deno.land/x/license_checker@v3.2.3/main.ts",
+    "build": "deno run -A dev.ts build",
+    "preview": "deno run -A main.ts",
+    "update:deno": "deno upgrade",
+    "update:fresh": "deno run -Ar https://fresh.deno.dev/update .",
+    "all": "deno task fmt && deno task lint && deno task check && deno task test && deno task license-check && deno task build"
+  },
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact",
+    "noUnusedLocals": true
+  },
+  "fmt": { "exclude": [".devcontainer", ".github", ".vscode"] },
+  "imports": {
+    "$fresh/": "https://deno.land/x/fresh@1.6.1/",
+    "$std/": "https://deno.land/std@0.201.0/",
+    "@preact/signals": "https://esm.sh/*@preact/signals@1.2.1",
+    "@preact/signals-core": "https://esm.sh/*@preact/signals-core@1.5.0",
+    "chart-js/": "https://esm.sh/v128/chart.js@4.3.0/",
+    "djwt": "https://deno.land/x/djwt@v2.9.1/mod.ts",
+    "fresh-charts/": "https://deno.land/x/fresh_charts@0.3.1/",
+    "mongodb": "npm:mongodb@6.2.0",
+    "preact": "https://esm.sh/preact@10.19.2",
+    "preact-render-to-string": "https://esm.sh/*preact-render-to-string@6.2.2",
+    "preact/": "https://esm.sh/preact@10.19.2/",
+    "string-similarity": "https://deno.land/x/string_similarity@v1.0.1/mod.ts"
+  },
+  "lint": { "rules": { "tags": ["fresh", "recommended"] } },
+  "exclude": ["**/_fresh/*"]
+}

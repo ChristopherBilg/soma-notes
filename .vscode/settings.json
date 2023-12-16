@@ -1,0 +1,16 @@
+{
+  "editor.defaultFormatter": "denoland.vscode-deno",
+  "deno.enable": true,
+  "files.autoSave": "off",
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  },
+  "deno.lint": true,
+  "deno.unstable": true,
+  "[markdown]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "vscode.css-language-features"
+  }
+}
